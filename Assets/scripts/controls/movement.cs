@@ -25,11 +25,18 @@ public class movement : MonoBehaviour {
     [Header("componenets")]
     public Rigidbody rb;
     public Collider col;
+    public AudioSource AS;
     public Animator Shot_effect;
+    public Animator AttackDisplay;
+
+    [Header("data -- custom")]
+    public AT_base attack;
+
 
     void Start() {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        AS = GetComponent<AudioSource>();
 
         // curser
         Cursor.lockState = CursorLockMode.Locked;
@@ -52,19 +59,21 @@ public class movement : MonoBehaviour {
             }
 
             // rotation
-            float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
-
-            transform.Rotate(Vector3.up * mouseX);
         }
         #endregion
 
         #region attack
-        if (eevee.input.Grab("Attack") && !Shot_effect.GetCurrentAnimatorStateInfo(0).IsName("flash")) {
-            Shot_effect.Play("flash");
+        if (eevee.input.Grab("Attack")) {
+            attack.attack(this);
         }
         #endregion
     }
 
+    #region dev
+
+    #endregion
+
     #region IEunmerators
+
     #endregion
 }
