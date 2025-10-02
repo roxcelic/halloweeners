@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8d816ea2d08754f8405ab2c08ef736, type: 3}
+  m_Name: attack
+  m_EditorClassIdentifier: 
+  range: 25
+  shootDelay: 1
+  canShoot: 1
+  name: base
+  Sounds:
+  - {fileID: 8300000, guid: 31152e79c43591946b018a515d8cb90c, type: 3}
+  AC: {fileID: 9100000, guid: 2f35f746ba8d9c149b13dfc4646b483e, type: 2}
+  crosshair: {fileID: 9100000, guid: e36a7c97770c14206ae4d0f3e356cde8, type: 2}
+  useAmmo: 1
+  useageAmmo: 1
+  maxAmmo: 6
+  currentAmmo: 0
