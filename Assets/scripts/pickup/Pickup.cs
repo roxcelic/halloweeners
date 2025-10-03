@@ -8,11 +8,23 @@ public class Pickup : MonoBehaviour {
     [Header("item")]
     public AT_base attack;
 
+    [Header("componenets")]
+    public SpriteRenderer SR;
+    public brain brain;
+    public string thought = "";
+
+    void Start() {
+        LoadAttack(attack);
+
+        brain = GetComponent<brain>();
+    }
+
     void Update() {
         if (eevee.input.Collect("interact") && player != null) {
             AT_base tmp = player.attack;
             player.switchAttack(attack);
-            attack = tmp;
+
+            LoadAttack(tmp);
         }
     }
 
@@ -21,7 +33,8 @@ public class Pickup : MonoBehaviour {
         if (col.gameObject.tag == playerTag) {
             player = col.transform.GetComponent<movement>();
 
-            player.interactables.Add(this);
+            // player.interactables.Add(this);
+            brain.thought = thought;
         }
 	}
 
@@ -29,9 +42,19 @@ public class Pickup : MonoBehaviour {
         if (col.gameObject.tag == playerTag) {
             player = null;
 
-            player.interactables.Remove(this);
+            // player.interactables.Remove(this);
+            brain.thought = "";
         }
 	}
+
+    void LoadAttack(AT_base LDAattack) {
+        Debug.Log($"loading attack {LDAattack.name}");
+        attack = LDAattack;
+        SR.sprite = attack.sprite;
+
+        thought = sys.text.displayKeyButton($"press !key:interact to pickup {attack.name}");
+        if (player != null) brain.thought = thought;
+    }
 
 
 }

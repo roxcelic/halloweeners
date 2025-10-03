@@ -25,15 +25,20 @@ public class AT_base : ScriptableObject {
 
     public Sprite sprite;
 
-    public AudioClip[] Sounds;
     public RuntimeAnimatorController AC; 
     public RuntimeAnimatorController crosshair;
+
+    [Header("sounds")]
+    public AudioClip SF_fire;
 
     [Header("ammo")]
     public bool useAmmo = true;
     public int useageAmmo = 1;
     public int maxAmmo = 6;
     public int currentAmmo = 6;
+
+    [Header("damage")]
+    [Range(0f, 25f)] public float damage = 10f;
 
     /*
         This method is called when first loading the attack into the player
@@ -73,9 +78,15 @@ public class AT_base : ScriptableObject {
     
         // do something with the attack
         if (hit) {
-            // sound
-            character.AS.clip = Sounds[0];
+            EN_base enemey = null;
+
+            character.AS.clip = SF_fire;
             character.AS.Play();
+
+            if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                // sound
+                enemey.DealDamage((int)damage, character.transform);
+            }
         }
 
         // shoot delay

@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 [RequireComponent(typeof(Rigidbody))]
 public class movement : MonoBehaviour {
 
@@ -35,6 +37,8 @@ public class movement : MonoBehaviour {
 
     public GameObject playerCamera;
 
+    public TMP_Text thoughtDisplay;
+
     [Header("data -- custom")]
     public AT_base attack;
 
@@ -44,6 +48,14 @@ public class movement : MonoBehaviour {
     public RuntimeAnimatorController D_crosshair;
 
     public List<Pickup> interactables;
+
+    [Header("stats")]
+    public float MaxHealth;
+    public float CurrentHealth;
+
+    [Header("sounds")]
+    public AudioClip hurtsound;
+    public AudioClip deathSound;
 
 
     void Start() {
@@ -84,6 +96,9 @@ public class movement : MonoBehaviour {
             attack.attack(this);
         }
         #endregion
+
+        // thoughts
+        ViewThoughts();
     }
 
     // stolen from the amazing A curr, thank you queen.
@@ -111,6 +126,43 @@ public class movement : MonoBehaviour {
         attack = newAttack;
         attack.load(this);
     }
+
+    // thoughts
+    public void ViewThoughts() {
+        RaycastHit hit;
+        brain tmpBrain;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)) {
+            if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) thoughtDisplay.text = tmpBrain.thought;
+            else thoughtDisplay.text = "";
+        } else {
+            thoughtDisplay.text = "";
+        }
+    }
+
+    #region health
+    public void DealDamage(int damage, Transform dealer = null, bool nockback = true) {
+        CurrentHealth -= damage;
+
+        if (CurrentHealth <= 0) Die();
+        else {
+            AS.clip = hurtsound;
+            AS.Play();
+        }
+
+        if (dealer != null && nockback) {
+            Debug.Log(dealer);
+            Vector3 force = sys.nockback.calculateNockback(transform.position, dealer.position, 400f);
+            Debug.Log(force);
+
+            rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
+        }
+    }
+
+    public void Die() {
+        Destroy(transform.gameObject);
+    }
+    #endregion
 
     #region dev
 
