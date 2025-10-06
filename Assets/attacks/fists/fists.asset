@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8d816ea2d08754f8405ab2c08ef736, type: 3}
   m_Name: fists
   m_EditorClassIdentifier: 
-  range: 1
+  range: 3
   shootDelay: 0.5
   canShoot: 1
   name: fists

@@ -37,8 +37,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _colorSpeed: 25
     - _colorThreshold: 0.1
-    - _noiseAmount: 0.13
+    - _noiseAmount: 0.201
     - _noiseScale: 100
     - _normalThreshold: 0.5
     - _overlay: 1
@@ -46,8 +47,9 @@ Material:
     - _scanningLines: 7
     - _scanningLinesAmount: 0.06
     m_Colors:
+    - _color: {r: 0.591489, g: 1, b: 0.5707547, a: 1}
     - _mainColor: {r: 1, g: 0.2688679, b: 0.35137072, a: 1}
     - _noiseSpeed: {r: 0, g: 0.03, b: 0, a: 0}
-    - _outlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _outlineColor: {r: 0, g: 0.4245283, b: 0.091829926, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

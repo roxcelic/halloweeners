@@ -38,6 +38,7 @@ public class movement : MonoBehaviour {
     public GameObject playerCamera;
 
     public TMP_Text thoughtDisplay;
+    public TMP_Text healthDisplay;
 
     [Header("data -- custom")]
     public AT_base attack;
@@ -50,8 +51,8 @@ public class movement : MonoBehaviour {
     public List<Pickup> interactables;
 
     [Header("stats")]
-    public float MaxHealth;
-    public float CurrentHealth;
+    public int maxHealth;
+    public int health;
 
     [Header("sounds")]
     public AudioClip hurtsound;
@@ -67,7 +68,12 @@ public class movement : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        // health
+        health = maxHealth;
+        DealDamage(0);
+
         // load attack
+        attack = attack.protection();
         attack.load(this);
     }
 
@@ -124,6 +130,8 @@ public class movement : MonoBehaviour {
         Reset();
 
         attack = newAttack;
+        
+        attack = attack.protection();
         attack.load(this);
     }
 
@@ -141,10 +149,10 @@ public class movement : MonoBehaviour {
     }
 
     #region health
-    public void DealDamage(int damage, Transform dealer = null, bool nockback = true) {
-        CurrentHealth -= damage;
+    public void DealDamage(int damage = 1, Transform dealer = null, bool nockback = true) {
+        health -= damage;
 
-        if (CurrentHealth <= 0) Die();
+        if (health <= 0) Die();
         else {
             AS.clip = hurtsound;
             AS.Play();
@@ -157,6 +165,14 @@ public class movement : MonoBehaviour {
 
             rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
         }
+
+        string healthText = "";
+        for (int i = 0; i < maxHealth; i++) {
+            if(i >= health) healthText += "-";
+            else healthText += "*";
+        }
+
+        healthDisplay.text = $"//health//{healthText}";
     }
 
     public void Die() {
