@@ -21,7 +21,6 @@ namespace waveManagerTypes {
 }
 
 public class waveManager : MonoBehaviour {
-    
     [Header("components")]
     public List<GameObject> enemys;
     public movement player;
@@ -30,13 +29,18 @@ public class waveManager : MonoBehaviour {
     [Range(0, 25f)] public float spawnRadius;
     [Range(0, 5f)] public float groundCheckDistance;
     [Range(0, 5f)] public float trackingUpdate;
-    [Range(1f, 50f)] public float spawnRate;
+    
+    [Range(0f, 2.5f)] public float spawnRate = 1.5f;
+    public int spawnAmount = 5;
+
     [Range(1f, 15f)] public float waveDelay = 15f;
+    [Range(1f, 15f)] public float spawnDelay = 1f;
 
     public string groundLayer;
 
     [Header("data")]
     public List<waveManagerTypes.enemyTracker> currentEnemys;
+    public List<GameObject> spawnedEnemys;
     [Min(1)]public int wave;
 
     [Header("tracker display")]
@@ -46,9 +50,12 @@ public class waveManager : MonoBehaviour {
     public string T_centerCharacter;
     private int size = 10;
 
+    [Header("display")]
+    public float timeUntilNextWave;
+    public bool spawning = false;
+
     public void Begin() {
         StartCoroutine(startWaves());
-        StartCoroutine(trackEnemies());
     }
 
     public bool checkPosition(Vector3 position) {
@@ -88,12 +95,32 @@ public class waveManager : MonoBehaviour {
 
 
     public IEnumerator startWaves() {
-        yield return 0;
-        StartCoroutine(attemptSpawn());
-        StartCoroutine(attemptSpawn());
-        StartCoroutine(attemptSpawn());
-        StartCoroutine(attemptSpawn());
-        StartCoroutine(attemptSpawn());
+        // track the enemys
+        spawning = true;
+        StartCoroutine(trackEnemies());
+
+        timeUntilNextWave = waveDelay;
+        Debug.Log($"set time until next wave to: {timeUntilNextWave}");
+        while (timeUntilNextWave > 0) {
+            Debug.Log($"wave timer ({timeUntilNextWave}) updated via: {Time.fixedDeltaTime} to: {timeUntilNextWave -= Time.fixedDeltaTime}");
+            yield return 0;
+        }
+                
+        
+        for (int i = 0; i < (spawnAmount * Mathf.Round(spawnRate * wave)); i++) {
+            StartCoroutine(attemptSpawn());
+            yield return new WaitForSeconds(spawnDelay);
+        }
+
+        spawning = false;
+        Debug.Log("finished spawning");
+
+        yield return new WaitUntil(() => currentEnemys.Count == 0);
+
+        Debug.Log("all enemys are dead");
+        wave++;
+        foreach (GameObject obj in spawnedEnemys) Destroy(obj);
+        Begin(); // start the next wave
     }
 
     public IEnumerator attemptSpawn() {
@@ -107,6 +134,7 @@ public class waveManager : MonoBehaviour {
 
         GameObject enemy = Instantiate(chosenEnemy, chosenLocation, Quaternion.identity);
         currentEnemys.Add(new waveManagerTypes.enemyTracker(enemy));
+        spawnedEnemys.Add(enemy);
     }
 
     public IEnumerator trackEnemies() {
@@ -117,7 +145,7 @@ public class waveManager : MonoBehaviour {
                 List<waveManagerTypes.enemyTracker> newlist = new List<waveManagerTypes.enemyTracker>();
 
                 foreach (waveManagerTypes.enemyTracker enm in currentEnemys) {
-                    if (enm.enemey != null || enm.enemey.transform.GetComponent<EN_base>().dead) {
+                    if (enm.enemey != null && !enm.enemey.transform.GetComponent<EN_base>().dead) {
                         newlist.Add(new waveManagerTypes.enemyTracker(enm.enemey, compareLocation(enm.enemey)));
                     }
                 }

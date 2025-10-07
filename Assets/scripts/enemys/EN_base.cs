@@ -40,6 +40,9 @@ public class EN_base : MonoBehaviour {
             attack.enemyLoad(this);
             sr.sprite = attack.sprite;
         }
+
+        // set health
+        currentHealth = maxHealth;
     }
 
     void Update() {
@@ -59,7 +62,7 @@ public class EN_base : MonoBehaviour {
     }
 
     public void DealDamage(int damage, Transform dealer = null, bool nockback = true) {
-        currentHealth -= damage;
+        if (currentHealth > 0) currentHealth -= damage;
         brain.thought = $"{currentHealth}/{maxHealth}";
 
         if (currentHealth <= 0) Die();
@@ -77,7 +80,7 @@ public class EN_base : MonoBehaviour {
     public void Die() {
         dead = true;
         AudioSource.PlayClipAtPoint(deathSound, transform.position);
-        Destroy(sr.transform.gameObject);
+        if(!!sr) Destroy(sr.transform.gameObject);
         anim.Play("die");
     }
 }

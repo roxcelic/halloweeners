@@ -243,8 +243,8 @@ MonoBehaviour:
   AttackDisplay: {fileID: 5404129564938602408}
   sr: {fileID: 2754559381840886172}
   player: {fileID: 0}
-  maxHealth: 10000
-  currentHealth: 100
+  maxHealth: 10
+  currentHealth: 10
   dead: 0
   spawnSound: {fileID: 8300000, guid: 0134da09af96d4a989fa43258dc0d879, type: 3}
   hurtsound: {fileID: 8300000, guid: 1ecaec81e497f4798a219b7dc51ec619, type: 3}

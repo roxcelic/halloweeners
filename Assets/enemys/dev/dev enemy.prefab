@@ -127,10 +127,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
   rb: {fileID: 0}
-  maxHealth: 10000
+  anim: {fileID: 0}
+  AttackDisplay: {fileID: 0}
+  sr: {fileID: 0}
+  player: {fileID: 0}
+  maxHealth: 10
   currentHealth: 100
+  dead: 0
+  spawnSound: {fileID: 0}
   hurtsound: {fileID: 8300000, guid: c6ecee39d1022df46aba7d03690d5570, type: 3}
   deathSound: {fileID: 8300000, guid: de412f607d3844a428a62635eb7ba07a, type: 3}
+  playerTag: Player
+  moveSpeed: 0
+  attack: {fileID: 0}
 --- !u!114 &7107499883977365331
 MonoBehaviour:
   m_ObjectHideFlags: 0

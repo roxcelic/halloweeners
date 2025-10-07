@@ -581,6 +581,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: wave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: spawnRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: waveDelay
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: spawnDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: T_activeCharacter
       value: '|'
       objectReference: {fileID: 0}
