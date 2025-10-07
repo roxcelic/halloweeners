@@ -31,6 +31,7 @@ public class waveManager : MonoBehaviour {
     [Range(0, 5f)] public float groundCheckDistance;
     [Range(0, 5f)] public float trackingUpdate;
     [Range(1f, 50f)] public float spawnRate;
+    [Range(1f, 15f)] public float waveDelay = 15f;
 
     public string groundLayer;
 

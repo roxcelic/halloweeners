@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 28307c9fe885a4fd2b47b92eb8e53e99, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &5404129564938602408
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 2498245959164097855}
   - component: {fileID: 4499840994402030930}
   m_Layer: 0
-  m_Name: pear
+  m_Name: freddyFivebear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 3.25, z: 0.4}
+  m_Size: {x: 2, y: 4.25, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &1479378875636916945
 SpriteRenderer:
@@ -214,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 007e9a81d67ab4d92902777081ed34a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e74ace77b36f6c47b83852e3701a7a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -246,9 +246,9 @@ MonoBehaviour:
   maxHealth: 10000
   currentHealth: 100
   dead: 0
-  spawnSound: {fileID: 8300000, guid: 0134da09af96d4a989fa43258dc0d879, type: 3}
-  hurtsound: {fileID: 8300000, guid: 1ecaec81e497f4798a219b7dc51ec619, type: 3}
-  deathSound: {fileID: 8300000, guid: 37f94b05f985d4874872dddc2725e102, type: 3}
+  spawnSound: {fileID: 8300000, guid: b02271daeca272843be7faebed18232f, type: 3}
+  hurtsound: {fileID: 8300000, guid: badd0295ba9812f4991321fe3cfcfe3b, type: 3}
+  deathSound: {fileID: 8300000, guid: d31b18de823518e4ba8d71cef3415b45, type: 3}
   playerTag: Player
   moveSpeed: 20
   attack: {fileID: 11400000, guid: 1febfd79c437b4622847f9351918ac1d, type: 2}
@@ -320,7 +320,7 @@ Animator:
   m_GameObject: {fileID: 7950887697540959435}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 68329ba8c0f0a44c7b9f638be079ab2a, type: 2}
+  m_Controller: {fileID: 9100000, guid: f3facbad2b102764fad0491b29a1dddc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

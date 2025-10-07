@@ -588,6 +588,14 @@ PrefabInstance:
       propertyPath: T_centerCharacter
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: enemys.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: 'enemys.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7950887697540959435, guid: a7f3baf3c9fdd6c4182aca07f1a0b31a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
