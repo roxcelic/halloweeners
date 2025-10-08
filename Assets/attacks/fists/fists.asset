@@ -14,11 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 3
   shootDelay: 0.5
+  enemyShootDelay: 1
   canShoot: 1
+  pierce: 1
+  infinatePierce: 0
+  wallLayerIndex: 3
+  projectile: 0
+  projectilePrefab: {fileID: 0}
+  projectileForce: 0
   name: fists
   sprite: {fileID: 21300000, guid: 9e10b06c3a8bd41a68ae5098b6193185, type: 3}
   AC: {fileID: 9100000, guid: f06c2fdc5c106401f92305ed182fd12a, type: 2}
   crosshair: {fileID: 9100000, guid: d1baf84ad3e62448286da3ce037f504c, type: 2}
+  enemyDisplay: {fileID: 0}
   SF_fire: {fileID: 8300000, guid: 1baac0d24f73540a0ae8488c60cf54b9, type: 3}
   useAmmo: 0
   useageAmmo: 0

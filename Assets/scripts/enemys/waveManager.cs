@@ -103,6 +103,7 @@ public class waveManager : MonoBehaviour {
         Debug.Log($"set time until next wave to: {timeUntilNextWave}");
         while (timeUntilNextWave > 0) {
             Debug.Log($"wave timer ({timeUntilNextWave}) updated via: {Time.fixedDeltaTime} to: {timeUntilNextWave -= Time.fixedDeltaTime}");
+            T_display.text = $"next wave in: {timeUntilNextWave}";
             yield return 0;
         }
                 
@@ -115,11 +116,15 @@ public class waveManager : MonoBehaviour {
         spawning = false;
         Debug.Log("finished spawning");
 
-        yield return new WaitUntil(() => currentEnemys.Count == 0);
+        yield return new WaitUntil(() => currentEnemys.Count == 0 && !spawning);
 
         Debug.Log("all enemys are dead");
+        
         wave++;
+        
         foreach (GameObject obj in spawnedEnemys) Destroy(obj);
+        spawnedEnemys = new List<GameObject>();
+
         Begin(); // start the next wave
     }
 
