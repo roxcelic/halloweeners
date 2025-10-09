@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7940255928859606963}
   - component: {fileID: 4899761139832014075}
   - component: {fileID: 3158377636936320479}
+  - component: {fileID: 5617316361023457331}
   m_Layer: 0
   m_Name: orange
   m_TagString: Untagged
@@ -150,3 +151,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeSpan: 10
+--- !u!114 &5617316361023457331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273175676982166495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d75420a7d653c429290b2de4e89d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  damage: 10
