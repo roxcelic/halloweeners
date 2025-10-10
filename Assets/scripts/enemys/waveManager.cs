@@ -102,7 +102,7 @@ public class waveManager : MonoBehaviour {
         timeUntilNextWave = waveDelay;
         Debug.Log($"set time until next wave to: {timeUntilNextWave}");
         while (timeUntilNextWave > 0) {
-            Debug.Log($"wave timer ({timeUntilNextWave}) updated via: {Time.fixedDeltaTime} to: {timeUntilNextWave -= Time.fixedDeltaTime}");
+            timeUntilNextWave -= Time.fixedDeltaTime;
             yield return 0;
         }
                 

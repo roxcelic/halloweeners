@@ -46,7 +46,7 @@ public class AT_base : ScriptableObject {
     [Range(0f, 25f)] public float damage = 10f;
 
     // do not change
-    public AT_base protection(){
+    public virtual AT_base protection(){
         AT_base newInstace = ScriptableObject.CreateInstance<AT_base>();
 
         var type = typeof(AT_base);
@@ -62,6 +62,7 @@ public class AT_base : ScriptableObject {
         }   
 
         return newInstace;   
+        // return this;
     }
 
     /*
@@ -168,6 +169,7 @@ public class AT_base : ScriptableObject {
         I use this to define the condition i want the player to fire under, so a simple delay will do for the basic attack
     */
     public virtual IEnumerator fireCondition(float delay) {
+        Debug.Log("waiting fire condition");
         canShoot = false;
         yield return new WaitForSeconds(delay);
         canShoot = true;

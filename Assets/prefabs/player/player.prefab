@@ -547,18 +547,25 @@ MonoBehaviour:
   enemys:
   - {fileID: 7950887697540959435, guid: 8cc2eaf557071c94188a74d96540a174, type: 3}
   - {fileID: 7950887697540959435, guid: a0d48c3b06a734d06bc7bd7eb2352c12, type: 3}
+  - {fileID: 7950887697540959435, guid: a7f3baf3c9fdd6c4182aca07f1a0b31a, type: 3}
   player: {fileID: 0}
   spawnRadius: 15
   groundCheckDistance: 5
   trackingUpdate: 0
   spawnRate: 1
+  spawnAmount: 5
+  waveDelay: 15
+  spawnDelay: 1
   groundLayer: Ground
   currentEnemys: []
-  wave: 0
+  spawnedEnemys: []
+  wave: 1
   T_display: {fileID: 6165266335100512351}
   T_nullCharacter: '-'
   T_activeCharacter: '|'
-  T_centerCharacter: \
+  T_centerCharacter: 
+  timeUntilNextWave: 0
+  spawning: 0
 --- !u!1 &2179020820172495626
 GameObject:
   m_ObjectHideFlags: 0
