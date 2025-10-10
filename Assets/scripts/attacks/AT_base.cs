@@ -23,6 +23,16 @@ public class AT_base : ScriptableObject {
     [Range(0f, 25f)] public float shootDelay = 1f;
     [Range(0f, 25f)] public float enemyShootDelay = 1f;
     public bool canShoot = true;
+    
+    [Header("pierce")]
+    public int pierce = 1;
+    public bool infinatePierce = false;
+    public int wallLayerIndex = 0;
+
+    [Header("projectile")]
+    public bool projectile = false;
+    public GameObject projectilePrefab;
+    public float projectileForce;
 
     [Header("display")]
     public string name = "base";
@@ -106,31 +116,43 @@ public class AT_base : ScriptableObject {
         if (!canShoot) return; // if the attack cannot be used return
         if (useAmmo && (currentAmmo - useageAmmo) < 0) return; // if the attack uses ammo and the user has no ammo, return
 
-        // effects
-        character.Shot_effect.Play("flash");
-        character.AttackDisplay.Play("attack");
+        if (projectile) {
+            // effects
+            character.Shot_effect.Play("flash");
+            character.AttackDisplay.Play("attack");
+
+            GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
+            tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
         
-        // attack itself
-        Collider hit = runHit(character.transform);
-    
-        // do something with the attack
-        if (hit) {
-            EN_base enemey = null;
+            character.StartCoroutine(fireCondition(shootDelay));
+            if (useAmmo) currentAmmo -= useageAmmo;
+        } else {
+            // effects
+            character.Shot_effect.Play("flash");
+            character.AttackDisplay.Play("attack");
+            
+            // attack itself
+            List<Collider> hits = runHit(character.transform);
+        
+            // do something with the attack
+            foreach (Collider hit in hits) {
+                EN_base enemey = null;
 
-            character.AS.clip = SF_fire;
-            character.AS.Play();
+                character.AS.clip = SF_fire;
+                character.AS.Play();
 
-            if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
-                // sound
-                enemey.DealDamage((int)damage, character.transform);
+                if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                    // sound
+                    enemey.DealDamage((int)damage, character.transform);
+                }
             }
+
+            // shoot delay
+            character.StartCoroutine(fireCondition(shootDelay));
+
+            // lower ammo
+            if (useAmmo) currentAmmo -= useageAmmo;
         }
-
-        // shoot delay
-        character.StartCoroutine(fireCondition(shootDelay));
-
-        // lower ammo
-        if (useAmmo) currentAmmo -= useageAmmo;
     }
 
     /*
@@ -138,16 +160,16 @@ public class AT_base : ScriptableObject {
     */
     public virtual void EN_attack(EN_base enemy) {
         if (!canShoot) return; // if the attack cannot be used return
-        if (useAmmo && (currentAmmo - useageAmmo) < 0) return; // if the attack uses ammo and the user has no ammo, return
+        if (useAmmo && (currentAmmo - useageAmmo) < -1) return; // if the attack uses ammo and the user has no ammo, return
 
         // effects
         enemy.AttackDisplay.Play("enemyAttack");
         
         // attack itself
-        Collider hit = runHit(enemy.transform);
+        List<Collider> hits = runHit(enemy.transform);
     
         // do something with the attack
-        if (hit) {
+        foreach (Collider hit in hits) {
             movement player = null;
 
             AudioSource.PlayClipAtPoint(SF_fire, enemy.transform.position);
@@ -155,7 +177,7 @@ public class AT_base : ScriptableObject {
             if ((player = hit.transform.GetComponent<movement>()) != null) {
                 // sound
                 player.DealDamage();
-            }
+            }   
         }
 
         // shoot delay
@@ -178,19 +200,27 @@ public class AT_base : ScriptableObject {
     /*
         This is what ill use to get a target, so i can run this multiple times with multiple offsets for something like a shotgun
     */
-    public Collider runHit(Transform character, float offset = 0) {
-        RaycastHit hit;
+    public List<Collider> runHit(Transform character, float offset = 0) {
         Vector3 targetDirection = Vector3.forward + new Vector3(offset, 0, 0);
+        RaycastHit[] hits = Physics.RaycastAll(character.position, character.TransformDirection(targetDirection), range);
 
-        if (Physics.Raycast(character.position, character.TransformDirection(targetDirection), out hit, range)) { 
-            Debug.DrawRay(character.position, character.TransformDirection(targetDirection) * hit.distance, Color.red, 2); 
-        
-            Debug.Log($"hit target: {hit.collider.gameObject.name} on layer {hit.collider.gameObject.layer}"); // debug
+        if (hits.Length > 0) { 
+            List<Collider> cols = new List<Collider>();
+            Array.Reverse(hits);
 
-            return hit.collider;
+            int count = 0;
+            foreach (RaycastHit hit in hits) { 
+                if (hit.collider.gameObject.layer == wallLayerIndex) break;
+                if (count >= pierce && !infinatePierce) break;
+
+                cols.Add(hit.collider);
+                count++;
+            }
+
+            return cols;
         }
 
-        return null;
+        return new List<Collider>();
     }
 
     /*

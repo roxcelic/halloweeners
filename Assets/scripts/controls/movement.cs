@@ -36,6 +36,7 @@ public class movement : MonoBehaviour {
     public Animator crosshairDisplay;
 
     public GameObject playerCamera;
+    public GameObject deathScreen;
 
     public TMP_Text thoughtDisplay;
     public TMP_Text healthDisplay;
@@ -176,8 +177,13 @@ public class movement : MonoBehaviour {
     }
 
     public void Die() {
-        Destroy(transform.gameObject);
+        deathScreen.SetActive(true);
+        StartCoroutine(waitForInput(() => {
+            deathScreen.transform.GetComponent<Animator>().Play("deathScreenClose");
+        }));
+        //Destroy(transform.gameObject);
     }
+
     #endregion
 
     #region dev
@@ -185,6 +191,11 @@ public class movement : MonoBehaviour {
     #endregion
 
     #region IEunmerators
+    public IEnumerator waitForInput(System.Action input) {
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => eevee.input.Grab("interact"));
+        input();
+    }
 
     #endregion
 }

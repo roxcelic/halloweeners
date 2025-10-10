@@ -115,11 +115,15 @@ public class waveManager : MonoBehaviour {
         spawning = false;
         Debug.Log("finished spawning");
 
-        yield return new WaitUntil(() => currentEnemys.Count == 0);
+        yield return new WaitUntil(() => currentEnemys.Count == 0 && !spawning);
 
         Debug.Log("all enemys are dead");
+        
         wave++;
+        
         foreach (GameObject obj in spawnedEnemys) Destroy(obj);
+        spawnedEnemys = new List<GameObject>();
+
         Begin(); // start the next wave
     }
 
@@ -127,7 +131,7 @@ public class waveManager : MonoBehaviour {
         GameObject chosenEnemy = enemys[UnityEngine.Random.Range(0, enemys.Count)];
         Vector3 chosenLocation = new Vector3();
 
-        while (!checkPosition(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(0, spawnRadius), 0, UnityEngine.Random.Range(0, spawnRadius)))) {
+        while (!checkPosition(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius)))) {
             Debug.Log($"position: {chosenLocation} failed the check trying again...");
             yield return new WaitForSeconds(1f);
         }

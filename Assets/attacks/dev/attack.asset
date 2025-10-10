@@ -16,13 +16,20 @@ MonoBehaviour:
   shootDelay: 0
   enemyShootDelay: 1
   canShoot: 1
+  pierce: 1
+  infinatePierce: 1
+  wallLayerIndex: 3
+  projectile: 0
+  projectilePrefab: {fileID: 0}
+  projectileForce: 0
   name: base
   sprite: {fileID: 21300000, guid: f8daae30eb3384b19a0b713d7c1e04c1, type: 3}
   AC: {fileID: 9100000, guid: 2f35f746ba8d9c149b13dfc4646b483e, type: 2}
   crosshair: {fileID: 9100000, guid: e36a7c97770c14206ae4d0f3e356cde8, type: 2}
+  enemyDisplay: {fileID: 0}
   SF_fire: {fileID: 8300000, guid: 31152e79c43591946b018a515d8cb90c, type: 3}
   useAmmo: 0
   useageAmmo: 1
-  maxAmmo: 6
-  currentAmmo: 3
+  maxAmmo: 1
+  currentAmmo: 1
   damage: 25

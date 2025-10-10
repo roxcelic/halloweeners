@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7107499883977365331}
   - component: {fileID: 3347078497103738853}
   - component: {fileID: 2498245959164097855}
+  - component: {fileID: 73923364293571930}
   m_Layer: 0
   m_Name: dev enemy
   m_TagString: Untagged
@@ -138,7 +139,7 @@ MonoBehaviour:
   hurtsound: {fileID: 8300000, guid: c6ecee39d1022df46aba7d03690d5570, type: 3}
   deathSound: {fileID: 8300000, guid: de412f607d3844a428a62635eb7ba07a, type: 3}
   playerTag: Player
-  moveSpeed: 0
+  moveSpeed: 37.5
   attack: {fileID: 0}
 --- !u!114 &7107499883977365331
 MonoBehaviour:
@@ -198,3 +199,25 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!95 &73923364293571930
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950887697540959435}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
