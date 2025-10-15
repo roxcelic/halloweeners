@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: pear
   m_EditorClassIdentifier: 
   range: 10
-  shootDelay: 0
+  shootDelay: 1
   enemyShootDelay: 4
   canShoot: 1
   pierce: 1
@@ -28,8 +28,8 @@ MonoBehaviour:
   crosshair: {fileID: 9100000, guid: 9f47a3384809442b98d2f8c8b46a40ce, type: 2}
   enemyDisplay: {fileID: 9100000, guid: 7e10c28705a7e4f4fa736ec9dadb8138, type: 2}
   SF_fire: {fileID: 8300000, guid: 31152e79c43591946b018a515d8cb90c, type: 3}
-  useAmmo: 0
-  useageAmmo: 0
-  maxAmmo: 0
-  currentAmmo: 0
+  useAmmo: 1
+  useageAmmo: 1
+  maxAmmo: 6
+  currentAmmo: 6
   damage: 10

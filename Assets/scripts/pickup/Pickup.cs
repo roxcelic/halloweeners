@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour {
     [Header("config")]
     public string playerTag = "Player";
-    public movement player = null;
+    public playerController player = null;
 
     [Header("item")]
     public AT_base attack;
@@ -31,7 +31,7 @@ public class Pickup : MonoBehaviour {
     // update current collisions
 	void OnTriggerEnter (Collider col) {
         if (col.gameObject.tag == playerTag) {
-            player = col.transform.GetComponent<movement>();
+            player = col.transform.GetComponent<playerController>();
 
             // player.interactables.Add(this);
             brain.thought = thought;

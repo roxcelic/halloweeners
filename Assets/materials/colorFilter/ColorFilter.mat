@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: outline
-  m_Shader: {fileID: -6465566751694194690, guid: 8308b611c7918034da7826d4a281c9f2, type: 3}
+  m_Name: ColorFilter
+  m_Shader: {fileID: -6465566751694194690, guid: 038f49515089d3c43bc2d85ad76206dd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,20 +36,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _colorSpeed: 25
-    - _colorThreshold: 0.1
-    - _noiseAmount: 0.201
-    - _noiseScale: 100
-    - _normalThreshold: 0.5
-    - _overlay: 1
-    - _scanningLineSpeed: 1
-    - _scanningLines: 7
-    - _scanningLinesAmount: 0.06
+    m_Floats: []
     m_Colors:
-    - _color: {r: 0.591489, g: 1, b: 0.5707547, a: 1}
-    - _mainColor: {r: 1, g: 0.2688679, b: 0.35137072, a: 1}
-    - _noiseSpeed: {r: 0, g: 0.03, b: 0, a: 0}
-    - _outlineColor: {r: 0, g: 0.4245283, b: 0.091829926, a: 1}
+    - _color1: {r: 0.103773594, g: 0.01517444, b: 0.101476856, a: 1}
+    - _color2: {r: 1, g: 0.00000019073488, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

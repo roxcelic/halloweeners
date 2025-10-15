@@ -42,7 +42,7 @@ public class AT_twoHandedGun : AT_base {
         return this;
     }
 
-    public override void attack(movement character) {
+    public override void attack(playerController character) {
         if (!canShoot) return; // if the attack cannot be used return
         if (useAmmo && currentAmmo <= 0) {
             canShoot = false;
@@ -72,27 +72,41 @@ public class AT_twoHandedGun : AT_base {
             character.StartCoroutine(waitUntilAnimationIsDone(character, () => {canShoot = true;}));
             shootMode = 0;
         }
-        
-        // attack itself
-        Collider hit = runHit(character.transform);
-    
-        // do something with the attack
-        AudioSource.PlayClipAtPoint(SF_fire, character.transform.position);
 
-        if (hit) {
-            EN_base enemey = null;
-
-            if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
-                // sound
-                enemey.DealDamage((int)damage, character.transform);
-            }
-        }
+        shoot(character);
 
         // lower ammo
         if (useAmmo) currentAmmo -= useageAmmo;
     }
 
-    public IEnumerator waitUntilAnimationIsDone(movement character, System.Action command = null) {
+    public void shoot(playerController character) {
+        if (projectile) {
+            // effects
+            character.Shot_effect.Play("flash");
+
+            GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
+            tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
+        
+            character.StartCoroutine(fireCondition(shootDelay));
+        } else {
+            // attack itself
+            List<Collider> hits = runHit(character.transform);
+        
+            AudioSource.PlayClipAtPoint(SF_fire, character.transform.position);
+
+            // do something with the attack
+            foreach (Collider hit in hits) {
+                EN_base enemey = null;
+
+                if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                    // sound
+                    enemey.DealDamage((int)damage, character.transform);
+                }
+            }
+        }
+    }
+
+    public IEnumerator waitUntilAnimationIsDone(playerController character, System.Action command = null) {
         yield return 0;
         yield return new WaitUntil(() => character.AttackDisplay.GetCurrentAnimatorStateInfo(0).IsName("idle"));
         if(command != null) command();

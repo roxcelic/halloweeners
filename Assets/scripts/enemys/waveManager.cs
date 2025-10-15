@@ -23,7 +23,7 @@ namespace waveManagerTypes {
 public class waveManager : MonoBehaviour {
     [Header("components")]
     public List<GameObject> enemys;
-    public movement player;
+    public playerController player;
 
     [Header("spawn conditions")]
     [Range(0, 25f)] public float spawnRadius;

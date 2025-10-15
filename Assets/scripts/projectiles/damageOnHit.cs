@@ -26,8 +26,8 @@ public class damageOnHit : MonoBehaviour {
 
         // enemy
         if (type == attackType.both || type == attackType.enemy) {
-            movement player = null;
-            if ((player = collision.transform.GetComponent<movement>()) != null) {
+            playerController player = null;
+            if ((player = collision.transform.GetComponent<playerController>()) != null) {
                 player.DealDamage(1, transform);
 
                 if (destroyOnHit) Destroy(transform.gameObject);

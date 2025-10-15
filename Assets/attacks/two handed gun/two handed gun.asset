@@ -16,8 +16,14 @@ MonoBehaviour:
   shootDelay: 0
   enemyShootDelay: 1
   canShoot: 1
+  pierce: 1
+  infinatePierce: 1
+  wallLayerIndex: 3
+  projectile: 0
+  projectilePrefab: {fileID: 1273175676982166495, guid: 35d6ab8ecb2f4b54f82f162f976b5781, type: 3}
+  projectileForce: 80000
   name: two handed gun
-  sprite: {fileID: 21300000, guid: a53f488f6ba304a62956837e75abcae5, type: 3}
+  sprite: {fileID: 21300000, guid: c2c562f864fe14982be9d46aa22e459f, type: 3}
   AC: {fileID: 9100000, guid: 586fc6fdfc2b446a796554152e84df2d, type: 2}
   crosshair: {fileID: 9100000, guid: d1baf84ad3e62448286da3ce037f504c, type: 2}
   enemyDisplay: {fileID: 9100000, guid: 7e10c28705a7e4f4fa736ec9dadb8138, type: 2}
@@ -25,5 +31,5 @@ MonoBehaviour:
   useAmmo: 1
   useageAmmo: 1
   maxAmmo: 6
-  currentAmmo: 6
+  currentAmmo: 5
   damage: 10

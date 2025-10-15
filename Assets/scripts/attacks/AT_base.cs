@@ -53,7 +53,7 @@ public class AT_base : ScriptableObject {
     public int currentAmmo = 6;
 
     [Header("damage")]
-    [Range(0f, 25f)] public float damage = 10f;
+    public float damage = 10f;
 
     // do not change
     public virtual AT_base protection(){
@@ -79,7 +79,7 @@ public class AT_base : ScriptableObject {
         This method is called when first loading the attack into the player
         you can use this to load default values or add animations like i am doing
     */
-    public virtual void load(movement character) {
+    public virtual void load(playerController character) {
         // animators
         character.AttackDisplay.runtimeAnimatorController = AC;
         character.crosshairDisplay.runtimeAnimatorController = crosshair;
@@ -87,6 +87,15 @@ public class AT_base : ScriptableObject {
         // data
         canShoot = true;
         currentAmmo = maxAmmo;
+    }
+
+    /* 
+        This should just load things which are required to run and now have any effect on the weapon
+    */
+    public virtual void safeLoad(playerController character) {
+        character.AttackDisplay.runtimeAnimatorController = AC;
+        character.crosshairDisplay.runtimeAnimatorController = crosshair;
+        canShoot = true;
     }
 
     /* 
@@ -105,14 +114,14 @@ public class AT_base : ScriptableObject {
         This method is called when the attack is taken off the player
         use this to un do whatever load does typically
     */
-    public virtual void unLoad(movement character) {
+    public virtual void unLoad(playerController character) {
         character.Reset();
     }
 
     /*
         Basic attack, you can use this for whatever really
     */
-    public virtual void attack(movement character) {
+    public virtual void attack(playerController character) {
         if (!canShoot) return; // if the attack cannot be used return
         if (useAmmo && (currentAmmo - useageAmmo) < 0) return; // if the attack uses ammo and the user has no ammo, return
 
@@ -164,24 +173,31 @@ public class AT_base : ScriptableObject {
 
         // effects
         enemy.AttackDisplay.Play("enemyAttack");
+
+        if (projectile) {
+            GameObject tmpObj = Instantiate(projectilePrefab, enemy.transform.position + (enemy.transform.forward * 2), Quaternion.identity);
+            tmpObj.transform.GetComponent<Rigidbody>().AddForce((enemy.transform.forward * projectileForce) + new Vector3(0, 20, 0));
         
-        // attack itself
-        List<Collider> hits = runHit(enemy.transform);
-    
-        // do something with the attack
-        foreach (Collider hit in hits) {
-            movement player = null;
+            enemy.StartCoroutine(fireCondition(shootDelay));
+        } else {
+            // attack itself
+            List<Collider> hits = runHit(enemy.transform);
+        
+            // do something with the attack
+            foreach (Collider hit in hits) {
+                playerController player = null;
 
-            AudioSource.PlayClipAtPoint(SF_fire, enemy.transform.position);
+                AudioSource.PlayClipAtPoint(SF_fire, enemy.transform.position);
 
-            if ((player = hit.transform.GetComponent<movement>()) != null) {
-                // sound
-                player.DealDamage();
-            }   
+                if ((player = hit.transform.GetComponent<playerController>()) != null) {
+                    // sound
+                    player.DealDamage();
+                }   
+            }
+
+            // shoot delay
+            enemy.StartCoroutine(fireCondition(enemyShootDelay));
         }
-
-        // shoot delay
-        enemy.StartCoroutine(fireCondition(enemyShootDelay));
 
         // lower ammo
         if (useAmmo) currentAmmo -= useageAmmo;
@@ -191,7 +207,6 @@ public class AT_base : ScriptableObject {
         I use this to define the condition i want the player to fire under, so a simple delay will do for the basic attack
     */
     public virtual IEnumerator fireCondition(float delay) {
-        Debug.Log("waiting fire condition");
         canShoot = false;
         yield return new WaitForSeconds(delay);
         canShoot = true;
