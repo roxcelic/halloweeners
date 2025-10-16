@@ -83,6 +83,7 @@ public class AT_base : ScriptableObject {
         // animators
         character.AttackDisplay.runtimeAnimatorController = AC;
         character.crosshairDisplay.runtimeAnimatorController = crosshair;
+        if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
 
         // data
         canShoot = true;
@@ -95,6 +96,7 @@ public class AT_base : ScriptableObject {
     public virtual void safeLoad(playerController character) {
         character.AttackDisplay.runtimeAnimatorController = AC;
         character.crosshairDisplay.runtimeAnimatorController = crosshair;
+        if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
         canShoot = true;
     }
 
@@ -135,6 +137,7 @@ public class AT_base : ScriptableObject {
         
             character.StartCoroutine(fireCondition(shootDelay));
             if (useAmmo) currentAmmo -= useageAmmo;
+            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
         } else {
             // effects
             character.Shot_effect.Play("flash");
@@ -161,6 +164,7 @@ public class AT_base : ScriptableObject {
 
             // lower ammo
             if (useAmmo) currentAmmo -= useageAmmo;
+            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
         }
     }
 

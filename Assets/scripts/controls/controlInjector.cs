@@ -66,6 +66,13 @@ public class ControlInjector : MonoBehaviour {
             }
         },
         {
+            "Dash", new eevee.config {
+                displayName = "Dash",
+                KEYBOARD_code = new int[] {(int)KeyCode.LeftShift},
+                CONTROLLER_name = new string[] {"X"}
+            }
+        },
+        {
             "interact", new eevee.config {
                 displayName = "interact",
                 KEYBOARD_code = new int[] {(int)KeyCode.E},

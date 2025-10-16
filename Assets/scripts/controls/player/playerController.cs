@@ -23,6 +23,8 @@ public class playerController : MonoBehaviour {
         public bool Control = false;
         public bool CanMove = true;
 
+        public string targetLayer = "Ground";
+
         [Header("rotation")]
         [Range(0f, 15f)] public float RT_Modifier = 5f;
         public Vector3 camera;
@@ -35,6 +37,12 @@ public class playerController : MonoBehaviour {
     [Header("slide")]
     public float slideDecay;
     public float stopSpeed;
+
+    [Header("dash")]
+    public bool canDash = true;
+    [Range(0, 25f)] public float dashDistance = 5f;
+    [Range(0, 25f)] public float outDashForce = 5f;
+    public float dashDelay = 1f;
 
     [Header("componenets")]
     // this is basic unity stuff
@@ -55,6 +63,9 @@ public class playerController : MonoBehaviour {
 
     public TMP_Text thoughtDisplay;
     public TMP_Text healthDisplay;
+
+    // info display
+    public loopText lT;
 
     [Header("data -- custom")]
     public AT_base attack;
@@ -113,6 +124,7 @@ public class playerController : MonoBehaviour {
                     if (!isGrounded()) StartCoroutine(slam());
                     else StartCoroutine(slide());
                 }
+                if (eevee.input.Grab("Dash")) dash();
         }
 
         // camera rotation
@@ -153,6 +165,27 @@ public class playerController : MonoBehaviour {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(transform.up * jumpForce);
             jumpCount--;
+        }
+
+        // worlds best dash i think
+        void dash() {
+            if (!canDash) return;
+            
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward), dashDistance);
+            Vector3 dashForce = new Vector3();
+
+            if (hits.Length > 0) {
+                foreach (RaycastHit hit in hits) {
+                    if(hit.collider.gameObject.layer == LayerMask.NameToLayer(targetLayer)) {
+                        dashForce = transform.forward * (hit.distance - 0.5f);
+                        break;
+                    }
+                }
+            } else {
+                dashForce = transform.forward * dashDistance;
+            }
+
+            StartCoroutine(dasher(transform.position + new Vector3(dashForce.x, 0, dashForce.z)));
         }
 
     #endregion
@@ -260,6 +293,10 @@ public class playerController : MonoBehaviour {
     // slide stuff
     public IEnumerator slide() {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
+        
+        rb.AddForce(-transform.up * jumpForce * 2f); // thow them down twin
+        rb.AddForce(transform.forward * jumpForce / 2f); // thow them down twin
+
         CanMove = false;
 
         Vector3 slideForce = rb.linearVelocity;
@@ -310,5 +347,32 @@ public class playerController : MonoBehaviour {
         } else CanMove = true;
     }
 
+    // dash dash dash
+    public IEnumerator dasher(Vector3 target) {
+        Time.timeScale = 0f;
+        CanMove = false;
+        canDash = false;
+
+        while (Vector3.Distance(transform.position, target) > 0.1f) {
+            transform.position = Vector3.Lerp(transform.position, target, Time.fixedDeltaTime * 5f);
+            Debug.Log(Vector3.Distance(transform.position, target));
+            yield return 0;
+        }
+        Debug.Log("done dash");
+        
+        Time.timeScale = 1f;
+        CanMove = true;
+
+        yield return new WaitForSeconds(dashDelay);
+        canDash = true;
+    }
+
     #endregion
+
+
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.forward * dashDistance);
+    }
 }

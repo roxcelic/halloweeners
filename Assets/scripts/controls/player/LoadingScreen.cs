@@ -18,7 +18,7 @@ public class LoadingScreen : MonoBehaviour {
         if (!active) return;
 
         if (completion == 0) text.text = "generating map.";
-        else text.text = $"initialising\n{completion.ToString()}%";
+        else text.text = $"{(100 - Math.Round(completion, 2)).ToString()}";
 
         if (completion >= 95.5f) {
             StartCoroutine(go());
