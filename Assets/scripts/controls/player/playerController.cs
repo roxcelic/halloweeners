@@ -66,6 +66,7 @@ public class playerController : MonoBehaviour {
 
     // info display
     public loopText lT;
+    public hudDisplay hud;
 
     [Header("data -- custom")]
     public AT_base attack;
@@ -82,6 +83,9 @@ public class playerController : MonoBehaviour {
     [Header("sounds")]
     public AudioClip hurtsound;
     public AudioClip deathSound;
+
+    [Header("extra")]
+    public List<string> profanities;
 
 
     void Start() {
@@ -239,9 +243,7 @@ public class playerController : MonoBehaviour {
             }
 
             if (dealer != null && nockback) {
-                Debug.Log(dealer);
                 Vector3 force = sys.nockback.calculateNockback(transform.position, dealer.position, 400f);
-                Debug.Log(force);
 
                 rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
             }
@@ -253,6 +255,7 @@ public class playerController : MonoBehaviour {
             }
 
             healthDisplay.text = $"{healthText}";
+            hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
         }
 
         public void Die() {
@@ -318,8 +321,6 @@ public class playerController : MonoBehaviour {
             if (slideForce.z > stopSpeed) slideForce = new Vector3(slideForce.x, slideForce.y, slideForce.z - slideDecay);
             else if (slideForce.z < -stopSpeed) slideForce = new Vector3(slideForce.x, slideForce.y, slideForce.z + slideDecay);
             else slideForce = new Vector3(slideForce.x, slideForce.y, 0);
-
-            Debug.Log(slideForce);
 
             yield return 0.1f;
         }

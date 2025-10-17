@@ -165,6 +165,7 @@ public class AT_base : ScriptableObject {
             // lower ammo
             if (useAmmo) currentAmmo -= useageAmmo;
             if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
+            character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         }
     }
 

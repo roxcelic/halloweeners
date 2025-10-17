@@ -78,7 +78,7 @@ public class AT_twoHandedGun : AT_base {
         // lower ammo
         if (useAmmo) currentAmmo -= useageAmmo;
         if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
-
+        character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
     }
 
     public void shoot(playerController character) {
