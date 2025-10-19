@@ -79,6 +79,13 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"Right Trigger"}
             }
         },
+        {
+            "back", new eevee.config {
+                displayName = "back",
+                KEYBOARD_code = new int[] {(int)KeyCode.Q},
+                CONTROLLER_name = new string[] {"B"}
+            }
+        },
         // camera
         {
             "cameraLeft", new eevee.config {

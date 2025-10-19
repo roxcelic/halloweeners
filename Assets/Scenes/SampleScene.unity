@@ -1135,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 2df46ad13ae4a482f99e6cb59bdd5ef3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1421,9 +1421,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 219342595294480476, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1518312348464885013, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518312348464885013, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1957944535098606149, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_SortingOrder
@@ -1472,6 +1480,14 @@ PrefabInstance:
     - target: {fileID: 4501934266522456470, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6232243458203662482, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_RendererIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406486139270918283, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
