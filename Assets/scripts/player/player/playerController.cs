@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour {
         public bool SmoothMovement = true;
         public bool Control = false;
         public bool CanMove = true;
+        public bool loaded = false;
 
         public string targetLayer = "Ground";
 
@@ -108,27 +109,28 @@ public class playerController : MonoBehaviour {
     }
 
     void Update() {
+    if (!loaded) return;
 
-        if (CanMove) {
-            // movement
-                // get the desired force
-                Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
-                targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
-                targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+    if (CanMove) {
+        // movement
+            // get the desired force
+            Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
+            targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
+            targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 
-                if (SmoothMovement && Control){ // apply it naturally
-                    rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
-                } else { // apply it forcefully
-                    rb.AddForce(targetVelocity);
-                }
+            if (SmoothMovement && Control){ // apply it naturally
+                rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
+            } else { // apply it forcefully
+                rb.AddForce(targetVelocity);
+            }
 
-                // abilies
-                if (eevee.input.Grab("Jump")) jump();
-                if (eevee.input.Grab("Slam")) {
-                    if (!isGrounded()) StartCoroutine(slam());
-                    else StartCoroutine(slide());
-                }
-                if (eevee.input.Grab("Dash")) dash();
+        // abilies
+            if (eevee.input.Grab("Jump")) jump();
+            if (eevee.input.Grab("Slam")) {
+                if (!isGrounded()) StartCoroutine(slam());
+                else StartCoroutine(slide());
+            }
+            if (eevee.input.Grab("Dash")) dash();
         }
 
         // camera rotation
@@ -234,6 +236,8 @@ public class playerController : MonoBehaviour {
 
     #region health
         public void DealDamage(int damage = 1, Transform dealer = null, bool nockback = true) {
+            damage = loaded ? damage : 0;
+            
             health -= damage;
 
             if (health <= 0) Die();
@@ -255,7 +259,7 @@ public class playerController : MonoBehaviour {
             }
 
             healthDisplay.text = $"{healthText}";
-            hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
+            if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
         }
 
         public void Die() {

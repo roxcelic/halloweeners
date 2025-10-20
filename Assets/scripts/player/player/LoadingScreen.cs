@@ -12,8 +12,13 @@ public class LoadingScreen : MonoBehaviour {
     public Animator anim;
     public string animName;
     public bool active = true;
-    public string startMessage;
+    public List<string> startMessage;
+    private playerController PC;
     
+    void Start() {
+        PC = transform.GetComponent<playerController>();
+    }
+
     void Update() {
         if (!active) return;
 
@@ -34,7 +39,9 @@ public class LoadingScreen : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
 
-        foreach (char ch in startMessage) {
+        string chosenMessage = startMessage[UnityEngine.Random.Range(0, startMessage.Count - 1)];
+
+        foreach (char ch in chosenMessage) {
             text.text += ch.ToString();
             yield return new WaitForSeconds(0.1f);
         }
@@ -43,5 +50,6 @@ public class LoadingScreen : MonoBehaviour {
 
         anim.Play(animName);
         transform.GetComponent<waveManager>().Begin();
+        PC.loaded = true;
     }
 }
