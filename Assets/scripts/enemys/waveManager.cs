@@ -91,25 +91,16 @@ public class waveManager : MonoBehaviour {
             GameObject chosenEnemy = enemys[UnityEngine.Random.Range(0, enemys.Count)];
             Vector3 chosenLocation = new Vector3();
 
-            yield return new WaitForSeconds(1f);
-            T_display.text = "test slot 1";
-
             while (!checkPosition(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius)))) {
                 Debug.Log($"position: {chosenLocation} failed the check trying again...");
                 yield return new WaitForSeconds(1f);
             }
 
-            yield return new WaitForSeconds(1f);
-            T_display.text = "test slot 2";
+            GameObject enemy = Instantiate(chosenEnemy, chosenLocation, Quaternion.identity);
+            currentEnemys.Add(enemy);
+            spawnedEnemys.Add(enemy);
 
-            // GameObject enemy = Instantiate(chosenEnemy, chosenLocation, Quaternion.identity);
-            // currentEnemys.Add(enemy);
-            // spawnedEnemys.Add(enemy);
-
-            // wait for next 
-            yield return new WaitForSeconds(1f);
-            T_display.text = "test slot 3";
-
+            // wait for next
             yield return new WaitForSeconds(spawnDelay);
         }
 
@@ -134,8 +125,7 @@ public class waveManager : MonoBehaviour {
     public IEnumerator trackEnemies() {
         while (true) {
             // get positions
-            if (currentEnemys.Count == 0) yield return new WaitForSeconds(trackingUpdate);
-            else {
+            if (currentEnemys.Count != 0) {
                 List<GameObject> newlist = new List<GameObject>();
 
                 foreach (GameObject enm in currentEnemys) {
@@ -143,7 +133,11 @@ public class waveManager : MonoBehaviour {
                         newlist.Add(enm);
                     }
                 }
+
+                currentEnemys = newlist;
             }
+
+            yield return new WaitForSeconds(trackingUpdate);
 
             if (!spawning) T_display.text = $"{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}";
         }

@@ -157,6 +157,7 @@ public class playerController : MonoBehaviour {
         // stolen from the amazing A curr, thank you queen.
         void HandleMouse() {
             float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
+            mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
 
             transform.Rotate(Vector3.up * mouseX);
 

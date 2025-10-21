@@ -37,6 +37,7 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"Left Stick Down"}
             }
         },
+
         {
             "Attack", new eevee.config {
                 displayName = "Attack",
@@ -51,6 +52,7 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"Left Trigger"}
             }
         },
+
         {
             "Jump", new eevee.config {
                 displayName = "Jump",
@@ -71,6 +73,7 @@ public class ControlInjector : MonoBehaviour {
                 KEYBOARD_code = new int[] {(int)KeyCode.LeftShift},
                 CONTROLLER_name = new string[] {"X"}
             }
+
         },
         {
             "interact", new eevee.config {
@@ -86,21 +89,23 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"B"}
             }
         },
+
         // camera
         {
             "cameraLeft", new eevee.config {
                 displayName = "cameraLeft",
-                KEYBOARD_code = new int[] {(int)KeyCode.Q},
+                KEYBOARD_code = new int[] {(int)KeyCode.LeftArrow},
                 CONTROLLER_name = new string[] {"Left Stick Up"}
             }
         },
         {
             "cameraRight", new eevee.config {
                 displayName = "cameraRight",
-                KEYBOARD_code = new int[] {(int)KeyCode.E},
+                KEYBOARD_code = new int[] {(int)KeyCode.RightArrow},
                 CONTROLLER_name = new string[] {"Left Stick Down"}
             }
         },
+
         // menu
         {
             "pause", new eevee.config {
