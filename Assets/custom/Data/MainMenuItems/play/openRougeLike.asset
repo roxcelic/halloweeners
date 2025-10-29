@@ -17,4 +17,4 @@ MonoBehaviour:
   popup: {fileID: 5744519561046151154, guid: e5d795d97fed3479e9052625185ab56d, type: 3}
   popupDisplay: {fileID: 21300000, guid: 1a4abaf021181ef43a6b982917605854, type: 3}
   description: would you like to go into the wfc dev scene
-  newScene: Scenes/WFCdev
+  newScene: custom/levels/devLevels/WFCdev/WFCdev

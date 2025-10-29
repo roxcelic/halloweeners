@@ -7,119 +7,113 @@ using System.Collections.Generic;
 using TMPro;
 
 public class pauseMenuController : MonoBehaviour {
-    [Header("comp")]
-    public GameObject PM_Item_Prefab;
-    public Transform pauseMenu;
-
     [Header("items")]
-    public List<MM_base> currentItems;
-    public List<List<MM_base>> previousItems = new List<List<MM_base>>();
-    public List<pauseMenuItem> spawnedItems;
+    public List<PM_Base> currentItems;
+    public List<PM_Base> baseCommands;
 
-    [Header("data")]
-    public int selected;
+    public List<List<PM_Base>> previousItems = new List<List<PM_Base>>();
 
-    public float Ydisplacement = 50f;
-    [Range(0, 25f)] public float xMargin = 10f;
-
-    void Start() {
-        
-    }
+    [Header("components")]
+    public TMP_InputField input;
+    public TMP_Text text;
 
     void Update() {
-        int selectionOffset = 0;
-
         if (eevee.input.Grab("Pause", "pm")) changePauseState(!GS.live.state.paused);
         if (!GS.live.state.paused) return;
 
-        // up
-        if (eevee.input.Collect("up", "pm")) selectionOffset--;
-
-        // down
-        if (eevee.input.Collect("down", "pm")) selectionOffset++;
-
-        changeSelected(selectionOffset);
-
-        // interact
-        if (eevee.input.Collect("interact", "pm")) currentItems[selected].action(null, this);
-
-        // back
-        if (eevee.input.Collect("back", "pm")) loadPrevMenu();
-    }
-
-    public void loadMenu() {
-        unloadMenu();
-
-        Vector3 spawnPos = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        foreach (MM_base item in currentItems) {
-            spawnMenuItem(new Vector3 (UnityEngine.Random.Range(xMargin, Screen.width - xMargin), spawnPos.y, spawnPos.z), item);
-            spawnPos += new Vector3(0, -Ydisplacement, 0);
+        if (eevee.conf.autoDetect() == eevee.inputCL.controller) {
+            log("weird a controller was used", "dev", "green");
         }
     }
 
-    public void unloadMenu() {
-        foreach (Transform child in pauseMenu) {
-            Destroy(child.gameObject);
-        }
-    }
-
-    /* 
-        utils and such
-    */
     #region utils
     // a util to assist with changing the pause state to turn the menu on and off 
     public void changePauseState(bool newVal) {
+        if (!newVal) {
+            input.ActivateInputField();
+            input.Select();
+        }
+
         GS.live.state.pause(newVal);
         transform.GetChild(0).gameObject.SetActive(newVal);
-        
-        if (newVal) loadMenu();
-        else unloadMenu();
-    }
-    // a util to change the selected item
-    public void changeSelected(int offset, bool force = false) {
-        if (!force && offset == 0) return;
-        // spawnedItems[selected].selected = false;
-        
-        if (force) selected = offset;
-        else selected += offset;
-
-        if (selected < 0) selected = currentItems.Count - 1; // if too low select the bottom
-        else if (selected > currentItems.Count - 1) selected = 0; // if too high select the top
-    
-        // spawnedItems[selected].selected = true;
     }
 
-    // a util to load the next menu
-    public void loadNextMenu(List<MM_base> menuItems) {
-        if (menuItems.Count == 0) return;
+    // a util to run a "command"
+    public void run(string command) {
+        log(command);
+        input.text = ""; // clear the inputs text, why am i commenting ts
+
+        switch(command) {
+            case "exit":
+                changePauseState(false);
+
+                break;
+            default:
+                // command run statement
+                PM_Base chosenCommand = findCommand(command, baseCommands);
+                if (chosenCommand != null) {
+                    chosenCommand.action(this);
+                } else {
+                    chosenCommand = findCommand(command, currentItems);
+                    if (chosenCommand != null) {
+                        chosenCommand.action(this);
+                    }
+                }
+
+                break;
+        }
+
+        input.ActivateInputField();
+    }
+
+    // a util command to find and return the menu item if it exists
+    public PM_Base findCommand(string name, List<PM_Base> search) {
+        foreach (PM_Base Mitem in search) {
+            if (Mitem.name == name) return Mitem;
+        }
+
+        return null;
+    }
+
+    // a util to log
+    public void log(string content, string program = "user" ,string color = "red") {
+        text.text += $"\n<color={color}> {program}> {content} </color>";
+    }
+
+    // a util to get an ordered list of commands
+    public List<PM_Base> orderCommands() {
+        List<PM_Base> orderedList = new List<PM_Base>();
+        List<PM_Base> priorityItems = new List<PM_Base>();
+
+        foreach(PM_Base Mitem in baseCommands) {
+            if (Mitem.essential) priorityItems.Add(Mitem);
+            else orderedList.Add(Mitem);
+        }
+
+        foreach (PM_Base Mitem in currentItems) {
+            if (Mitem.essential) priorityItems.Add(Mitem);
+            else orderedList.Add(Mitem);
+        }
+
+        foreach (PM_Base Mitem in orderedList) {
+            priorityItems.Add(Mitem);
+        }
+
+        return priorityItems;
+    }
+
+    // a util to load a new menu
+    public void loadMenu(List<PM_Base> newItems) {
+        if (newItems.Count == 0) return;
 
         previousItems.Add(currentItems);
-        currentItems = menuItems;
-        changeSelected(0, true);
-
-        loadMenu();
+        currentItems = newItems;
     }
 
-    // a util to load the previous menu
     public void loadPrevMenu() {
         currentItems = previousItems[previousItems.Count - 1];
-        changeSelected(0, true);
-    
-        loadMenu();
+        previousItems.RemoveAt(previousItems.Count - 1);
     }
 
-    // a util to spawn a menu
-    public GameObject spawnMenuItem(Vector3 pos, MM_base item) {
-        GameObject tmpItem = Instantiate(PM_Item_Prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity, pauseMenu);
-        pauseMenuItem tmpPMI = tmpItem.transform.GetComponent<pauseMenuItem>();
-        
-        tmpPMI.PMC = this;
-        tmpPMI.text.text = item.name;
-        tmpPMI.menuItem = item;
-
-        return tmpItem;
-    }
-
-    // spawn a menu Item
     #endregion
 }

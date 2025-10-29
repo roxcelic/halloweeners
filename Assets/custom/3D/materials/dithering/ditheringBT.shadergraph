@@ -6118,7 +6118,7 @@
     "m_ObjectId": "d4b81d3b79254b40b0269eaea1657127",
     "m_Title": "quantisation",
     "m_Position": {
-        "x": 1040.5003662109375,
+        "x": 1040.5,
         "y": 140.5
     }
 }
@@ -6947,8 +6947,8 @@
     "m_ObjectId": "fe3989bab56b49b8b45e3ee107d9880a",
     "m_Title": "pallette",
     "m_Position": {
-        "x": 2505.999755859375,
-        "y": -149.99998474121095
+        "x": 2506.0,
+        "y": -150.0
     }
 }
 

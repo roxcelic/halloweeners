@@ -8,7 +8,7 @@ public class GameState : ScriptableObject {
         Time.timeScale = pauseSet ? 0 : 1;
         paused = pauseSet;
 
-        Cursor.lockState = pauseSet ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = pauseSet;
+        // Cursor.lockState = pauseSet ? CursorLockMode.None : CursorLockMode.Locked;
+        // Cursor.visible = pauseSet;
     }
 }

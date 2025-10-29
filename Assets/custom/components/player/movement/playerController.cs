@@ -234,6 +234,12 @@ public class playerController : MonoBehaviour {
         public bool isGrounded(float multiplier = 1.1f, float distance = 0f) {
             return Physics.Raycast(transform.position, -Vector2.up, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance);
         }
+
+        // a standard attack util for like bleh bleh bleh, currently its being made for attacks during an animation
+        public void extraAttack() {
+            attack.extraAttack(this);
+        }
+
     #endregion
 
     #region health

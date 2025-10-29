@@ -36,6 +36,7 @@ public class AT_base : ScriptableObject {
 
     [Header("display")]
     public string name = "base";
+    public bool attackWithAnimation = false;
 
     public Sprite sprite;
 
@@ -138,10 +139,14 @@ public class AT_base : ScriptableObject {
             character.StartCoroutine(fireCondition(shootDelay));
             if (useAmmo) currentAmmo -= useageAmmo;
             if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
+            character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         } else {
             // effects
             character.Shot_effect.Play("flash");
             character.AttackDisplay.Play("attack");
+
+            // if the attack is run in the animation break here
+            if (attackWithAnimation) return;
             
             // attack itself
             List<Collider> hits = runHit(character.transform);
@@ -167,6 +172,37 @@ public class AT_base : ScriptableObject {
             if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
             character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         }
+    }
+    
+    /*
+        an extra attck, this i plan to use for attacks during animations and such
+    */
+    public virtual void extraAttack(playerController character) {
+            // pickup where the other attack left off
+
+            // attack itself
+            List<Collider> hits = runHit(character.transform);
+        
+            // do something with the attack
+            foreach (Collider hit in hits) {
+                EN_base enemey = null;
+
+                character.AS.clip = SF_fire;
+                character.AS.Play();
+
+                if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                    // sound
+                    enemey.DealDamage((int)damage, character.transform);
+                }
+            }
+
+            // shoot delay
+            character.StartCoroutine(fireCondition(shootDelay));
+
+            // lower ammo
+            if (useAmmo) currentAmmo -= useageAmmo;
+            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
+            character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
     }
 
     /*
