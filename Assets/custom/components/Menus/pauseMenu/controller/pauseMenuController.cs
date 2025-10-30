@@ -22,7 +22,7 @@ public class pauseMenuController : MonoBehaviour {
         if (!GS.live.state.paused) return;
 
         if (eevee.conf.autoDetect() == eevee.inputCL.controller) {
-            log("weird a controller was used", "dev", "green");
+            log($"controller used, up: {eevee.input.Collect("up", "pm")}", "log", "blue");
         }
     }
 

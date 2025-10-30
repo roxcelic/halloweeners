@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace eevee {
     public enum inputCL {
+        both,
         keyboard,
-        controller,
-        both
+        controller
     }
     // variables
     public class var {
@@ -325,6 +325,7 @@ public class eev : MonoBehaviour {
 
             // gamepad
             if(eevee.var.inputType != eevee.inputCL.keyboard) foreach (string key in FullConfig[input].CONTROLLER_name) if (IsControllerInputPressed(key)) {
+                Debug.Log("GAMEPAD INPUT");
                 eevee.var.lastUsed = eevee.inputCL.controller;
                 return true;
             }

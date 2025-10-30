@@ -52,13 +52,6 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"Left Trigger"}
             }
         },
-        {
-            "Pause", new eevee.config {
-                displayName = "Pause",
-                KEYBOARD_code = new int[] {(int)KeyCode.Escape},
-                CONTROLLER_name = new string[] {"Start"}
-            }
-        },
 
         {
             "Jump", new eevee.config {
@@ -71,14 +64,14 @@ public class ControlInjector : MonoBehaviour {
             "Slam", new eevee.config {
                 displayName = "Slam",
                 KEYBOARD_code = new int[] {(int)KeyCode.LeftControl},
-                CONTROLLER_name = new string[] {"Left Sick Press"}
+                CONTROLLER_name = new string[] {"B"}
             }
         },
         {
             "Dash", new eevee.config {
                 displayName = "Dash",
                 KEYBOARD_code = new int[] {(int)KeyCode.LeftShift},
-                CONTROLLER_name = new string[] {"X"}
+                CONTROLLER_name = new string[] {"Y"}
             }
 
         },
@@ -86,7 +79,7 @@ public class ControlInjector : MonoBehaviour {
             "interact", new eevee.config {
                 displayName = "interact",
                 KEYBOARD_code = new int[] {(int)KeyCode.E},
-                CONTROLLER_name = new string[] {"Right Trigger"}
+                CONTROLLER_name = new string[] {"X"}
             }
         },
         {
@@ -102,21 +95,21 @@ public class ControlInjector : MonoBehaviour {
             "cameraLeft", new eevee.config {
                 displayName = "cameraLeft",
                 KEYBOARD_code = new int[] {(int)KeyCode.LeftArrow},
-                CONTROLLER_name = new string[] {"Left Stick Up"}
+                CONTROLLER_name = new string[] {"Right Stick Left"}
             }
         },
         {
             "cameraRight", new eevee.config {
                 displayName = "cameraRight",
                 KEYBOARD_code = new int[] {(int)KeyCode.RightArrow},
-                CONTROLLER_name = new string[] {"Left Stick Down"}
+                CONTROLLER_name = new string[] {"Right Stick Right"}
             }
         },
 
         // menu
         {
-            "pause", new eevee.config {
-                displayName = "pause",
+            "Pause", new eevee.config {
+                displayName = "Pause",
                 KEYBOARD_code = new int[] {(int)KeyCode.Tab},
                 CONTROLLER_name = new string[] {"Select"}
             }

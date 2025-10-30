@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d86b492048614ba3a56dce993502fd8, type: 3}
   m_Name: clear
   m_EditorClassIdentifier: 
-  name: 
-  essential: 0
+  name: clear
+  essential: 1
   children: []
