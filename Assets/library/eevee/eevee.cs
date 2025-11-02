@@ -325,7 +325,6 @@ public class eev : MonoBehaviour {
 
             // gamepad
             if(eevee.var.inputType != eevee.inputCL.keyboard) foreach (string key in FullConfig[input].CONTROLLER_name) if (IsControllerInputPressed(key)) {
-                Debug.Log("GAMEPAD INPUT");
                 eevee.var.lastUsed = eevee.inputCL.controller;
                 return true;
             }

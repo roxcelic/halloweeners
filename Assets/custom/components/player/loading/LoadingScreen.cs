@@ -49,7 +49,10 @@ public class LoadingScreen : MonoBehaviour {
         yield return new WaitForSeconds(1f);
 
         anim.Play(animName);
+        
         transform.GetComponent<waveManager>().Begin();
+        
+        GS.live.state.loaded = true;
         PC.loaded = true;
     }
 }

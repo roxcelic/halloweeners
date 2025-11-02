@@ -623,8 +623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startRoom: {fileID: 11400000, guid: 523d6c5e0c2fe68499c944ab85f00276, type: 2}
   emptyRoom: {fileID: 11400000, guid: 065b3a7a5ac374d4eb807cac7ec74774, type: 2}
-  gridWidth: 15
-  gridHeight: 15
+  gridWidth: 50
+  gridHeight: 50
   roomHeight: 10
   roomWidth: 10
   possibleRooms:

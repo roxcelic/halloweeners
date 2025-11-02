@@ -28,10 +28,11 @@ public class playerController : MonoBehaviour {
 
         [Header("rotation")]
         [Range(0f, 15f)] public float RT_Modifier = 5f;
-        public Vector3 camera;
+        new public Vector3 camera;
     
     [Header("Jump")]
     [Range(0, 400f)] public float jumpForce;
+    public bool canResetJump = true;
     public int jumpCount = 1;
     public int maxJumpCount = 1;
 
@@ -59,7 +60,6 @@ public class playerController : MonoBehaviour {
     public Animator AttackDisplay;
     public Animator crosshairDisplay;
 
-    public GameObject playerCamera;
     public GameObject deathScreen;
 
     public TMP_Text thoughtDisplay;
@@ -90,6 +90,13 @@ public class playerController : MonoBehaviour {
 
 
     void Start() {
+        // get the saved data
+        save.saveData currentSave = save.getData.viewSave();
+        Debug.Log($"the attack found in the save slot is: {currentSave.currentAttack}");
+        AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack, currentSave.currentAttackData);
+
+        if (savedAttack != null) attack = savedAttack;
+
         // get the components
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
@@ -108,30 +115,42 @@ public class playerController : MonoBehaviour {
         attack.load(this);
     }
 
+    void OnDestroy() {
+        // save data
+        save.saveData currentSave = save.getData.viewSave();
+
+        // save attack
+            currentSave.currentAttack = attack.name;
+            currentSave.currentAttackData = attack.attackData;
+
+        save.getData.save(currentSave);
+    }
+
     void Update() {
-    if (!loaded) return;
-    if (GS.live.state.paused) return;
+        if (health <= 0) return;
+        if (!loaded) return;
+        if (GS.live.state.paused) return;
 
-    if (CanMove) {
-        // movement
-            // get the desired force
-            Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
-            targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
-            targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+        if (CanMove) {
+            // movement
+                // get the desired force
+                Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
+                targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
+                targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 
-            if (SmoothMovement && Control){ // apply it naturally
-                rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
-            } else { // apply it forcefully
-                rb.AddForce(targetVelocity);
-            }
+                if (SmoothMovement && Control){ // apply it naturally
+                    rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
+                } else { // apply it forcefully
+                    rb.AddForce(targetVelocity);
+                }
 
-        // abilies
-            if (eevee.input.Grab("Jump")) jump();
-            if (eevee.input.Grab("Slam")) {
-                if (!isGrounded()) StartCoroutine(slam());
-                else StartCoroutine(slide());
-            }
-            if (eevee.input.Grab("Dash")) dash();
+            // abilies
+                if (eevee.input.Grab("Jump")) jump();
+                if (eevee.input.Grab("Slam")) {
+                    if (!isGrounded()) StartCoroutine(slam());
+                    else StartCoroutine(slide());
+                }
+                if (eevee.input.Grab("Dash")) dash();
         }
 
         // camera rotation
@@ -147,11 +166,11 @@ public class playerController : MonoBehaviour {
                 }, D_Attack.shootDelay));
             }
 
-        // thoughts
-        ViewThoughts();
-        if (isGrounded()) {
-            jumpCount = maxJumpCount;
-        } 
+            // thoughts
+            ViewThoughts();
+            if (isGrounded() && canResetJump) {
+                jumpCount = maxJumpCount;
+            } 
     }
 
     #region movementUtils 
@@ -161,10 +180,6 @@ public class playerController : MonoBehaviour {
             mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
 
             transform.Rotate(Vector3.up * mouseX);
-
-            currentXRotation = Mathf.Clamp(currentXRotation, -90, 90);
-
-            playerCamera.transform.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
         }
 
         // a simple jump really
@@ -173,6 +188,7 @@ public class playerController : MonoBehaviour {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(transform.up * jumpForce);
             jumpCount--;
+            StartCoroutine(allowNextJump());
         }
 
         // worlds best dash i think
@@ -211,10 +227,19 @@ public class playerController : MonoBehaviour {
         public void switchAttack(AT_base newAttack) {
             Reset();
 
+            Debug.Log($"switching to attack with a kill count of {newAttack.attackData.killCount}");
             attack = newAttack;
             
             attack = attack.protection();
             attack.load(this);
+
+            save.saveData currentSave = save.getData.viewSave();
+
+            // save attack
+                currentSave.currentAttack = attack.name;
+                currentSave.currentAttackData = attack.attackData;
+
+            save.getData.save(currentSave);
         }
 
         // thoughts
@@ -260,14 +285,8 @@ public class playerController : MonoBehaviour {
                 rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
             }
 
-            string healthText = "";
-            for (int i = 0; i < maxHealth; i++) {
-                if(i >= health) healthText += "-";
-                else healthText += "*";
-            }
-
-            healthDisplay.text = $"{healthText}";
-            if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
+            healthDisplay.text = $"{health}/{maxHealth}";
+            // if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
         }
 
         public void Die() {
@@ -380,6 +399,12 @@ public class playerController : MonoBehaviour {
 
         yield return new WaitForSeconds(dashDelay);
         canDash = true;
+    }
+
+    public IEnumerator allowNextJump() {
+        canResetJump = false;
+        yield return new WaitForSeconds(0.1f);
+        canResetJump = true;        
     }
 
     #endregion

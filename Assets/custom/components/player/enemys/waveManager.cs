@@ -50,8 +50,12 @@ public class waveManager : MonoBehaviour {
     public float timeUntilNextWave;
     public bool spawning = false;
 
+    [Header("override")]
+    public bool generateWaves = true;
+
     public void Begin() {
-        StartCoroutine(startWaves());
+        if (generateWaves) StartCoroutine(startWaves());
+        else StartCoroutine(trackEnemyCount());
     }
 
     public bool checkPosition(Vector3 position) {
@@ -77,7 +81,7 @@ public class waveManager : MonoBehaviour {
 
         timeUntilNextWave = waveDelay;
         while (timeUntilNextWave > 0) {
-            timeUntilNextWave -= Time.fixedDeltaTime;
+            timeUntilNextWave -= Time.deltaTime;
             T_display.text = $"{timeUntilNextWave}";
 
             yield return 0;
@@ -140,6 +144,28 @@ public class waveManager : MonoBehaviour {
             yield return new WaitForSeconds(trackingUpdate);
 
             if (!spawning) T_display.text = $"{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}";
+        }
+    }
+
+    /*
+        Just enemy count
+    */
+    public IEnumerator trackEnemyCount() {
+        while (true) {
+            GameObject[] Tenemys = GameObject.FindGameObjectsWithTag("Enemy");
+            List<EN_base> enemys = new List<EN_base>();
+
+            foreach (GameObject enemy in Tenemys) {
+                EN_base TEMPenemy = enemy.transform.GetComponent<EN_base>();
+                if (TEMPenemy != null) enemys.Add(TEMPenemy);
+            }
+
+            int aliveEnemys = 0;
+            foreach (EN_base enemy in enemys) if (!enemy.dead) aliveEnemys++;
+
+            T_display.text = $"{aliveEnemys}/{enemys.Count}";
+
+            yield return new WaitForSeconds(trackingUpdate);
         }
     }
 }

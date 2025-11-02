@@ -16,6 +16,21 @@ using System.Collections.Generic;
             - attack
 */
 
+namespace attack {
+    [System.Serializable]
+    public class attackRegistration {
+        public string name;
+        public AT_base attack;
+    }
+
+    [System.Serializable]
+    public class attackData {
+        public int killCount = 0;
+
+        public attackData() {}
+    }
+}
+
 [CreateAssetMenu(fileName = "new attack", menuName = "attacks/base")]
 public class AT_base : ScriptableObject {
     [Header("basic values")]
@@ -35,7 +50,8 @@ public class AT_base : ScriptableObject {
     public float projectileForce;
 
     [Header("display")]
-    public string name = "base";
+    public bool enemyDis = true;
+    new public string name = "base";
     public bool attackWithAnimation = false;
 
     public Sprite sprite;
@@ -55,6 +71,9 @@ public class AT_base : ScriptableObject {
 
     [Header("damage")]
     public float damage = 10f;
+
+    [Header("save data")]
+    public attack.attackData attackData = new attack.attackData();
 
     // do not change
     public virtual AT_base protection(){
@@ -106,7 +125,7 @@ public class AT_base : ScriptableObject {
     */
     public virtual void enemyLoad(EN_base enemy) {
         // animators
-        enemy.AttackDisplay.runtimeAnimatorController = enemyDisplay;
+        if (enemyDis) enemy.AttackDisplay.runtimeAnimatorController = enemyDisplay;
 
         // data
         canShoot = true;
@@ -135,6 +154,7 @@ public class AT_base : ScriptableObject {
 
             GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
             tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
+            tmpObj.transform.GetComponent<damageOnHit>().attributeKill = this;
         
             character.StartCoroutine(fireCondition(shootDelay));
             if (useAmmo) currentAmmo -= useageAmmo;
@@ -160,7 +180,7 @@ public class AT_base : ScriptableObject {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    enemey.DealDamage((int)damage, character.transform);
+                    if (enemey.DealDamage((int)damage, character.transform)) attackData.killCount++;
                 }
             }
 
@@ -192,7 +212,8 @@ public class AT_base : ScriptableObject {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    enemey.DealDamage((int)damage, character.transform);
+                    if (enemey.DealDamage((int)damage, character.transform)) attackData.killCount++;
+
                 }
             }
 
@@ -213,7 +234,7 @@ public class AT_base : ScriptableObject {
         if (useAmmo && (currentAmmo - useageAmmo) < -1) return; // if the attack uses ammo and the user has no ammo, return
 
         // effects
-        enemy.AttackDisplay.Play("enemyAttack");
+        if (enemyDis) enemy.AttackDisplay.Play("enemyAttack");
 
         if (projectile) {
             GameObject tmpObj = Instantiate(projectilePrefab, enemy.transform.position + (enemy.transform.forward * 2), Quaternion.identity);

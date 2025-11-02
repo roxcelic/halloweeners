@@ -3,6 +3,7 @@ using UnityEngine;
 public class damageOnHit : MonoBehaviour {
     public bool destroyOnHit = true;
     public bool destroyOnContact = false;
+    public AT_base attributeKill = null;
 
     public attackType type = attackType.both;
     [Range(0f, 25f)] public float damage = 10f;
@@ -19,7 +20,8 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
             if ((enemy = collision.transform.GetComponent<EN_base>()) != null) {
-                enemy.DealDamage((int)damage, transform);
+                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) attributeKill.attackData.killCount++;
+
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
 
                 if (destroyOnHit) Destroy(transform.gameObject);

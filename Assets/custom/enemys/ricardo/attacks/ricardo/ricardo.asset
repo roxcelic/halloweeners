@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 263565be87c6947b5a3244b38baed48f, type: 3}
+  m_Name: ricardo
+  m_EditorClassIdentifier: 
+  range: 3
+  shootDelay: 0.5
+  enemyShootDelay: 1
+  canShoot: 1
+  pierce: 1
+  infinatePierce: 0
+  wallLayerIndex: 3
+  projectile: 0
+  projectilePrefab: {fileID: 0}
+  projectileForce: 0
+  enemyDis: 0
+  name: ricardo
+  attackWithAnimation: 0
+  sprite: {fileID: 0}
+  AC: {fileID: 9100000, guid: bf32f918bbcd4497d9f75eb7f8a7063d, type: 2}
+  crosshair: {fileID: 0}
+  enemyDisplay: {fileID: 0}
+  SF_fire: {fileID: 8300000, guid: a6a328eab0c6c432a9d524b3e0dab5d3, type: 3}
+  useAmmo: 0
+  useageAmmo: 0
+  maxAmmo: 0
+  currentAmmo: 0
+  damage: 10
+  attackAnimationName: attack

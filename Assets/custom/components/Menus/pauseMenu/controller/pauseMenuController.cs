@@ -18,6 +18,8 @@ public class pauseMenuController : MonoBehaviour {
     public TMP_Text text;
 
     void Update() {
+        if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
+
         if (eevee.input.Grab("Pause", "pm")) changePauseState(!GS.live.state.paused);
         if (!GS.live.state.paused) return;
 
@@ -69,7 +71,7 @@ public class pauseMenuController : MonoBehaviour {
     // a util command to find and return the menu item if it exists
     public PM_Base findCommand(string name, List<PM_Base> search) {
         foreach (PM_Base Mitem in search) {
-            if (Mitem.name == name) return Mitem;
+            if (Mitem.name == name && (!Mitem.dev || save.getData.isDev())) return Mitem;
         }
 
         return null;
@@ -103,16 +105,32 @@ public class pauseMenuController : MonoBehaviour {
     }
 
     // a util to load a new menu
-    public void loadMenu(List<PM_Base> newItems) {
+    public void loadMenu(List<PM_Base> newItems, bool hide = false) {
         if (newItems.Count == 0) return;
 
-        previousItems.Add(currentItems);
+        if(!hide) previousItems.Add(currentItems);
+        
+        // log new options
+        logNewOptions(newItems);
+
         currentItems = newItems;
     }
 
     public void loadPrevMenu() {
         currentItems = previousItems[previousItems.Count - 1];
         previousItems.RemoveAt(previousItems.Count - 1);
+        logNewOptions(currentItems);
+    }
+
+    // a util to log options
+    void logNewOptions(List<PM_Base> newItems) {
+        log("-----", "", "white");
+        log("your new options are:", "system", "blue");
+        foreach (PM_Base Mitem in newItems) {
+            log($"\t{Mitem.name}", "system", "blue");
+            Mitem.onLoad(this); // sneaky
+        }
+        log("-----", "", "white");
     }
 
     #endregion

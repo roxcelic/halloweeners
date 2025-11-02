@@ -20,6 +20,9 @@ using System.Collections.Generic;
 */
 [CreateAssetMenu(fileName = "new Attack", menuName = "attacks/two handed gun")]
 public class AT_twoHandedGun : AT_base {
+    [Header("two handed gun settings")]
+    public AudioClip SF_reload;
+
     private int shootMode = 0;
 
     // do not change
@@ -47,6 +50,7 @@ public class AT_twoHandedGun : AT_base {
         if (useAmmo && currentAmmo <= 0) {
             canShoot = false;
             character.AttackDisplay.Play("reload");
+            AudioSource.PlayClipAtPoint(SF_reload, character.transform.position);
             character.StartCoroutine(waitUntilAnimationIsDone(character, () => {canShoot = true; currentAmmo = maxAmmo;}));
 
             return;
@@ -88,6 +92,7 @@ public class AT_twoHandedGun : AT_base {
 
             GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
             tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
+            tmpObj.transform.GetComponent<damageOnHit>().attributeKill = this;
         
             character.StartCoroutine(fireCondition(shootDelay));
         } else {
@@ -102,7 +107,7 @@ public class AT_twoHandedGun : AT_base {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    enemey.DealDamage((int)damage, character.transform);
+                    if (enemey.DealDamage((int)damage, character.transform)) attackData.killCount++;
                 }
             }
         }

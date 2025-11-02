@@ -13,3 +13,16 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   paused: 0
+  loaded: 1
+  player: {fileID: 0}
+  registeredAttacks:
+  - name: dev
+    attack: {fileID: 11400000, guid: eef007f513c2fb046a5f2c8cc89cf0b9, type: 2}
+  - name: fists
+    attack: {fileID: 11400000, guid: 4e60b7fa556c44c0591304d38f701396, type: 2}
+  - name: pear
+    attack: {fileID: 11400000, guid: 1febfd79c437b4622847f9351918ac1d, type: 2}
+  - name: scythe
+    attack: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
+  - name: two handed gun
+    attack: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}

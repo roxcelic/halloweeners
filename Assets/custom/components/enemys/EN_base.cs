@@ -50,10 +50,9 @@ public class EN_base : MonoBehaviour {
         // movement
         if (attack != null) {
             if (Vector3.Distance(transform.position, player.transform.position) > attack.range * 0.9) {
-                anim.Play("walking");
+                if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
                 transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Time.deltaTime * moveSpeed);
             } else {
-                anim.Play("idle");
                 attack.EN_attack(this);
             }
         } else {
@@ -61,11 +60,19 @@ public class EN_base : MonoBehaviour {
         }
     }
 
-    public void DealDamage(int damage, Transform dealer = null, bool nockback = true) {
+    public bool DealDamage(int damage, Transform dealer = null, bool nockback = true) {
+        if (dead) return false; // idk why i didnt do this originally
+        bool killed = false;
+
+        anim.Play("hurt");
         if (currentHealth > 0) currentHealth -= damage;
         brain.thought = $"{currentHealth}/{maxHealth}";
 
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0) {
+            Die();
+            killed = true;
+        }
+        
         else AudioSource.PlayClipAtPoint(hurtsound, transform.position);
 
         if (dealer != null && nockback) {
@@ -75,6 +82,8 @@ public class EN_base : MonoBehaviour {
 
             rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
         }
+
+        return killed;
     }
 
     public void Die() {

@@ -14,22 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 25
   shootDelay: 0
-  enemyShootDelay: 1
+  enemyShootDelay: 0.34
   canShoot: 1
   pierce: 1
   infinatePierce: 1
   wallLayerIndex: 3
   projectile: 0
   projectilePrefab: {fileID: 1273175676982166495, guid: 35d6ab8ecb2f4b54f82f162f976b5781, type: 3}
-  projectileForce: 80000
+  projectileForce: 400
+  enemyDis: 1
   name: two handed gun
+  attackWithAnimation: 0
   sprite: {fileID: 21300000, guid: c2c562f864fe14982be9d46aa22e459f, type: 3}
   AC: {fileID: 9100000, guid: 586fc6fdfc2b446a796554152e84df2d, type: 2}
   crosshair: {fileID: 9100000, guid: d1baf84ad3e62448286da3ce037f504c, type: 2}
   enemyDisplay: {fileID: 9100000, guid: 7e10c28705a7e4f4fa736ec9dadb8138, type: 2}
-  SF_fire: {fileID: 8300000, guid: 31152e79c43591946b018a515d8cb90c, type: 3}
+  SF_fire: {fileID: 8300000, guid: cdc8eebf3fdf243f08c966171de8e285, type: 3}
   useAmmo: 1
   useageAmmo: 1
-  maxAmmo: 6
-  currentAmmo: 5
-  damage: 10
+  maxAmmo: 8
+  currentAmmo: 7
+  damage: 25
+  attackData:
+    killCount: 4
+  SF_reload: {fileID: 8300000, guid: c35186deeced842bdb8b8597d1e5a969, type: 3}
