@@ -26,6 +26,9 @@ namespace attack {
     [System.Serializable]
     public class attackData {
         public int killCount = 0;
+        public string name = "";
+        public float damageModifier = 1;
+        public float lifeStealModifer = 1;
 
         public attackData() {}
     }
@@ -38,6 +41,7 @@ public class AT_base : ScriptableObject {
     [Range(0f, 25f)] public float shootDelay = 1f;
     [Range(0f, 25f)] public float enemyShootDelay = 1f;
     public bool canShoot = true;
+    public bool lifeSteal = false;
     
     [Header("pierce")]
     public int pierce = 1;
@@ -157,7 +161,10 @@ public class AT_base : ScriptableObject {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    if (enemey.DealDamage((int)damage, character.transform)) attackData.killCount++;
+                    if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
+                        attackData.killCount++;
+                        character.heal((int)(1 * attackData.lifeStealModifer));
+                    }
                 }
             }
 
@@ -188,7 +195,10 @@ public class AT_base : ScriptableObject {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    if (enemey.DealDamage((int)damage, character.transform)) attackData.killCount++;
+                    if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
+                        attackData.killCount++;
+                        character.heal((int)(1 * attackData.lifeStealModifer));
+                    }
 
                 }
             }

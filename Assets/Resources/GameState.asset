@@ -26,3 +26,5 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
   - name: two handed gun
     attack: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}
+  - name: grapple
+    attack: {fileID: 11400000, guid: 6a421fdc4b0ca8d4eb640c31dd52f820, type: 2}

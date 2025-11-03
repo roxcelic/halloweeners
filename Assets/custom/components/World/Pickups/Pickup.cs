@@ -3,6 +3,8 @@ using UnityEngine;
 public class Pickup : MonoBehaviour {
     [Header("config")]
     public string playerTag = "Player";
+    public bool destroyOnCollect = false;
+    public bool swapWeapon = true;
     public playerController player = null;
 
     [Header("item")]
@@ -24,7 +26,8 @@ public class Pickup : MonoBehaviour {
             AT_base tmp = player.attack;
             player.switchAttack(attack);
 
-            LoadAttack(tmp);
+            if (destroyOnCollect) Destroy(transform.gameObject);
+            else if (swapWeapon) LoadAttack(tmp);
         }
     }
 
@@ -52,7 +55,7 @@ public class Pickup : MonoBehaviour {
         attack = LDAattack;
         SR.sprite = attack.sprite;
 
-        thought = sys.text.displayKeyButton($"press !key:interact to pickup {attack.name}");
+        thought = sys.text.displayKeyButton($"press !key:interact to pickup {attack.name} :: {attack.attackData.name}");
         if (player != null) brain.thought = thought;
     }
 

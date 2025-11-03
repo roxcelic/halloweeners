@@ -43,6 +43,14 @@ public class EN_Tracker : MonoBehaviour {
         return (float)Math.Round(value);
     }
 
+    public string clacColor(float distance) {
+        distance /= 2;
+        List<string> hexValues = new List<string>(){"f","e","d","c","b","a","9","8","7","6","5","4","3","2","1"};
+        int clampedDistance = Math.Clamp((int)distance, 0, hexValues.Count - 1);
+
+        return $"{hexValues[clampedDistance]}{hexValues[clampedDistance]}";
+    }
+
     /*
         stackoverflow.com/questions/28036652/finding-the-shortest-distance-between-two-angles
     */
@@ -62,7 +70,7 @@ public class EN_Tracker : MonoBehaviour {
 
                 foreach (waveManagerTypes.enemyTracker enm in currentEnemys) {
                     if (enm.enemey != null && !enm.enemey.transform.GetComponent<EN_base>().dead) {
-                        newlist.Add(new waveManagerTypes.enemyTracker(enm.enemey, compareLocation(enm.enemey)));
+                        newlist.Add(new waveManagerTypes.enemyTracker(enm.enemey, compareLocation(enm.enemey), Vector3.Distance(transform.position, enm.enemey.transform.position)));
                     }
                 }
                 currentEnemys = newlist;
@@ -71,8 +79,8 @@ public class EN_Tracker : MonoBehaviour {
                 // organise trackers
                 Dictionary<float, string> enemys = new Dictionary<float, string>();
                 foreach (waveManagerTypes.enemyTracker enm in currentEnemys) {
-                    if (enemys.ContainsKey(enm.position)) enemys[enm.position] = $"{enemys[enm.position]}{T_activeCharacter}";
-                    else enemys.Add(enm.position, T_activeCharacter);
+                    if (enemys.ContainsKey(enm.position)) enemys[enm.position] = $"<color=#ff0000{clacColor(enm.distance)}>{enemys[enm.position]}{T_activeCharacter}</color>";
+                    else enemys.Add(enm.position, $"<color=#ff0000{clacColor(enm.distance)}>{T_activeCharacter}</color>");
                 }
 
                 // left

@@ -45,6 +45,7 @@ public class playerController : MonoBehaviour {
     public bool canDash = true;
     [Range(0, 25f)] public float dashDistance = 5f;
     [Range(0, 25f)] public float outDashForce = 5f;
+    [Range(0, 25f)] public float dashSpeed = 5f;
     public float dashDelay = 1f;
 
     [Header("componenets")]
@@ -231,6 +232,7 @@ public class playerController : MonoBehaviour {
             Reset();
 
             Debug.Log($"switching to attack with a kill count of {newAttack.attackData.killCount}");
+
             attack = Instantiate(newAttack);
             
             attack.load(this);
@@ -274,6 +276,7 @@ public class playerController : MonoBehaviour {
             damage = loaded ? damage : 0;
             
             health -= damage;
+            health = Math.Clamp(health, 0, maxHealth);
 
             if (health <= 0) Die();
             else {
@@ -289,6 +292,13 @@ public class playerController : MonoBehaviour {
 
             healthDisplay.text = $"{health}/{maxHealth}";
             // if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
+        }
+
+        public void heal(int damage = 1) {
+            health += damage;
+
+            health = Math.Clamp(health, 0, maxHealth);
+            healthDisplay.text = $"{health}/{maxHealth}";
         }
 
         public void Die() {
@@ -393,7 +403,7 @@ public class playerController : MonoBehaviour {
         canDash = false;
 
         while (Vector3.Distance(transform.position, target) > 0.1f) {
-            transform.position = Vector3.Lerp(transform.position, target, Time.fixedDeltaTime * 5f);
+            transform.position = Vector3.Lerp(transform.position, target, Time.fixedDeltaTime * dashSpeed);
             yield return 0;
         }
         

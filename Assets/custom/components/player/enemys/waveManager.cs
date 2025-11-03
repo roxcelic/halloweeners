@@ -12,10 +12,12 @@ namespace waveManagerTypes {
     public class enemyTracker {
         public GameObject enemey;
         public float position;
+        public float distance;
 
-        public enemyTracker(GameObject obj, float objPosition = 0) {
+        public enemyTracker(GameObject obj, float objPosition = 0, float objDistance = 0) {
             this.enemey = obj;
-            position = objPosition;
+            this.position = objPosition;
+            this.distance = objDistance;
         }
     }
 }

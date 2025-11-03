@@ -54,7 +54,7 @@ public class hud : MonoBehaviour {
     public IEnumerator CO_trackDash() {
         while (true) {
             yield return 0;
-            dashOutput.text = $"{(player.canDash ? "1" : "0")} :: {(player.jumpCount)}";
+            dashOutput.text = $"{(player.canDash ? "1" : "0")} :: {(player.jumpCount)} :: {(player.attack.canShoot ? "1" : "0")}";
         }
     }
 
@@ -64,7 +64,7 @@ public class hud : MonoBehaviour {
     public IEnumerator CO_killCount() {
         while (true) {
             yield return 0;
-            killCountOutput.text = $"{player.attack.attackData.killCount}";
+            killCountOutput.text = $"{player.attack.attackData.name} : {player.attack.attackData.killCount}";
         }
     }
 
