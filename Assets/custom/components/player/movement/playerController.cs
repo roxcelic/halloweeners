@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using System;
 using System.Collections;
@@ -66,7 +67,6 @@ public class playerController : MonoBehaviour {
     public TMP_Text healthDisplay;
 
     // info display
-    public loopText lT;
     public hudDisplay hud;
 
     [Header("data -- custom")]
@@ -90,13 +90,6 @@ public class playerController : MonoBehaviour {
 
 
     void Start() {
-        // get the saved data
-        save.saveData currentSave = save.getData.viewSave();
-        Debug.Log($"the attack found in the save slot is: {currentSave.currentAttack}");
-        AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack, currentSave.currentAttackData);
-
-        if (savedAttack != null) attack = savedAttack;
-
         // get the components
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
@@ -110,9 +103,19 @@ public class playerController : MonoBehaviour {
         health = maxHealth;
         DealDamage(0);
 
+        // get the saved data
+        save.saveData currentSave = save.getData.viewSave();
+        AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack);
+
+        if (savedAttack != null) {
+            Debug.Log($"attack found and loaded: {currentSave.currentAttack}");
+            attack = savedAttack;
+        }
+
         // load attack
-        attack = attack.protection();
+        attack = Instantiate(attack); // clean perhaps a second time
         attack.load(this);
+        attack.attackData = currentSave.currentAttackData; // carry over what it can cause its nice
     }
 
     void OnDestroy() {
@@ -228,9 +231,8 @@ public class playerController : MonoBehaviour {
             Reset();
 
             Debug.Log($"switching to attack with a kill count of {newAttack.attackData.killCount}");
-            attack = newAttack;
+            attack = Instantiate(newAttack);
             
-            attack = attack.protection();
             attack.load(this);
 
             save.saveData currentSave = save.getData.viewSave();
@@ -290,10 +292,13 @@ public class playerController : MonoBehaviour {
         }
 
         public void Die() {
-            deathScreen.SetActive(true);
-            StartCoroutine(waitForInput(() => {
-                deathScreen.transform.GetComponent<Animator>().Play("deathScreenClose");
-            }));
+            if (save.getData.viewSave().instantRespawn) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            else {
+                deathScreen.SetActive(true);
+                StartCoroutine(waitForInput(() => {
+                    deathScreen.transform.GetComponent<Animator>().Play("deathScreenClose");
+                }));
+            }
         }
     #endregion
 

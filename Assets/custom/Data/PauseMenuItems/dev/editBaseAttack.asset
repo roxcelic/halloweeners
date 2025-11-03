@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be8ea188800b4dfb89dc6b52ef90995, type: 3}
-  m_Name: test
+  m_Script: {fileID: 11500000, guid: 916fa7ebd579c415c91c7fe27a3a35d7, type: 3}
+  m_Name: editBaseAttack
   m_EditorClassIdentifier: 
-  name: test
+  name: editBaseAttack
   essential: 0
+  dev: 1
   children: []
+  method: 3

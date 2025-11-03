@@ -45,20 +45,24 @@ public class pauseMenuController : MonoBehaviour {
         log(command);
         input.text = ""; // clear the inputs text, why am i commenting ts
 
-        switch(command) {
+        string[] commandData = command.Split(" ");
+        string inputString = ""; 
+        if (commandData.Length > 1) inputString = command.Substring(commandData[0].Length + 1);
+
+        switch(commandData[0]) {
             case "exit":
                 changePauseState(false);
 
                 break;
             default:
                 // command run statement
-                PM_Base chosenCommand = findCommand(command, baseCommands);
+                PM_Base chosenCommand = findCommand(commandData[0], baseCommands);
                 if (chosenCommand != null) {
                     chosenCommand.action(this);
                 } else {
-                    chosenCommand = findCommand(command, currentItems);
+                    chosenCommand = findCommand(commandData[0], currentItems);
                     if (chosenCommand != null) {
-                        chosenCommand.action(this);
+                        chosenCommand.action(this, inputString);
                     }
                 }
 

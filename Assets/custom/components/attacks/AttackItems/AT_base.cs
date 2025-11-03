@@ -75,26 +75,6 @@ public class AT_base : ScriptableObject {
     [Header("save data")]
     public attack.attackData attackData = new attack.attackData();
 
-    // do not change
-    public virtual AT_base protection(){
-        AT_base newInstace = ScriptableObject.CreateInstance<AT_base>();
-
-        var type = typeof(AT_base);
-        
-        foreach (var sourceProperty in type.GetProperties()) {
-            var targetProperty = type.GetProperty(sourceProperty.Name);
-            targetProperty.SetValue(newInstace, sourceProperty.GetValue(this, null), null);
-        }
-
-        foreach (var sourceField in type.GetFields()) {
-            var targetField = type.GetField(sourceField.Name);
-            targetField.SetValue(newInstace, sourceField.GetValue(this));
-        }   
-
-        return newInstace;   
-        // return this;
-    }
-
     /*
         This method is called when first loading the attack into the player
         you can use this to load default values or add animations like i am doing
@@ -103,7 +83,6 @@ public class AT_base : ScriptableObject {
         // animators
         character.AttackDisplay.runtimeAnimatorController = AC;
         character.crosshairDisplay.runtimeAnimatorController = crosshair;
-        if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
 
         // data
         canShoot = true;
@@ -116,7 +95,6 @@ public class AT_base : ScriptableObject {
     public virtual void safeLoad(playerController character) {
         character.AttackDisplay.runtimeAnimatorController = AC;
         character.crosshairDisplay.runtimeAnimatorController = crosshair;
-        if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
         canShoot = true;
     }
 
@@ -158,7 +136,6 @@ public class AT_base : ScriptableObject {
         
             character.StartCoroutine(fireCondition(shootDelay));
             if (useAmmo) currentAmmo -= useageAmmo;
-            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
             character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         } else {
             // effects
@@ -189,7 +166,6 @@ public class AT_base : ScriptableObject {
 
             // lower ammo
             if (useAmmo) currentAmmo -= useageAmmo;
-            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
             character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         }
     }
@@ -222,7 +198,6 @@ public class AT_base : ScriptableObject {
 
             // lower ammo
             if (useAmmo) currentAmmo -= useageAmmo;
-            if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
             character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
     }
 

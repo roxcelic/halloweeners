@@ -33,8 +33,8 @@ MonoBehaviour:
   useAmmo: 1
   useageAmmo: 1
   maxAmmo: 8
-  currentAmmo: 7
+  currentAmmo: 5
   damage: 25
   attackData:
-    killCount: 4
+    killCount: 0
   SF_reload: {fileID: 8300000, guid: c35186deeced842bdb8b8597d1e5a969, type: 3}

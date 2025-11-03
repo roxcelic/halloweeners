@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/essential/back")]
 public class PM_Back : PM_Base {
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         PMC.loadPrevMenu();
     }
 }

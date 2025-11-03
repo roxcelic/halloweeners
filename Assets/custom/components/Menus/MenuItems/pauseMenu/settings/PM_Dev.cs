@@ -4,9 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/dev")]
+[CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/settings/dev")]
 public class PM_Dev : PM_Base {
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         // save data
         save.saveData currentSave = save.getData.viewSave();
 

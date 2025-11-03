@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/restart")]
 public class PM_Restart : PM_Base {
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

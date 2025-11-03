@@ -25,26 +25,6 @@ public class AT_twoHandedGun : AT_base {
 
     private int shootMode = 0;
 
-    // do not change
-    public override AT_base protection(){
-        AT_base newInstace = ScriptableObject.CreateInstance<AT_twoHandedGun>();
-
-        var type = typeof(AT_twoHandedGun);
-        
-        foreach (var sourceProperty in type.GetProperties()) {
-            var targetProperty = type.GetProperty(sourceProperty.Name);
-            targetProperty.SetValue(newInstace, sourceProperty.GetValue(this, null), null);
-        }
-
-        foreach (var sourceField in type.GetFields()) {
-            var targetField = type.GetField(sourceField.Name);
-            targetField.SetValue(newInstace, sourceField.GetValue(this));
-        }   
-
-        // return newInstace;   
-        return this;
-    }
-
     public override void attack(playerController character) {
         if (!canShoot) return; // if the attack cannot be used return
         if (useAmmo && currentAmmo <= 0) {
@@ -81,7 +61,6 @@ public class AT_twoHandedGun : AT_base {
 
         // lower ammo
         if (useAmmo) currentAmmo -= useageAmmo;
-        if (character.lT != null) character.lT.changeText($"{currentAmmo}/{maxAmmo}");
         character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
     }
 

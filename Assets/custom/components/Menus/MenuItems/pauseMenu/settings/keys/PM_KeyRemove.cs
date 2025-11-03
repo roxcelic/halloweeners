@@ -17,7 +17,7 @@ public class PM_KeyRemove : PM_Base {
         overried = false;
     }
 
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         eevee.config newInput = eevee.inject.retrieve().FullConfig[key];
 
         switch (eevee.conf.autoDetect()) {

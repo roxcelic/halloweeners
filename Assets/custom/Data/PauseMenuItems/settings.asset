@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: settings
   essential: 0
+  dev: 0
   children:
-  - {fileID: 11400000, guid: 22b92585129a648c285316714431188a, type: 2}
+  - {fileID: 11400000, guid: c486d4bde26b94c7a8413ec2fd02198c, type: 2}
+  - {fileID: 11400000, guid: 3f3b49a8e74f042d28bf183c3e79b30d, type: 2}
+  - {fileID: 11400000, guid: fc4280250dd5c409ca5dd1497470fa2a, type: 2}

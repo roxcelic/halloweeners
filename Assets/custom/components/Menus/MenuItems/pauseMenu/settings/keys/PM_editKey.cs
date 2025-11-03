@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class PM_editKey : PM_Base {
     public string key;
 
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         children = new List<PM_Base>();
         /*
             load view inputs

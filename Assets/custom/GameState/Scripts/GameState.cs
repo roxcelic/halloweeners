@@ -21,15 +21,8 @@ public class GameState : ScriptableObject {
         // Cursor.visible = pauseSet;
     }
 
-    public AT_base getCurrentAttack(string name, attack.attackData data) {
-        foreach (attack.attackRegistration attack in registeredAttacks) {
-            if (attack.name == name) {
-                attack.attack = attack.attack.protection();
-                attack.attack.attackData = data;
-
-                return attack.attack;
-            }
-        }
+    public AT_base getCurrentAttack(string name) {
+        foreach (attack.attackRegistration attack in registeredAttacks) if (attack.name == name) return attack.attack;
         
         return null;
     }

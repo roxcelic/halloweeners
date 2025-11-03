@@ -9,7 +9,7 @@ public class PM_Evil : PM_Base {
     public int tapCount = 5;
     public string key;
 
-    public override async void action(pauseMenuController PMC) {
+    public override async void action(pauseMenuController PMC, string input = "") {
         PMC.log($"get ready to tap {key} {tapCount} times...", "evil", "blue");
         if (await eevee.input.multiTap(key, tapCount, 1000)) {
             PMC.log($"well done", "evil", "blue");

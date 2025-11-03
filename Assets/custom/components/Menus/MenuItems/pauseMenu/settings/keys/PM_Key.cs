@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class PM_Key : PM_Base {
     public string key;
 
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         // eevee.inject.retrieve().FullConfig.Keys[key]
         switch (eevee.conf.autoDetect()) {
             case eevee.inputCL.controller:

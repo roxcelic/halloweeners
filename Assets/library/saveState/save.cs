@@ -20,6 +20,8 @@ namespace save {
     public class saveData {
         [Header("config")]
         public bool dev = false;
+        public bool instantRespawn = false;
+        public string test = "";
 
         public string ver = "dev-0.1.0-11";
 

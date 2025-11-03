@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public class PM_KeyAdd : PM_Base {
     public string key;
 
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         eevee.config newInput = eevee.inject.retrieve().FullConfig[key];
 
         switch (eevee.conf.autoDetect()) {

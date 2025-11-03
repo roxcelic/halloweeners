@@ -4,9 +4,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/essential/Load Keys")]
+[CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/settings/Load Keys")]
 public class PM_LoadKeys : PM_Base {
-    public override void action(pauseMenuController PMC) {
+    public override void action(pauseMenuController PMC, string input = "") {
         children = new List<PM_Base>();
 
         foreach (string key in eevee.inject.retrieve().FullConfig.Keys) {

@@ -36,7 +36,7 @@ public class EN_base : MonoBehaviour {
         brain.thought = $"{currentHealth}/{maxHealth}";
 
         if (attack != null) {
-            attack = attack.protection();
+            attack = Instantiate(attack);
             attack.enemyLoad(this);
             sr.sprite = attack.sprite;
         }

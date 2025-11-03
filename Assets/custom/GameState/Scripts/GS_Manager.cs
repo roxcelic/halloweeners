@@ -5,11 +5,8 @@ public class GS_Manager : MonoBehaviour {
     public GameObject player;
 
     void Start() {
-        GameS.paused = false;
-        GameS.loaded = false;
-        GameS.player = player;
-    
-        // load
-        GS.live.state = GameS;
+        GS.live.state.paused = false;
+        GS.live.state.loaded = false;
+        GS.live.state.player = player;
     }
 }
