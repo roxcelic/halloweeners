@@ -16,6 +16,11 @@ public class pauseMenuController : MonoBehaviour {
     [Header("components")]
     public TMP_InputField input;
     public TMP_Text text;
+    public Animator anim;
+
+    void Start() {
+        anim = transform.GetChild(0).GetComponent<Animator>();
+    }
 
     void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
@@ -37,7 +42,10 @@ public class pauseMenuController : MonoBehaviour {
         }
 
         GS.live.state.pause(newVal);
-        transform.GetChild(0).gameObject.SetActive(newVal);
+        if (newVal) {
+            transform.GetChild(0).gameObject.SetActive(newVal);
+            anim.Play("open");
+        } else anim.Play("close");
     }
 
     // a util to run a "command"
