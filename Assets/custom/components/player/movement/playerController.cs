@@ -7,15 +7,47 @@ using System.Collections.Generic;
 
 using TMPro;
 
+namespace movement {
+    [System.Serializable]
+    public class additionalVelocity {
+        public float vel = 0;
+        public float maxVel = 25f;
+        public float updateSpeed = 1f;
+        public bool update = true;
+
+        public additionalVelocity(float startVel = 0, float startSpeed = 1 ) {
+            this.vel = startVel;
+            this.updateSpeed = startSpeed;
+        }
+
+        public Vector3 getVelocity(MonoBehaviour Mono) {return Mono.transform.forward * this.vel;}
+        public void AddForce(float force) {this.vel += Mathf.Clamp(force, -this.maxVel, this.maxVel);}
+
+        public IEnumerator start(Rigidbody rb) {
+            while (true) {
+                while (this.update) {
+                    this.vel = Mathf.Lerp(vel, 0, Time.deltaTime * (rb.linearVelocity.magnitude > 10 ? this.updateSpeed : this.updateSpeed * 10));
+
+                    yield return 0;
+                }
+
+                yield return new WaitUntil(() => this.update);
+            }
+        }
+    }
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class playerController : MonoBehaviour {
 
     [Header("data")]
     // im not sure what this is
-        [Range(0, .3f)] public float MovementSmoothing = .05f;
+        [Range(0, 10f)] public float MovementSmoothing = .05f;
         public float moveSpeed = 5f;
         
         public Vector3 Velocity = Vector3.zero;
+        public movement.additionalVelocity addVel;
+        [Range(0, 10f)] public float updateSpeed = 1;
 
         public float currentXRotation;
 
@@ -98,6 +130,10 @@ public class playerController : MonoBehaviour {
         col = GetComponent<Collider>();
         AS = GetComponent<AudioSource>();
 
+        // velocity
+        addVel = new movement.additionalVelocity(0, updateSpeed);
+        StartCoroutine(addVel.start(rb));
+
         // curser
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -142,13 +178,14 @@ public class playerController : MonoBehaviour {
                 // get the desired force
                 Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
                 targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
-                targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+                targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z) + addVel.getVelocity(this);
 
                 if (SmoothMovement && Control){ // apply it naturally
                     rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
                 } else { // apply it forcefully
                     rb.AddForce(targetVelocity);
                 }
+                
 
             // abilies
                 if (eevee.input.Grab("Jump")) jump();
@@ -354,10 +391,11 @@ public class playerController : MonoBehaviour {
         rb.AddForce(-transform.up * jumpForce * 2f); // thow them down twin
 
         CanMove = false;
+        addVel.update = false;
 
         Vector3 slideForce = rb.linearVelocity + (transform.forward * 5);
 
-        while(eevee.input.Check("Slam") && isGrounded(1, 2f)) {
+        while(eevee.input.Check("Slam") && isGrounded(1, 2f) && !eevee.input.Check("Jump")) {
 
             rb.linearVelocity = slideForce;
 
@@ -366,11 +404,14 @@ public class playerController : MonoBehaviour {
             else if (slideForce.x < -stopSpeed) slideForce = new Vector3(slideForce.x + slideDecay, slideForce.y, slideForce.z);
             else slideForce = new Vector3(0, slideForce.y, slideForce.z);
 
+            if (addVel.vel > stopSpeed) addVel.vel -= slideDecay / 2;
+            else if (addVel.vel < -stopSpeed) addVel.vel += slideDecay / 2;
+            else addVel.vel = 0;
+
             // y velocity clamp
             // if (slideForce.y > stopSpeed) slideForce = new Vector3(slideForce.x, slideForce.y - slideDecay, slideForce.z);
             // else if (slideForce.y < 0) slideForce = new Vector3(slideForce.x, slideForce.y + slideDecay, slideForce.z);
             // else slideForce = new Vector3(slideForce.x, 0, slideForce.z);
-            slideForce = new Vector3(slideForce.x, -10, slideForce.z);
 
 
             // z velocity clamp
@@ -378,11 +419,20 @@ public class playerController : MonoBehaviour {
             else if (slideForce.z < -stopSpeed) slideForce = new Vector3(slideForce.x, slideForce.y, slideForce.z + slideDecay);
             else slideForce = new Vector3(slideForce.x, slideForce.y, 0);
 
+            slideForce = new Vector3(slideForce.x, 0, slideForce.z);
+
             yield return 0.1f;
         }
         
+        addVel.update = true;
         CanMove = true;
+
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
+    
+        if (eevee.input.Grab("Jump")) {
+            addVel.AddForce(5);
+            jump();
+        }
     }
 
     // slam slam slam
@@ -390,15 +440,19 @@ public class playerController : MonoBehaviour {
         CanMove = false;
 
         Vector3 hldVel = rb.linearVelocity;
+        Debug.Log("reseting velocity");
         rb.linearVelocity = new Vector3();
 
+        float outForce = 0f;
         while(!isGrounded()) {
+            outForce += 1f;
             rb.AddForce(-transform.up * jumpForce * 2f);
             yield return new WaitForSeconds(0.1f);
         }
 
         if (eevee.input.Check("Slam")) {
             rb.linearVelocity = hldVel;
+            addVel.AddForce(outForce);
 
             StartCoroutine(slide());
         } else CanMove = true;
@@ -410,15 +464,18 @@ public class playerController : MonoBehaviour {
         CanMove = false;
         canDash = false;
 
-        while (Vector3.Distance(transform.position, target) > 0.1f) {
-            transform.position = Vector3.Lerp(transform.position, target, Time.fixedDeltaTime * dashSpeed);
+        while (Vector3.Distance(transform.position, target) > 1f) {
+            Vector3 difference = target - transform.position;
+            difference = new Vector3(difference.x, 0, difference.z) * 0.5f;
+
+            transform.position = Vector3.Lerp(transform.position, target + difference, Time.fixedDeltaTime * dashSpeed);
             yield return 0;
         }
-        
+
         Time.timeScale = 1f;
         CanMove = true;
 
-        rb.AddForce(transform.forward * outDashForce);        
+        addVel.AddForce(outDashForce);
 
         yield return new WaitForSeconds(dashDelay);
         canDash = true;

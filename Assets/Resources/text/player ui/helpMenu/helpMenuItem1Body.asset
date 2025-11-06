@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a315645ae29024b0dbd3072f1f7a27c6, type: 3}
   m_Name: helpMenuItem1Body
   m_EditorClassIdentifier: 
-  English: 1
-  dev: meow
+  English: '!key:up > up\n !key:down > down\n !key:left > left\n !key:right > right\n\n 
+    !key:Attack > Attack\n !key:AttackBasic > basic attack (fists)\n\n !key:cameraLeft
+    > camera left\n !key:cameraRight > camera right\n !key:interact > interact with
+    the object infront\n !key:pause > pause\n\n !key:back > the back button within
+    the menus \n\n !key:Dash > dash\n !key:Slam > slam/slide\n !key:Jump > jump'

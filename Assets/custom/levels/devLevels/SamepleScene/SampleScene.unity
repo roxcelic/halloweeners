@@ -376,7 +376,7 @@ PrefabInstance:
     - target: {fileID: 2458005352824361317, guid: 82fb737f7a9bb45698475973c474a614, type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}
+      objectReference: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
     - target: {fileID: 2458005352824361317, guid: 82fb737f7a9bb45698475973c474a614, type: 3}
       propertyPath: destroyOnCollect
       value: 0
@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 1688942357705216899, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 57eae87e4c9ff4b40a69b822da90e4d9, type: 2}
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

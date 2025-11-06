@@ -131,9 +131,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
-    - target: {fileID: 3802830261580088005, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: m_Intensity
-      value: 500
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: jumpForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: updateSpeed
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: outDashForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: MovementSmoothing
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalPosition.x
@@ -174,14 +190,6 @@ PrefabInstance:
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8665860417459436514, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: overwrite
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: waveDelay
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: generateWaves
@@ -387,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1400655655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1832601075
 MonoBehaviour:
   m_ObjectHideFlags: 0

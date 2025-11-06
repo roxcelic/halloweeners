@@ -16,7 +16,7 @@ MonoBehaviour:
   shootDelay: 0
   enemyShootDelay: 1
   canShoot: 1
-  lifeSteal: 0
+  lifeSteal: 1
   pierce: 1
   infinatePierce: 1
   wallLayerIndex: 3

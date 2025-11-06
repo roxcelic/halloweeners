@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using ext;
+
 namespace sys {
     public static class programNames {
         public static sys.Text dev = new sys.Text();
@@ -31,9 +33,10 @@ namespace sys {
 
         public string localise() {
             if (this.overrideName != "") return this.overrideName;
-            if (this.text == null) return "null";
+            if (this.text == null) return "no text object";
             
             switch (save.getData.viewSave().language) {
+                case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}"; break;
                 case "dev": return $"dev:{this.text.English}"; break;
                 case "English":default: return this.text.English; break;
             }

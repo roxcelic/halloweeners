@@ -3411,25 +3411,11 @@ MonoBehaviour:
   data:
   - heading:
       overrideName: 
-      text: {fileID: 0}
+      text: {fileID: 11400000, guid: 86f53303dd76042198495e804060d57a, type: 2}
     body:
       overrideName: 
-      text: {fileID: 0}
+      text: {fileID: 11400000, guid: be6f98415294c4e1b8a0958d288476c1, type: 2}
     display: {fileID: 21300000, guid: c2c562f864fe14982be9d46aa22e459f, type: 3}
-  - heading:
-      overrideName: 
-      text: {fileID: 0}
-    body:
-      overrideName: 
-      text: {fileID: 0}
-    display: {fileID: 21300000, guid: 28307c9fe885a4fd2b47b92eb8e53e99, type: 3}
-  - heading:
-      overrideName: 
-      text: {fileID: 0}
-    body:
-      overrideName: 
-      text: {fileID: 0}
-    display: {fileID: 21300000, guid: c34de8123b7f74ba991c336c8a740cc9, type: 3}
   index: 0
 --- !u!1 &5692705379443900852
 GameObject:
@@ -3844,8 +3830,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 0, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6398701135936155115
 GameObject:
@@ -4920,7 +4906,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 0, y: -50}
+  m_SizeDelta: {x: -100, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3171794450584139526
 CanvasRenderer:
