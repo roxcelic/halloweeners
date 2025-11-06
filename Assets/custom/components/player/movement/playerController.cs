@@ -28,8 +28,9 @@ public class playerController : MonoBehaviour {
         public string targetLayer = "Ground";
 
         [Header("rotation")]
+        public bool cameraY = false;
         [Range(0f, 15f)] public float RT_Modifier = 5f;
-        new public Vector3 camera;
+        new public Transform camera;
     
     [Header("Jump")]
     [Range(0, 400f)] public float jumpForce;
@@ -87,7 +88,8 @@ public class playerController : MonoBehaviour {
     public AudioClip deathSound;
 
     [Header("extra")]
-    public List<string> profanities;
+    public List<sys.Text> profanities;
+
 
 
     void Start() {
@@ -133,7 +135,7 @@ public class playerController : MonoBehaviour {
     void Update() {
         if (health <= 0) return;
         if (!loaded) return;
-        if (GS.live.state.paused) return;
+        if (GS.live.state.paused || GS.live.state.helped) return;
 
         if (CanMove) {
             // movement
@@ -181,9 +183,15 @@ public class playerController : MonoBehaviour {
         // stolen from the amazing A curr, thank you queen.
         void HandleMouse() {
             float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
+            
+            // idk i dont plan on using this but why not
+            float mouseY = 0f;
+            if (cameraY) mouseY = Input.GetAxis("Mouse Y") * RT_Modifier;
+
             mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
 
             transform.Rotate(Vector3.up * mouseX);
+            if(cameraY) camera.Rotate((Vector3.right * -mouseY));
         }
 
         // a simple jump really

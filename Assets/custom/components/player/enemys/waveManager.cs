@@ -55,6 +55,9 @@ public class waveManager : MonoBehaviour {
     [Header("override")]
     public bool generateWaves = true;
 
+    [Header("text")]
+    public sys.Text spawningMessage = new sys.Text();
+
     public void Begin() {
         if (generateWaves) StartCoroutine(startWaves());
         else StartCoroutine(trackEnemyCount());
@@ -89,7 +92,7 @@ public class waveManager : MonoBehaviour {
             yield return 0;
         }
                 
-        T_display.text = $"spawning...";
+        T_display.text = spawningMessage.localise();
         for (int i = 0; i < (spawnAmount * Mathf.Round(spawnRate * wave)); i++) {
             /*
                 This was a function but its better to just put it here

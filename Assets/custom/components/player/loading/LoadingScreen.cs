@@ -12,9 +12,12 @@ public class LoadingScreen : MonoBehaviour {
     public Animator anim;
     public string animName;
     public bool active = true;
-    public List<string> startMessage;
     private playerController PC;
-    
+
+    [Header("text")]
+    public List<sys.Text> startMessage;
+    public sys.Text generationMessage = new sys.Text();
+
     void Start() {
         PC = transform.GetComponent<playerController>();
     }
@@ -22,7 +25,7 @@ public class LoadingScreen : MonoBehaviour {
     void Update() {
         if (!active) return;
 
-        if (completion == 0) text.text = "generating map.";
+        if (completion == 0) text.text = generationMessage.localise();
         else text.text = $"{(100 - Math.Round(completion, 2)).ToString()}";
 
         if (completion >= 95.5f) {
@@ -39,7 +42,7 @@ public class LoadingScreen : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
 
-        string chosenMessage = startMessage[UnityEngine.Random.Range(0, startMessage.Count - 1)];
+        string chosenMessage = startMessage[UnityEngine.Random.Range(0, startMessage.Count - 1)].localise();
 
         foreach (char ch in chosenMessage) {
             text.text += ch.ToString();

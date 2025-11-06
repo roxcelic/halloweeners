@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d4a7340906743caa391cfed57ea6f3, type: 3}
   m_Name: list
   m_EditorClassIdentifier: 
-  name: list
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: 6f17fb5704d9a4b3f9036a94b903317e, type: 2}
   essential: 1
   dev: 0
   children: []
+  currentOptions:
+    overrideName: 
+    text: {fileID: 0}

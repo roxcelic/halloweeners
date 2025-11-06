@@ -85,8 +85,8 @@ public class mainMenuController : MonoBehaviour {
         string finalText = "";
 
         for (int i = 0; i <= currentItems.Count - 1; i++) {
-            if (i == selected) finalText += $"{selectedItem.ToString()} {currentItems[i].display} --- {i}\n";
-            else finalText += $"{currentItems[i].display} --- {i}\n";
+            if (i == selected) finalText += $"{selectedItem.ToString()} {currentItems[i].display.localise()} --- {i}\n";
+            else finalText += $"{currentItems[i].display.localise()} --- {i}\n";
         }
 
         return finalText;

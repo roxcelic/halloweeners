@@ -44,7 +44,7 @@ public class hud : MonoBehaviour {
     public IEnumerator CO_trackWeapon() {
         while (true) {
             yield return 0;
-            weaponOutput.text = $"{player.attack.name}";
+            weaponOutput.text = $"{player.attack.displayName.localise()}";
         }
     }
 

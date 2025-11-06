@@ -7,6 +7,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "GameState", menuName = "GameState")]
 public class GameState : ScriptableObject {
     public bool paused = false;
+    public bool helped = false;
     public bool loaded = false;
 
     public GameObject player;
@@ -19,6 +20,11 @@ public class GameState : ScriptableObject {
 
         // Cursor.lockState = pauseSet ? CursorLockMode.None : CursorLockMode.Locked;
         // Cursor.visible = pauseSet;
+    }
+
+    public void help(bool helpSet) {
+        Time.timeScale = helpSet ? 0 : 1;
+        helped = helpSet;
     }
 
     public AT_base getCurrentAttack(string name) {

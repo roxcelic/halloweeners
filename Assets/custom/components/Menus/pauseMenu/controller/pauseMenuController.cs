@@ -18,12 +18,16 @@ public class pauseMenuController : MonoBehaviour {
     public TMP_Text text;
     public Animator anim;
 
+    [Header("text")]
+    public sys.Text newOptionsMessage = new sys.Text();
+
     void Start() {
         anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
     void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
+        if (GS.live.state.helped) return; // if the game is in help mode dont allow pause
 
         if (eevee.input.Grab("Pause", "pm")) changePauseState(!GS.live.state.paused);
         if (!GS.live.state.paused) return;
@@ -83,7 +87,7 @@ public class pauseMenuController : MonoBehaviour {
     // a util command to find and return the menu item if it exists
     public PM_Base findCommand(string name, List<PM_Base> search) {
         foreach (PM_Base Mitem in search) {
-            if (Mitem.name == name && (!Mitem.dev || save.getData.isDev())) return Mitem;
+            if (Mitem.name.localise() == name && (!Mitem.dev || save.getData.isDev())) return Mitem;
         }
 
         return null;
@@ -137,10 +141,10 @@ public class pauseMenuController : MonoBehaviour {
     // a util to log options
     void logNewOptions(List<PM_Base> newItems) {
         log("-----", "", "white");
-        log("your new options are:", "system", "blue");
+        log(newOptionsMessage.localise(), "system", "blue");
         foreach (PM_Base Mitem in newItems) {
-            log($"\t{Mitem.name}", "system", "blue");
             Mitem.onLoad(this); // sneaky
+            log($"\t{Mitem.name.localise()}", "system", "blue");
         }
         log("-----", "", "white");
     }

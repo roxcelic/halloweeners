@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class MM_changeScene : MM_base {
     public GameObject popup;
     public Sprite popupDisplay;
-    public string description;
+    public sys.Text description = new sys.Text();
     public string newScene;
 
     public override void action(mainMenuController MMC = null, pauseMenuController PMC = null) {
@@ -32,7 +32,7 @@ public class MM_changeScene : MM_base {
 
         // display
         pops.display.sprite = popupDisplay;
-        pops.description.text = description;
+        pops.description.text = description.localise();
         
     }
 }

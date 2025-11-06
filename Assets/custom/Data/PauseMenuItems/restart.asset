@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89681930d0e88452f951311c90416735, type: 3}
   m_Name: restart
   m_EditorClassIdentifier: 
-  name: restart
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: 681d23e6412d4427ca9eb5427dfc6470, type: 2}
   essential: 0
+  dev: 0
   children: []

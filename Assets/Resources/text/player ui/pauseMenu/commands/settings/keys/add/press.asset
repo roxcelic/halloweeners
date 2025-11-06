@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 916fa7ebd579c415c91c7fe27a3a35d7, type: 3}
-  m_Name: ediitAttack
+  m_Script: {fileID: 11500000, guid: a315645ae29024b0dbd3072f1f7a27c6, type: 3}
+  m_Name: press
   m_EditorClassIdentifier: 
-  name: editAttack
-  essential: 0
-  dev: 1
-  children: []
-  method: 2
+  English: press now
+  dev: meow

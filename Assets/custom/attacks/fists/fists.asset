@@ -16,13 +16,19 @@ MonoBehaviour:
   shootDelay: 0.5
   enemyShootDelay: 1
   canShoot: 1
+  lifeSteal: 0
   pierce: 1
   infinatePierce: 0
   wallLayerIndex: 3
   projectile: 0
   projectilePrefab: {fileID: 0}
   projectileForce: 0
+  enemyDis: 1
   name: fists
+  displayName:
+    overrideName: 
+    text: {fileID: 11400000, guid: 7f98b6c9583ed4a27b8bb70d2f88fab6, type: 2}
+  attackWithAnimation: 0
   sprite: {fileID: 21300000, guid: 9e10b06c3a8bd41a68ae5098b6193185, type: 3}
   AC: {fileID: 9100000, guid: f06c2fdc5c106401f92305ed182fd12a, type: 2}
   crosshair: {fileID: 9100000, guid: d1baf84ad3e62448286da3ce037f504c, type: 2}
@@ -33,3 +39,8 @@ MonoBehaviour:
   maxAmmo: 0
   currentAmmo: 0
   damage: 10
+  attackData:
+    killCount: 0
+    name: 
+    damageModifier: 1
+    lifeStealModifer: 1

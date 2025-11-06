@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be8ea188800b4dfb89dc6b52ef90995, type: 3}
   m_Name: dev
   m_EditorClassIdentifier: 
-  name: dev
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: 4eb05fa7cf77a4bfebed8c869adcd24d, type: 2}
   essential: 0
   dev: 1
   children:
@@ -20,3 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc4280250dd5c409ca5dd1497470fa2a, type: 2}
   - {fileID: 11400000, guid: d52a1484a4fdc408f9a9b9fc62d3e627, type: 2}
   - {fileID: 11400000, guid: ffe02294e0f9d4995bafe5f01962cef8, type: 2}
+  - {fileID: 11400000, guid: 198a7e6879dd249789f0b486b0eb29f7, type: 2}

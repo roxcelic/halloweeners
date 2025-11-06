@@ -16,6 +16,7 @@ MonoBehaviour:
   shootDelay: 0
   enemyShootDelay: 0.34
   canShoot: 1
+  lifeSteal: 0
   pierce: 1
   infinatePierce: 1
   wallLayerIndex: 3
@@ -24,6 +25,9 @@ MonoBehaviour:
   projectileForce: 400
   enemyDis: 1
   name: two handed gun
+  displayName:
+    overrideName: 
+    text: {fileID: 11400000, guid: fb53a928b718645bab85f108c33a4f05, type: 2}
   attackWithAnimation: 0
   sprite: {fileID: 21300000, guid: c2c562f864fe14982be9d46aa22e459f, type: 3}
   AC: {fileID: 9100000, guid: 586fc6fdfc2b446a796554152e84df2d, type: 2}
@@ -37,4 +41,7 @@ MonoBehaviour:
   damage: 25
   attackData:
     killCount: 0
+    name: 
+    damageModifier: 1
+    lifeStealModifer: 1
   SF_reload: {fileID: 8300000, guid: c35186deeced842bdb8b8597d1e5a969, type: 3}

@@ -6,6 +6,7 @@ public class GS_Manager : MonoBehaviour {
 
     void Start() {
         GS.live.state.paused = false;
+        GS.live.state.helped = false;
         GS.live.state.loaded = false;
         GS.live.state.player = player;
     }

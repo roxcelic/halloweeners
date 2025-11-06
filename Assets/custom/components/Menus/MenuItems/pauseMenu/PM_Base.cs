@@ -6,7 +6,10 @@ using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/base")]
 public class PM_Base : ScriptableObject {
-    new public string name;
+    [Header("text")]
+    new public sys.Text name = new sys.Text();
+
+    [Header("data")]
     public bool essential;
     public bool dev = false;
     public List<PM_Base> children;

@@ -5,6 +5,58 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace sys {
+    public static class programNames {
+        public static sys.Text dev = new sys.Text();
+        public static sys.Text system = new sys.Text();
+        public static sys.Text user = new sys.Text();
+        public static sys.Text controller_input = new sys.Text();
+        public static sys.Text keyboard_input = new sys.Text();
+        public static sys.Text evil = new sys.Text();
+
+        static programNames() {
+            dev.text = Resources.Load("text/sys/programs/dev") as textobject;
+            system.text = Resources.Load("text/sys/programs/system") as textobject;
+            user.text = Resources.Load("text/sys/programs/user") as textobject;
+            controller_input.text = Resources.Load("text/sys/programs/controller_input") as textobject;
+            keyboard_input.text = Resources.Load("text/sys/programs/keyboard_input") as textobject;
+            evil.text = Resources.Load("text/sys/programs/evil") as textobject;
+        }
+    }
+
+    
+    [System.Serializable]
+    public class Text {
+        public string overrideName = "";
+        public textobject text;
+
+        public string localise() {
+            if (this.overrideName != "") return this.overrideName;
+            if (this.text == null) return "null";
+            
+            switch (save.getData.viewSave().language) {
+                case "dev": return $"dev:{this.text.English}"; break;
+                case "English":default: return this.text.English; break;
+            }
+        }
+
+        public string displayVar(Dictionary<string, string> data) {
+            string[] words = this.localise().Split(" ");
+            List<string> selectedWords = new List<string>();
+
+            foreach(string word in words) {
+                if ((word.Length - 1) > 5 && word.Substring(0, 5) == "!var:") {
+                    string key = word.Substring(5, word.Length - 5);
+                    if (data.ContainsKey(key)) selectedWords.Add(data[key]);
+                    else selectedWords.Add(word);
+                } else {
+                    selectedWords.Add(word);
+                }
+            }
+
+            return sys.text.displayKeyButton(string.Join(" ", selectedWords));
+        }
+    }
+
     public class system {
 
         // [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8420ae739d54b92a49c8c2e26a4541, type: 3}
   m_Name: MainMenu
   m_EditorClassIdentifier: 
-  name: MainMenu
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: bd1cd2b561b104b349eaec0bfcbf716b, type: 2}
   essential: 0
+  dev: 0
   children: []

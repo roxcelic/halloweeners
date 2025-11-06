@@ -16,13 +16,19 @@ MonoBehaviour:
   shootDelay: 1
   enemyShootDelay: 4
   canShoot: 1
+  lifeSteal: 0
   pierce: 1
   infinatePierce: 0
   wallLayerIndex: 3
   projectile: 1
   projectilePrefab: {fileID: 1273175676982166495, guid: 35d6ab8ecb2f4b54f82f162f976b5781, type: 3}
   projectileForce: 1000
+  enemyDis: 1
   name: pear
+  displayName:
+    overrideName: 
+    text: {fileID: 11400000, guid: 9ee4457d135904744b57a33d712a3f08, type: 2}
+  attackWithAnimation: 0
   sprite: {fileID: 21300000, guid: 28307c9fe885a4fd2b47b92eb8e53e99, type: 3}
   AC: {fileID: 9100000, guid: b323f0893344047499dc552cd3780831, type: 2}
   crosshair: {fileID: 9100000, guid: 9f47a3384809442b98d2f8c8b46a40ce, type: 2}
@@ -33,3 +39,8 @@ MonoBehaviour:
   maxAmmo: 6
   currentAmmo: 6
   damage: 10
+  attackData:
+    killCount: 0
+    name: 
+    damageModifier: 1
+    lifeStealModifer: 1

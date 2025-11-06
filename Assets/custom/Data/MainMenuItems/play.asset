@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecf382cb659d49f28a7005d0466eaf6, type: 3}
   m_Name: play
   m_EditorClassIdentifier: 
-  display: play
+  display:
+    overrideName: 
+    text: {fileID: 11400000, guid: 0165d77d4acc84c7d9f7294218df834f, type: 2}
   children:
   - {fileID: 11400000, guid: 9a439e9e05510418ba96426cffaf7091, type: 2}
   - {fileID: 11400000, guid: 6936d66fc8230471db4b413e6ad9e4f9, type: 2}

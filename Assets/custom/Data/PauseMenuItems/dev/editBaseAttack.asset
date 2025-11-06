@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916fa7ebd579c415c91c7fe27a3a35d7, type: 3}
   m_Name: editBaseAttack
   m_EditorClassIdentifier: 
-  name: editBaseAttack
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: 1b7699721479d4b78bb1ae4953d3683c, type: 2}
   essential: 0
   dev: 1
   children: []

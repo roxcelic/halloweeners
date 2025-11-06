@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb4a5f31bc6094987bf125f2bf8f5be7, type: 3}
   m_Name: openRougeLike
   m_EditorClassIdentifier: 
-  display: rouge like
+  display:
+    overrideName: 
+    text: {fileID: 11400000, guid: 5d65568ca817840c490c0d248f86688c, type: 2}
   children: []
   popup: {fileID: 5744519561046151154, guid: e5d795d97fed3479e9052625185ab56d, type: 3}
   popupDisplay: {fileID: 21300000, guid: 1a4abaf021181ef43a6b982917605854, type: 3}
-  description: would you like to go into the wfc dev scene
+  description:
+    overrideName: 
+    text: {fileID: 11400000, guid: 62f770207aeb2446384050b7f43ef3fb, type: 2}
   newScene: custom/levels/devLevels/WFCdev/WFCdev

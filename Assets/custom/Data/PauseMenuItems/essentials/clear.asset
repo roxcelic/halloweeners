@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f756bf2205e4040805d1500c0d537d, type: 3}
   m_Name: clear
   m_EditorClassIdentifier: 
-  name: clear
+  name:
+    overrideName: 
+    text: {fileID: 11400000, guid: 5c1659939654e4619bfbf84f39774148, type: 2}
   essential: 1
   dev: 0
   children: []

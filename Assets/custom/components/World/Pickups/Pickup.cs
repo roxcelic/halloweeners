@@ -1,5 +1,9 @@
 using UnityEngine;
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 public class Pickup : MonoBehaviour {
     [Header("config")]
     public string playerTag = "Player";
@@ -14,6 +18,9 @@ public class Pickup : MonoBehaviour {
     public SpriteRenderer SR;
     public brain brain;
     public string thought = "";
+
+    [Header("text")]
+    public sys.Text pickupMessage = new sys.Text();
 
     void Start() {
         LoadAttack(attack);
@@ -51,11 +58,14 @@ public class Pickup : MonoBehaviour {
 	}
 
     void LoadAttack(AT_base LDAattack) {
-        Debug.Log($"loading attack {LDAattack.name}");
+        Debug.Log($"loading attack {LDAattack.displayName.localise()}");
         attack = LDAattack;
         SR.sprite = attack.sprite;
 
-        thought = sys.text.displayKeyButton($"press !key:interact to pickup {attack.name} :: {attack.attackData.name}");
+        thought = pickupMessage.displayVar(new Dictionary<string, string>{
+            {"attackDisplayName", attack.displayName.localise()},
+            {"attackName", attack.attackData.name}
+        });
         if (player != null) brain.thought = thought;
     }
 

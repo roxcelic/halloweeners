@@ -12,7 +12,7 @@ public class PM_LoadKeys : PM_Base {
         foreach (string key in eevee.inject.retrieve().FullConfig.Keys) {
             PM_editKey currentKey = ScriptableObject.CreateInstance("PM_editKey") as PM_editKey;
             currentKey.key = key;
-            currentKey.name = key;
+            currentKey.name.overrideName = $"_{key}";
 
             children.Add(currentKey);
         }

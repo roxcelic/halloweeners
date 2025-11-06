@@ -21,7 +21,7 @@ namespace save {
         [Header("config")]
         public bool dev = false;
         public bool instantRespawn = false;
-        public string test = "";
+        public string language = "English";
 
         public string ver = "dev-0.1.0-11";
 
