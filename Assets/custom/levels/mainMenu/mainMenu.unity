@@ -515,6 +515,9 @@ MonoBehaviour:
   selectedItem: 62
   selected: 0
   canMove: 1
+  headingMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: 8528f8dcdb2ea401f8450d5459d7ebb9, type: 2}
 --- !u!114 &821131594
 MonoBehaviour:
   m_ObjectHideFlags: 0
