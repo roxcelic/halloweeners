@@ -144,7 +144,6 @@ public class AT_base : ScriptableObject {
             character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         } else {
             // effects
-            character.Shot_effect.Play("flash");
             character.AttackDisplay.Play("attack");
 
             // if the attack is run in the animation break here
@@ -161,6 +160,8 @@ public class AT_base : ScriptableObject {
                 character.AS.Play();
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                    character.Shot_effect.Play("flash");
+
                     // sound
                     if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
                         attackData.killCount++;

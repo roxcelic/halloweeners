@@ -171,7 +171,7 @@ public class playerController : MonoBehaviour {
     void Update() {
         if (health <= 0) return;
         if (!loaded) return;
-        if (GS.live.state.paused || GS.live.state.helped) return;
+        if (GS.live.state.paused || GS.live.state.helped || GS.live.state.menued) return;
 
         if (CanMove) {
             // movement
@@ -327,6 +327,7 @@ public class playerController : MonoBehaviour {
             else {
                 AS.clip = hurtsound;
                 AS.Play();
+                // transform.GetComponent<cameraTilt>().shake(25, 2);
             }
 
             if (dealer != null && nockback) {

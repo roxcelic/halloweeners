@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,35 @@ namespace ext {
         }
     }
 
+    #endregion
+
+    #region vector3
+    public static class vector3Stuff {
+        public static Vector3 Round(this Vector3 vector3, int decimalPlaces = 2) {
+            float multiplier = 1;
+            for (int i = 0; i < decimalPlaces; i++) {
+                multiplier *= 10f;
+            }
+
+            return new Vector3(
+                Mathf.Round(vector3.x * multiplier) / multiplier,
+                Mathf.Round(vector3.y * multiplier) / multiplier,
+                Mathf.Round(vector3.z * multiplier) / multiplier);
+	    }
+    }
+    #endregion
+
+    #region List
+    public static class listStuff {
+        /*
+            original function from https://stackoverflow.com/questions/42779103/how-to-slice-a-list but that one was for a static type
+        */
+        /// <summery> a function which replaces unitys random lack of a List[T].Slice() </summery>
+        public static List<T> Slice<T>(this List<T> input, int startIndex, int endIndex) { 
+            int elementCount = endIndex-startIndex + 1;
+            return input.Skip(startIndex).Take(elementCount).ToList();
+        }
+    }
     #endregion
 
     #region generic
@@ -115,8 +145,6 @@ namespace ext {
                     break;
                 default:
                     return $"unable to cast input type: string to type: {info.GetValue(prvObj).GetType().Name}";
-
-                    break;
             }
 
             return info.GetValue(prvObj);

@@ -20,14 +20,20 @@ public class pauseMenuController : MonoBehaviour {
 
     [Header("text")]
     public sys.Text newOptionsMessage = new sys.Text();
+    public sys.Text introMessage = new sys.Text();
 
     void Start() {
         anim = transform.GetChild(0).GetComponent<Animator>();
+
+        if (!save.getData.viewSave().firstTimeInPauseMenu) {
+            log(introMessage.localise(), "system", "blue");
+        }
     }
 
     void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
         if (GS.live.state.helped) return; // if the game is in help mode dont allow pause
+        if (GS.live.state.menued) return; // if the game is in menu mode dont allow pause
 
         if (eevee.input.Grab("Pause", "pm")) changePauseState(!GS.live.state.paused);
         if (!GS.live.state.paused) return;

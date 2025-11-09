@@ -45,6 +45,7 @@ public class helpMenuController : MonoBehaviour {
     void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
         if (GS.live.state.paused) return; // dont let the player open help if the games paused
+        if (GS.live.state.menued) return; // dont let the player open help if the games paused
 
         if (Input.GetButtonDown("help")) changePauseState(!GS.live.state.helped);
         if (!GS.live.state.helped) return;
@@ -53,9 +54,6 @@ public class helpMenuController : MonoBehaviour {
     #region utils
         // a util to assist with changing the pause state to turn the menu on and off 
         public void changePauseState(bool newVal) {
-            Cursor.lockState = (newVal ? CursorLockMode.None : CursorLockMode.Locked);
-            Cursor.visible = newVal;
-
             GS.live.state.help(newVal);
             if (newVal) {
                 transform.GetChild(0).gameObject.SetActive(newVal);

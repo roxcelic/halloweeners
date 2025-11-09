@@ -10,4 +10,5 @@ public class room : ScriptableObject {
     public roomData.roomType type;
     public List<roomData.roomDirections> allowedDirections;
     public GameObject roomPrefab;
+    public Sprite image;
 }

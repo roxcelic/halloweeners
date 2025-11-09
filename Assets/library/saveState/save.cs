@@ -25,9 +25,12 @@ namespace save {
 
         public string ver = "dev-0.1.0-11";
 
+        public bool firstTimeInPauseMenu = false;
+
         [Header("inventory")]
         public string currentAttack = "";
         public attack.attackData currentAttackData = new attack.attackData();
+        public List<AVdata.savedAttack> savedAttacks = new List<AVdata.savedAttack>();
 
         public saveData() {
             this.ver = var.ver;

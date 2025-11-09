@@ -23,6 +23,7 @@ public class mainMenuController : MonoBehaviour {
     public int selected;
     public bool canMove = true;
     private Coroutine animating;
+    public sys.Text headingMessage = new sys.Text();
 
     void Start() {
         animating = StartCoroutine(textAnim(loadText(selected = 0)));
@@ -82,7 +83,7 @@ public class mainMenuController : MonoBehaviour {
         Load text
     */ 
     public string loadText(int selected) {
-        string finalText = "";
+        string finalText = headingMessage.displayVar(new Dictionary<string, string>());
 
         for (int i = 0; i <= currentItems.Count - 1; i++) {
             if (i == selected) finalText += $"{selectedItem.ToString()} {currentItems[i].display.localise()} --- {i}\n";

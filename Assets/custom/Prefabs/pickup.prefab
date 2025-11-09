@@ -213,9 +213,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  destroyOnCollect: 0
+  destroyOnCollect: 1
   swapWeapon: 1
   player: {fileID: 0}
+  defaultAttacks:
+  - fists
   attack: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
   SR: {fileID: 6662308876326830703}
   brain: {fileID: 4143922487574549536}

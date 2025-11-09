@@ -40,7 +40,7 @@ MonoBehaviour:
   currentAmmo: 0
   damage: 10
   attackData:
-    killCount: 0
+    killCount: 1
     name: 
     damageModifier: 1
-    lifeStealModifer: 1
+    lifeStealModifer: 0

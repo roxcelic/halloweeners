@@ -15,3 +15,4 @@ MonoBehaviour:
   type: 0
   allowedDirections: 00000000010000000200000003000000
   roomPrefab: {fileID: 6297286547264876870, guid: 1c2dbcb641b15814f85d6ef4e811a046, type: 3}
+  image: {fileID: 21300000, guid: 4b8cf7f7c326048498ab524ba9a6a0e4, type: 3}

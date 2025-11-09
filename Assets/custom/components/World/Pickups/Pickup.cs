@@ -10,6 +10,7 @@ public class Pickup : MonoBehaviour {
     public bool destroyOnCollect = false;
     public bool swapWeapon = true;
     public playerController player = null;
+    public List<string> defaultAttacks = new List<string>();
 
     [Header("item")]
     public AT_base attack;
@@ -33,7 +34,19 @@ public class Pickup : MonoBehaviour {
             AT_base tmp = player.attack;
             player.switchAttack(attack);
 
-            if (destroyOnCollect) Destroy(transform.gameObject);
+            if (destroyOnCollect) {
+                // save attack
+                save.saveData currentSave = save.getData.viewSave();
+                currentSave.savedAttacks.Add(new AVdata.savedAttack(tmp));
+                save.getData.save(currentSave);
+
+                Destroy(transform.gameObject);
+            }
+
+            if (defaultAttacks.Contains(tmp.name)) {
+                Destroy(transform.gameObject);
+            }
+            
             else if (swapWeapon) LoadAttack(tmp);
         }
     }

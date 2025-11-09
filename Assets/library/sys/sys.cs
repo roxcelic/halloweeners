@@ -36,9 +36,9 @@ namespace sys {
             if (this.text == null) return "no text object";
             
             switch (save.getData.viewSave().language) {
-                case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}"; break;
-                case "dev": return $"dev:{this.text.English}"; break;
-                case "English":default: return this.text.English; break;
+                case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}";
+                case "dev": return $"dev:{this.text.English}";
+                case "English":default: return this.text.English;
             }
         }
 

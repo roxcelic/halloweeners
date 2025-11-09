@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 using System;
 using System.Collections;
@@ -24,10 +26,15 @@ public class WFCbuilder : MonoBehaviour {
 
     [Range(0f, 100f)] public float perfection = 0;
 
+    public NavMeshSurface NV_Surface;
+
     [Header("data")]
     public roomData.map map;
 
     void Start() {
+        NV_Surface = GetComponent<NavMeshSurface>();
+        Debug.Log("ASd");
+
         map = new roomData.map(gridHeight, gridWidth, startRoom);
         player = GameObject.FindGameObjectsWithTag(playerTag)[0].transform.GetComponent<LoadingScreen>();
 
@@ -46,6 +53,7 @@ public class WFCbuilder : MonoBehaviour {
         }
 
         yield return 0;
+        GS.live.state.map = map;
         Debug.Log("finished generating map, moving on to building the map");
 
         count = 0;
@@ -68,5 +76,6 @@ public class WFCbuilder : MonoBehaviour {
         }
 
         Debug.Log("finished building the map");
+        NV_Surface.BuildNavMesh();
     }
 }

@@ -43,4 +43,4 @@ MonoBehaviour:
     killCount: 0
     name: 
     damageModifier: 1
-    lifeStealModifer: 1
+    lifeStealModifer: 0
