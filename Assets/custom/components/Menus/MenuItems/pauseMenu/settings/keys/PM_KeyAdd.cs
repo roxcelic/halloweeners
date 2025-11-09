@@ -43,7 +43,7 @@ public class PM_KeyAdd : PM_Base {
         grab the next keyboard input
     */
     public IEnumerator waitForKeyboardInput(eevee.config newInput, pauseMenuController PMC) {
-        PMC.input.interactable = false;
+        PMC.interactable = true;
         yield return new WaitForSecondsRealtime(0.25f);
         PMC.log(pressMessage.localise(), sys.programNames.system.localise(), "blue");
 
@@ -62,8 +62,7 @@ public class PM_KeyAdd : PM_Base {
         }
 
         eevee.inject.OverWrite(newInput);
-        PMC.input.interactable = true;
-        PMC.input.Select();
+        PMC.interactable = true;
     }
 
 
@@ -71,7 +70,7 @@ public class PM_KeyAdd : PM_Base {
         grab the next controller input
     */
     public IEnumerator waitForGamepadInput(eevee.config newInput, pauseMenuController PMC) {
-        PMC.input.interactable = false;
+        PMC.interactable = false;
         yield return new WaitForSecondsRealtime(0.25f);
         PMC.log(pressMessage.localise(), sys.programNames.system.localise(), "blue");
 
@@ -87,8 +86,7 @@ public class PM_KeyAdd : PM_Base {
         }
 
         eevee.inject.OverWrite(newInput);
-        PMC.input.interactable = true;
-        PMC.input.Select();
+        PMC.interactable = true;
     }
 
     /*

@@ -17,9 +17,10 @@ public class PM_SaveAttribute : PM_Base {
 
     public searchType method;
 
-    public override void action(pauseMenuController PMC, string input = "") {
+    public async override void action(pauseMenuController PMC, string input = "") {
         // save data
-        string[] commandData = input.Split(" ");
+        string[] commandData = (await PMC.getText("")).Split(" ");
+
 
         switch (method) {
             case searchType.save:

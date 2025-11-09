@@ -11,9 +11,9 @@ using ext;
 public class PM_editTree : PM_Base {
     public GameObject selectedObj;
 
-    public override void action(pauseMenuController PMC, string input = "") {
+    public async override void action(pauseMenuController PMC, string input = "") {
         // save data
-        string[] commandData = input.Split(" ");
+        string[] commandData = (await PMC.getText("")).Split(" ");
 
         AT_base attack = GS.live.state.player.transform.GetComponent<playerController>().D_Attack;
 

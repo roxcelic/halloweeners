@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using TMPro;
 
@@ -14,7 +15,8 @@ public class pauseMenuController : MonoBehaviour {
     public List<List<PM_Base>> previousItems = new List<List<PM_Base>>();
 
     [Header("components")]
-    public TMP_InputField input;
+    public TMP_InputField actualInput;
+    public TMP_Text input;
     public TMP_Text text;
     public Animator anim;
 
@@ -22,15 +24,22 @@ public class pauseMenuController : MonoBehaviour {
     public sys.Text newOptionsMessage = new sys.Text();
     public sys.Text introMessage = new sys.Text();
 
+    [Header("data")]
+    public int index = 0;
+    public string responded = "";
+    public bool interactable = true;
+
     void Start() {
         anim = transform.GetChild(0).GetComponent<Animator>();
 
         if (!save.getData.viewSave().firstTimeInPauseMenu) {
             log(introMessage.localise(), "system", "blue");
         }
+    
+        updateDisplay();
     }
 
-    void Update() {
+    async void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
         if (GS.live.state.helped) return; // if the game is in help mode dont allow pause
         if (GS.live.state.menued) return; // if the game is in menu mode dont allow pause
@@ -38,19 +47,44 @@ public class pauseMenuController : MonoBehaviour {
         if (eevee.input.Grab("Pause", "pm")) changePauseState(!GS.live.state.paused);
         if (!GS.live.state.paused) return;
 
-        if (eevee.conf.autoDetect() == eevee.inputCL.controller) {
-            log($"controller used, up: {eevee.input.Collect("up", "pm")}", "log", "blue");
+        if (!interactable) return;
+
+        if (eevee.input.Collect("down", "pm")) {index++; if (index > orderCommands().Count - 1) index = 0;updateDisplay();}
+        if (eevee.input.Collect("up", "pm")) {index--; if (index < 0) index = orderCommands().Count - 1;updateDisplay();}
+        if (eevee.input.Collect("interact", "pm")) {orderCommands()[index].action(this, "");}
+        if (eevee.input.Collect("back", "pm")) {findCommand("back", orderCommands()).action(this, "");}
+
+        if (eevee.input.Collect("special", "pm")) {
+            PM_Base command = findCommand(await getText(""), orderCommands());
+            if (command == null) return;
+            command.action(this, "");
         }
     }
 
     #region utils
+    // a util to load the current text
+    public void updateDisplay() {input.text = $"> {orderCommands()[index].name.localise()}";}
+
+    // a util to get a text input
+    public async Task<string> getText(string placeHolder) {
+        actualInput.transform.gameObject.SetActive(true);
+        actualInput.ActivateInputField();
+        actualInput.Select();
+        actualInput.placeholder.transform.GetComponent<TMP_Text>().text = placeHolder;
+
+        responded = "";
+        interactable = false;
+
+        while (responded == "") {await Task.Delay(50);}
+
+        actualInput.transform.gameObject.SetActive(false);
+        interactable = true;
+
+        return responded;
+    }
+
     // a util to assist with changing the pause state to turn the menu on and off 
     public void changePauseState(bool newVal) {
-        if (!newVal) {
-            input.ActivateInputField();
-            input.Select();
-        }
-
         GS.live.state.pause(newVal);
         if (newVal) {
             transform.GetChild(0).gameObject.SetActive(newVal);
@@ -58,10 +92,12 @@ public class pauseMenuController : MonoBehaviour {
         } else anim.Play("close");
     }
 
+    // a util to set the text response
+    public void setTextRep() {responded = actualInput.text;}
+
     // a util to run a "command"
     public void run(string command) {
         log(command);
-        input.text = ""; // clear the inputs text, why am i commenting ts
 
         string[] commandData = command.Split(" ");
         string inputString = ""; 
@@ -86,8 +122,6 @@ public class pauseMenuController : MonoBehaviour {
 
                 break;
         }
-
-        input.ActivateInputField();
     }
 
     // a util command to find and return the menu item if it exists
@@ -136,12 +170,24 @@ public class pauseMenuController : MonoBehaviour {
         logNewOptions(newItems);
 
         currentItems = newItems;
+
+        index = 0;
+        updateDisplay();
     }
 
     public void loadPrevMenu() {
+        if (previousItems.Count == 0) {
+            changePauseState(false);
+
+            return;
+        }
+
         currentItems = previousItems[previousItems.Count - 1];
         previousItems.RemoveAt(previousItems.Count - 1);
         logNewOptions(currentItems);
+
+        index = 0;
+        updateDisplay();
     }
 
     // a util to log options

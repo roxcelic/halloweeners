@@ -89,6 +89,13 @@ public class ControlInjector : MonoBehaviour {
                 CONTROLLER_name = new string[] {"B"}
             }
         },
+        {
+            "special", new eevee.config {
+                displayName = "special",
+                KEYBOARD_code = new int[] {(int)KeyCode.Space},
+                CONTROLLER_name = new string[] {"Y"}
+            }
+        },
 
         // camera
         {

@@ -207,8 +207,8 @@ public class AV_MenuController : MonoBehaviour {
         if (!selectedAnAttack || selectedAttack == null) return;
         if (open) {
             UG_weaponName.text = $"\"{selectedAttack.attackName} :: {selectedAttack.attackData.name} :: {selectedAttack.attackData.killCount}\"";
-            UG_weaponDamage.text = $"{T_damage.localise()}: {selectedAttack.attackData.damageModifier} :: {costOfUpgrade(selectedAttack.attackData.damageModifier, 1)}";
-            UG_weaponLifeSteal.text = $"{T_lifeSteal.localise()}: {selectedAttack.attackData.lifeStealModifer} :: {costOfUpgrade(selectedAttack.attackData.lifeStealModifer)}";
+            UG_weaponDamage.text = $"{T_damage.localise()}: {selectedAttack.attackData.damageModifier} :: {costOfUpgrade()}";
+            UG_weaponLifeSteal.text = $"{T_lifeSteal.localise()}: {selectedAttack.attackData.lifeStealModifer} :: {costOfUpgrade()}";
         }
 
         upgradeMenu.SetActive(open);
@@ -216,8 +216,8 @@ public class AV_MenuController : MonoBehaviour {
     
     /// <summery> a function to upgrade an attacks life steal </summery>
     public void upgradeLifeSteal() {
-        if (selectedAttack.attackData.killCount < costOfUpgrade(selectedAttack.attackData.lifeStealModifer)) return;
-        selectedAttack.attackData.killCount -= costOfUpgrade(selectedAttack.attackData.lifeStealModifer);
+        if (selectedAttack.attackData.killCount < costOfUpgrade()) return;
+        selectedAttack.attackData.killCount -= costOfUpgrade();
         selectedAttack.attackData.lifeStealModifer += upgradeAmount;
 
         save.saveData currentSave = save.getData.viewSave();
@@ -230,8 +230,8 @@ public class AV_MenuController : MonoBehaviour {
 
     /// <summery> a function to upgrade an attacks damage</summery>
     public void upgradeDamage() {
-        if (selectedAttack.attackData.killCount < costOfUpgrade(selectedAttack.attackData.damageModifier, 1)) return;
-        selectedAttack.attackData.killCount -= costOfUpgrade(selectedAttack.attackData.damageModifier, 1);
+        if (selectedAttack.attackData.killCount < costOfUpgrade()) return;
+        selectedAttack.attackData.killCount -= costOfUpgrade();
         selectedAttack.attackData.damageModifier += upgradeAmount;
 
         save.saveData currentSave = save.getData.viewSave();
@@ -243,8 +243,14 @@ public class AV_MenuController : MonoBehaviour {
     }
 
     /// <summery> a function to calculate the cost of an upgrade </summery>
-    public int costOfUpgrade(float current, int modifier = 0) {
-        return baseCost * (int)(((current - modifier) / upgradeAmount) * upgradeMultiplier);
+    public int costOfUpgrade() {
+        float lifeSteal = selectedAttack.attackData.lifeStealModifer;
+        float damage = selectedAttack.attackData.damageModifier - 1;
+
+        float totalUpgrades = (Mathf.Round(lifeSteal / upgradeAmount)) + (Mathf.Round(damage / upgradeAmount));
+
+        Debug.Log($"lifeSteal count: {Mathf.Round(lifeSteal / upgradeAmount)}, damage count: {Mathf.Round(damage / upgradeAmount)}, total upgrades: {totalUpgrades}");
+        return (int)(baseCost * (totalUpgrades * upgradeMultiplier + 1));
     }
 
     /// <summery> a general close menu button </summery>

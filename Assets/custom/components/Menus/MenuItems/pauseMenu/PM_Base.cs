@@ -17,6 +17,10 @@ public class PM_Base : ScriptableObject {
     public virtual void action(pauseMenuController PMC, string input = "") {
         PMC.loadMenu(children);
     }
+    
+    public virtual void newAction(IMP_controller IPMC) {
+        IPMC.log("hey");
+    }
 
     public virtual void onLoad(pauseMenuController PMC) {} // most will do nothing with this
 
