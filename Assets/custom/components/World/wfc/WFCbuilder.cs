@@ -75,6 +75,7 @@ public class WFCbuilder : MonoBehaviour {
             }
         }
 
+        player.completion = 100;
         Debug.Log("finished building the map");
         NV_Surface.BuildNavMesh();
     }
