@@ -119,6 +119,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &8089716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8089718}
+  - component: {fileID: 8089717}
+  m_Layer: 0
+  m_Name: line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &8089717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f8562db55184ea0a2b7bd944c4849e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startRoom: {fileID: 11400000, guid: 523d6c5e0c2fe68499c944ab85f00276, type: 2}
+  emptyRoom: {fileID: 11400000, guid: 065b3a7a5ac374d4eb807cac7ec74774, type: 2}
+  gridWidth: 50
+  gridHeight: 50
+  roomHeight: 10
+  roomWidth: 10
+  possibleRooms:
+  - {fileID: 11400000, guid: 38585ec687e35b34e87deebb232874fc, type: 2}
+  - {fileID: 11400000, guid: 474bc150cc4b59a48a92036e959c7fde, type: 2}
+  playerTag: Player
+  targetLayer: Ground
+  perfection: 0
+  NV_Surface: {fileID: 0}
+  map:
+    width: 0
+    height: 0
+    mapItems: []
+--- !u!4 &8089718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8896010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -500,6 +561,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405ff82b7ab4f164fb0ed56097cbb8f9, type: 3}
+--- !u!1 &1507913303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1507913305}
+  - component: {fileID: 1507913304}
+  m_Layer: 0
+  m_Name: wonkyLine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1507913304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507913303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f8562db55184ea0a2b7bd944c4849e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startRoom: {fileID: 11400000, guid: 523d6c5e0c2fe68499c944ab85f00276, type: 2}
+  emptyRoom: {fileID: 11400000, guid: 065b3a7a5ac374d4eb807cac7ec74774, type: 2}
+  gridWidth: 50
+  gridHeight: 50
+  roomHeight: 10
+  roomWidth: 10
+  possibleRooms:
+  - {fileID: 11400000, guid: a0136cf951a5cfd4a90eefb230cd6278, type: 2}
+  - {fileID: 11400000, guid: e60bd9a8534860b48ab528307b86ecad, type: 2}
+  - {fileID: 11400000, guid: c5f04f2dbba5b8e44829e88974636f6a, type: 2}
+  playerTag: Player
+  targetLayer: Ground
+  perfection: 0
+  NV_Surface: {fileID: 0}
+  map:
+    width: 0
+    height: 0
+    mapItems: []
+--- !u!4 &1507913305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507913303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1515650321
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1832601075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,6 +928,8 @@ SceneRoots:
   - {fileID: 1515650323}
   - {fileID: 1832601076}
   - {fileID: 1400655656}
+  - {fileID: 8089718}
+  - {fileID: 1507913305}
   - {fileID: 1805383663}
   - {fileID: 1358622158}
   - {fileID: 2077907888}
