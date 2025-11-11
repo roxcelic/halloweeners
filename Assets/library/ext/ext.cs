@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 using System;
 using System.Linq;
@@ -157,6 +158,14 @@ namespace ext {
             // throws InvalidCastException if types are incompatible
             return (T) retval;
         }
+    }
+    #endregion
+
+    #region UI
+    public static class ScrollRectExtensions {
+        // https://discussions.unity.com/t/scroll-to-the-bottom-of-a-scrollrect-in-code/572012
+        public static void ScrollToTop(this ScrollRect scrollRect) {scrollRect.normalizedPosition = new Vector2(0, 1);}
+        public static void ScrollToBottom(this ScrollRect scrollRect){scrollRect.normalizedPosition = new Vector2(0, 0);}
     }
     #endregion
 }

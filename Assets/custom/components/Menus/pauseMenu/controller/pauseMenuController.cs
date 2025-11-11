@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 using System;
 using System.Collections;
@@ -6,6 +7,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using TMPro;
+
+using ext;
 
 public class pauseMenuController : MonoBehaviour {
     [Header("items")]
@@ -19,6 +22,7 @@ public class pauseMenuController : MonoBehaviour {
     public TMP_Text input;
     public TMP_Text text;
     public Animator anim;
+    public ScrollRect SR;
 
     [Header("text")]
     public sys.Text newOptionsMessage = new sys.Text();
@@ -136,6 +140,7 @@ public class pauseMenuController : MonoBehaviour {
     // a util to log
     public void log(string content, string program = "user" ,string color = "red") {
         text.text += $"\n<color={color}> {program}> {content} </color>";
+        StartCoroutine(wait(() => {SR.ScrollToBottom();}, 0.001f));
     }
 
     // a util to get an ordered list of commands
@@ -201,5 +206,12 @@ public class pauseMenuController : MonoBehaviour {
         log("-----", "", "white");
     }
 
+    #endregion
+
+    #region coroutines
+    public IEnumerator wait(System.Action action, float Delay){
+        yield return new WaitForSecondsRealtime(Delay);
+        action();
+    }
     #endregion
 }
