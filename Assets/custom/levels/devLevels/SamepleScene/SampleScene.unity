@@ -148,7 +148,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalScale: {x: 10000, y: 1, z: 10000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2041191058}
@@ -518,7 +518,7 @@ PrefabInstance:
     - target: {fileID: 2458005352824361317, guid: 82fb737f7a9bb45698475973c474a614, type: 3}
       propertyPath: attack
       value: 
-      objectReference: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
+      objectReference: {fileID: 11400000, guid: a4d933ed4d3554746a28e5c6ab2a535e, type: 2}
     - target: {fileID: 2458005352824361317, guid: 82fb737f7a9bb45698475973c474a614, type: 3}
       propertyPath: destroyOnCollect
       value: 0

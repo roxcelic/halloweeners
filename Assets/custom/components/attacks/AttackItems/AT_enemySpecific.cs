@@ -4,18 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-/* 
-    Animations needed:
-        - attackDisplay
-            - idle
-            - attack
-        - crosshair
-            - idle
-        - enemy display
-            - idle
-            - attack
-*/
-
 [CreateAssetMenu(fileName = "new attack", menuName = "attacks/enemys/ricardo")]
 public class AT_enemySpecific : AT_base {
     [Header("enemyData")]
@@ -25,6 +13,7 @@ public class AT_enemySpecific : AT_base {
 
     public override void EN_attack(EN_base enemy) {
         if (canShoot) enemy.anim.Play(attackAnimationName);
+
         base.EN_attack(enemy);
     }
 }
