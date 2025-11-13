@@ -32,6 +32,7 @@ namespace ext {
 
             return newArray;
         }
+
     }
     #endregion
 
@@ -72,6 +73,23 @@ namespace ext {
         public static List<T> Slice<T>(this List<T> input, int startIndex, int endIndex) { 
             int elementCount = endIndex-startIndex + 1;
             return input.Skip(startIndex).Take(elementCount).ToList();
+        }
+
+        public static float FindClosestIndex(this List<float> input, float target) { 
+            float closest = 0;
+            float? difference = null;
+
+            foreach (float number in input) {
+                if (difference == null) {
+                    difference = Mathf.Abs(closest - number);
+                    closest = number;
+                } else if (Mathf.Abs(closest - number) < difference) {
+                    difference = Mathf.Abs(closest - number);
+                    closest = number;
+                }
+            }
+
+            return closest;
         }
     }
     #endregion

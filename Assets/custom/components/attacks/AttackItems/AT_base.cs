@@ -179,6 +179,7 @@ public class AT_base : ScriptableObject {
                         // sound
                         if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
                             attackData.killCount++;
+                            liveKills++;
                             character.heal((int)(1 * attackData.lifeStealModifer));
                         }
 

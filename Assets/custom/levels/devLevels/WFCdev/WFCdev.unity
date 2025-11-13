@@ -225,6 +225,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 2712057410427408981, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: ability
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d588920f42175749896f6460a1c5a4d, type: 2}
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.20764
@@ -268,6 +272,18 @@ PrefabInstance:
     - target: {fileID: 8665860417459436514, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: endless
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: waveDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: spawnDelay
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9167593144778967485, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: generateWaves
@@ -474,7 +490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1400655655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1832601075
 MonoBehaviour:
   m_ObjectHideFlags: 0

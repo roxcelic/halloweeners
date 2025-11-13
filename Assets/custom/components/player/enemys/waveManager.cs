@@ -54,6 +54,7 @@ public class waveManager : MonoBehaviour {
 
     [Header("override")]
     public bool generateWaves = true;
+    public bool endless = false;
 
     [Header("text")]
     public sys.Text spawningMessage = new sys.Text();
@@ -93,7 +94,7 @@ public class waveManager : MonoBehaviour {
         }
                 
         T_display.text = spawningMessage.localise();
-        for (int i = 0; i < (spawnAmount * Mathf.Round(spawnRate * wave)); i++) {
+        for (int i = 0; i < (endless ? Mathf.Infinity : spawnAmount * Mathf.Round(spawnRate * wave)); i++) {
             /*
                 This was a function but its better to just put it here
             */
@@ -140,6 +141,8 @@ public class waveManager : MonoBehaviour {
                 foreach (GameObject enm in currentEnemys) {
                     if (enm != null && !enm.transform.GetComponent<EN_base>().dead) {
                         newlist.Add(enm);
+                    } else if (endless && enm.transform.GetComponent<EN_base>().dead) {
+                        Destroy(enm.transform.gameObject);
                     }
                 }
 
@@ -148,7 +151,8 @@ public class waveManager : MonoBehaviour {
 
             yield return new WaitForSeconds(trackingUpdate);
 
-            if (!spawning) T_display.text = $"{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}";
+            if (endless) T_display.text = $"{currentEnemys.Count}";
+            else if (!spawning) T_display.text = $"{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}";
         }
     }
 

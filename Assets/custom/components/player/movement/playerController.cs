@@ -326,6 +326,7 @@ public class playerController : MonoBehaviour {
 
             if (health <= 0) Die();
             else {
+                ScreenEffect.Play("hit");
                 AS.clip = hurtsound;
                 AS.Play();
                 // transform.GetComponent<cameraTilt>().shake(25, 2);

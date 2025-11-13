@@ -11,8 +11,9 @@ public class AV_MenuStateController : MonoBehaviour {
     public sys.Text openText = new sys.Text();
 
     void Update() {
-        if (!interactAble || GS.live.state.paused || GS.live.state.helped) return;
         GameObject target = transform.GetChild(0).gameObject;
+        
+        if (!target.activeSelf && (!interactAble || GS.live.state.paused || GS.live.state.helped)) return;
         if (eevee.input.Collect("interact", "AVO")) {
             if (AV.inMenu) {
                 // AV.closeMenu();
