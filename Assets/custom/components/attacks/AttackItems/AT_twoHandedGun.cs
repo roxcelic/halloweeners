@@ -37,7 +37,7 @@ public class AT_twoHandedGun : AT_base {
         } // if the attack uses ammo and the user has no ammo, return
 
         // effects
-        character.Shot_effect.Play("flash");
+        character.ScreenEffect.Play("flash");
 
         if (useAmmo && (currentAmmo - useageAmmo <= 0)) {
             character.AttackDisplay.Play("attack");
@@ -67,7 +67,7 @@ public class AT_twoHandedGun : AT_base {
     public void shoot(playerController character) {
         if (projectile) {
             // effects
-            character.Shot_effect.Play("flash");
+            character.ScreenEffect.Play("flash");
 
             GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
             tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
@@ -88,6 +88,7 @@ public class AT_twoHandedGun : AT_base {
                     // sound
                     if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
                         attackData.killCount++;
+                        liveKills++;
                         character.heal((int)(1 * attackData.lifeStealModifer));
                     }
                 }

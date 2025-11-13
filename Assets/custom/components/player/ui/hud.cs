@@ -64,7 +64,7 @@ public class hud : MonoBehaviour {
     public IEnumerator CO_killCount() {
         while (true) {
             yield return 0;
-            killCountOutput.text = $"{player.attack.attackData.name} : {player.attack.attackData.killCount}";
+            killCountOutput.text = $"{player.attack.attackData.name} : {player.attack.attackData.killCount} : {player.attack.liveKills}";
         }
     }
 

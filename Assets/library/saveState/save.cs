@@ -29,6 +29,7 @@ namespace save {
 
         [Header("inventory")]
         public string currentAttack = "";
+        public string currentAbility = "";
         public attack.attackData currentAttackData = new attack.attackData();
         public List<AVdata.savedAttack> savedAttacks = new List<AVdata.savedAttack>();
 

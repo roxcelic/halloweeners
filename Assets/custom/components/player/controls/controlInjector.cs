@@ -46,8 +46,8 @@ public class ControlInjector : MonoBehaviour {
             }
         },
         {
-            "AttackBasic", new eevee.config {
-                displayName = "AttackBasic",
+            "Ability", new eevee.config {
+                displayName = "Ability",
                 KEYBOARD_code = new int[] {(int)KeyCode.Mouse1},
                 CONTROLLER_name = new string[] {"Left Trigger"}
             }

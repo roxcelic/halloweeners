@@ -14,6 +14,7 @@ public class GameState : ScriptableObject {
     public GameObject player;
 
     public List<attack.attackRegistration> registeredAttacks;
+    public List<ability.abilityRegistraction> registeredAbilities;
 
     public roomData.map map;
 
@@ -43,6 +44,12 @@ public class GameState : ScriptableObject {
 
     public AT_base getCurrentAttack(string name) {
         foreach (attack.attackRegistration attack in registeredAttacks) if (attack.name == name) return attack.attack;
+        
+        return null;
+    }
+
+    public AB_base getCurrentAbility(string name) {
+        foreach (ability.abilityRegistraction ability in registeredAbilities) if (ability.name == name) return ability.ability;
         
         return null;
     }

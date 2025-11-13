@@ -61,9 +61,12 @@ public class playerController : MonoBehaviour {
         public Transform groundCheck;
 
         // attack information
-        public Animator Shot_effect;
+        public Animator ScreenEffect;
         public Animator AttackDisplay;
         public Animator crosshairDisplay;
+
+        // ability
+        public Animator abilityCharge;
 
         public GameObject deathScreen;
 
@@ -75,6 +78,7 @@ public class playerController : MonoBehaviour {
 
         [Header("data -- custom")]
         public AT_base attack;
+        public AB_base ability;
 
         [Header("defaults")]
         public AT_base D_Attack;
@@ -116,16 +120,25 @@ public class playerController : MonoBehaviour {
             // get the saved data
             save.saveData currentSave = save.getData.viewSave();
             AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack);
+            AB_base savedAbility = GS.live.state.getCurrentAbility(currentSave.currentAbility);
 
             if (savedAttack != null) {
                 Debug.Log($"attack found and loaded: {currentSave.currentAttack}");
                 attack = savedAttack;
             }
 
+            if (savedAbility != null) {
+                Debug.Log($"ability found and loaded: {currentSave.currentAbility}");
+                ability = savedAbility;
+            }
+
             // load attack
             attack = Instantiate(attack); // clean perhaps a second time
             attack.load(this);
             attack.attackData = currentSave.currentAttackData; // carry over what it can cause its nice
+
+            // load ability
+            ability.start(this);
         }
     #endregion
 
@@ -134,6 +147,7 @@ public class playerController : MonoBehaviour {
         void Update() {
             // attack update
             if (attack != null) attack.update(this); 
+            if (ability != null) ability.update(this);
 
             if (health <= 0) return;
             if (!loaded) return;
@@ -165,14 +179,15 @@ public class playerController : MonoBehaviour {
             // camera rotation
                 HandleMouse();
                 if (eevee.input.Grab("Attack")) attack.attack(this);
-                if (eevee.input.Grab("AttackBasic")) {
-                    D_Attack.safeLoad(this);
-                    D_Attack.attack(this);
-                    attack.canShoot = false;
-                    StartCoroutine(waitForTime(() => {
-                        attack.safeLoad(this);
-                        attack.canShoot = true;
-                    }, D_Attack.shootDelay));
+                if (eevee.input.Grab("Ability", "PC")) {
+                    StartCoroutine(whileHeld(
+                        () => {},
+                        "Ability",
+                        false,
+                        false,
+                        () => {abilityCharge.Play("Charge");},
+                        () => {abilityCharge.Play("idle");Debug.Log("let go");}
+                    ));
                 }
 
                 // thoughts
@@ -241,6 +256,12 @@ public class playerController : MonoBehaviour {
             AttackDisplay.runtimeAnimatorController = D_AttackDisplay;
             crosshairDisplay.runtimeAnimatorController = D_crosshair;
             attack = D_Attack;
+        }
+
+        /// <summery> a util to allow an animation to ran the ability on the player </summery>
+        public void runAbility() {
+            ability.use(this);
+            abilityCharge.Play("idle");
         }
 
         /// <summery> allows the player to chain their main attack <summery>
@@ -367,9 +388,10 @@ public class playerController : MonoBehaviour {
         /// halfVerScale: bool
         ///     Half the verticle scale of the player while the button is held
         /// This is mostly used for the dash i beleive
-        public IEnumerator whileHeld(System.Action input, string key, bool halt = false, bool halfVerScale = false) {
+        public IEnumerator whileHeld(System.Action input, string key, bool halt = false, bool halfVerScale = false, System.Action before = null, System.Action after = null) {
             if (halfVerScale) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
             if (halt) CanMove = false;
+            if (before != null) before();
 
             while(eevee.input.Check(key)) {
                 input();
@@ -378,6 +400,7 @@ public class playerController : MonoBehaviour {
             
             if (halt) CanMove = true;
             if (halfVerScale) transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
+            if (after != null) after();
         }
 
         /// <summery> moves the player forwards constantly </summery>

@@ -20,7 +20,10 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
             if ((enemy = collision.transform.GetComponent<EN_base>()) != null) {
-                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) attributeKill.attackData.killCount++;
+                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) {
+                    attributeKill.attackData.killCount++;
+                    attributeKill.liveKills++;
+                }
 
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
 

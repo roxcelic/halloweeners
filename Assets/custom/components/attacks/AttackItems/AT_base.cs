@@ -50,6 +50,7 @@ public class AT_base : ScriptableObject {
         public float damage = 10f;
 
         [Header("save data")]
+        public int liveKills = 0;
         public attack.attackData attackData = new attack.attackData();
     #endregion
 
@@ -112,7 +113,7 @@ public class AT_base : ScriptableObject {
 
             if (projectile) {
                 // effects
-                character.Shot_effect.Play("flash");
+                character.ScreenEffect.Play("flash");
                 character.AttackDisplay.Play("attack");
 
                 GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
@@ -140,11 +141,12 @@ public class AT_base : ScriptableObject {
                     character.AS.Play();
 
                     if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
-                        character.Shot_effect.Play("flash");
+                        character.ScreenEffect.Play("flash");
 
                         // sound
                         if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
                             attackData.killCount++;
+                            liveKills++;
                             character.heal((int)(1 * attackData.lifeStealModifer));
                         }
                     }
