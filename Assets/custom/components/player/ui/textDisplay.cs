@@ -32,8 +32,6 @@ public class textDisplay : MonoBehaviour {
                 background.SetActive(true);
 
                 while (screen.text != textToDisplay[0].localise()) {
-                    Debug.Log($"screen.text: {screen.text.Length} target: {textToDisplay[0].localise().Length}, current: {screen.text}, goal: {textToDisplay[0].localise()}");
-                    Debug.Log($"next string: {textToDisplay[0].localise().Substring(0, screen.text.Length + 1)}");
                     
                     if (screen.text.Length == textToDisplay[0].localise().Length - 1) screen.text = textToDisplay[0].localise();
                     else screen.text = textToDisplay[0].localise().Substring(0, screen.text.Length + 1);
@@ -45,7 +43,6 @@ public class textDisplay : MonoBehaviour {
 
                 textToDisplay.RemoveAt(0);
 
-                yield return new WaitUntil(() => eevee.input.Collect("interact", "TD2"));
                 yield return new WaitForSeconds(0.15f);
 
                 while (screen.text.Length > 0) {

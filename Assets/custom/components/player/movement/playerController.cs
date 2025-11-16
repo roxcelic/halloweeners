@@ -31,6 +31,7 @@ public class playerController : MonoBehaviour {
 
             [Header("rotation")]
             public bool cameraY = false;
+            public Vector2 cameraClamp;
             [Range(0f, 15f)] public float RT_Modifier = 5f;
             new public Transform camera;
         
@@ -71,7 +72,6 @@ public class playerController : MonoBehaviour {
         public GameObject deathScreen;
 
         public TMP_Text thoughtDisplay;
-        public TMP_Text healthDisplay;
 
         // info display
         public hudDisplay hud;
@@ -123,12 +123,10 @@ public class playerController : MonoBehaviour {
             AB_base savedAbility = GS.live.state.getCurrentAbility(currentSave.currentAbility);
 
             if (savedAttack != null) {
-                Debug.Log($"attack found and loaded: {currentSave.currentAttack}");
                 attack = savedAttack;
             }
 
             if (savedAbility != null) {
-                Debug.Log($"ability found and loaded: {currentSave.currentAbility}");
                 ability = savedAbility;
             }
 
@@ -186,7 +184,7 @@ public class playerController : MonoBehaviour {
                         false,
                         false,
                         () => {abilityCharge.Play("Charge");},
-                        () => {abilityCharge.Play("idle");Debug.Log("let go");}
+                        () => {abilityCharge.Play("idle");}
                     ));
                 }
 
@@ -207,12 +205,16 @@ public class playerController : MonoBehaviour {
             
             // This is so fun and silly (unused)
             float mouseY = 0f;
-            if (cameraY) mouseY = Input.GetAxis("Mouse Y") * RT_Modifier;
+            if (cameraY) mouseY = Input.GetAxis("Mouse Y") * (RT_Modifier / 2);
 
             mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
 
             transform.Rotate(Vector3.up * mouseX);
-            if(cameraY) camera.Rotate((Vector3.right * -mouseY));
+            if(cameraY) {
+                camera.Rotate((Vector3.right * -mouseY));
+
+                camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, 45) : Mathf.Clamp(camera.localEulerAngles.x, 0, 45), camera.localEulerAngles.y, camera.localEulerAngles.z);
+            }
         }
 
         /// <summery> allows the player to add a set amount of velocity to the player </summery>
@@ -302,7 +304,12 @@ public class playerController : MonoBehaviour {
 
         /// <summery> a basic is grounded check </summery>
         public bool isGrounded(float multiplier = 1.1f, float distance = 0f) {
-            return Physics.Raycast(transform.position, -Vector2.up, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance);
+            if (Physics.Raycast(transform.position, -Vector2.up, out RaycastHit hit, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance)) {
+                if (hit.collider.gameObject.layer == 3) return true;
+                return false;
+            } else {
+                return false;
+            }
         }
 
         /// <summery> attack utility </summery>
@@ -318,7 +325,7 @@ public class playerController : MonoBehaviour {
     #region health
         /// <summery> DealDamage </summery>
         /// this would typically apply a single point of damage unless i wanted to do a silksong and be horribly evil
-        public void DealDamage(int damage = 1, Transform dealer = null, bool nockback = true) {
+        public void DealDamage(int damage = 1, Transform dealer = null, bool nockback = true, float nockbackForce = 1f) {
             damage = loaded ? damage : 0;
             
             health -= damage;
@@ -332,12 +339,9 @@ public class playerController : MonoBehaviour {
             }
 
             if (dealer != null && nockback) {
-                Vector3 force = sys.nockback.calculateNockback(transform.position, dealer.position, 400f);
-
-                rb.AddForce((dealer.forward * 400) + new Vector3(0, 20, 0));
+                addVel.AddForce(-(nockbackForce));
             }
 
-            healthDisplay.text = $"{health}/{maxHealth}";
             // if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
         }
 
@@ -347,7 +351,6 @@ public class playerController : MonoBehaviour {
             health += damage;
 
             health = Math.Clamp(health, 0, maxHealth);
-            healthDisplay.text = $"{health}/{maxHealth}";
         }
 
         /// <summery> die </summery>
@@ -413,7 +416,8 @@ public class playerController : MonoBehaviour {
             CanMove = false;
             addVel.update = false;
 
-            Vector3 slideForce = rb.linearVelocity + (transform.forward * 5);
+            Vector3 slideForce = rb.linearVelocity + (transform.forward * 5) + addVel.getVelocity(this);
+            addVel.vel = 0;
 
             while(eevee.input.Check("Slam") && isGrounded(1, 2f) && !eevee.input.Check("Jump")) {
 
@@ -461,19 +465,19 @@ public class playerController : MonoBehaviour {
             CanMove = false;
 
             Vector3 hldVel = rb.linearVelocity;
-            Debug.Log("reseting velocity");
             rb.linearVelocity = new Vector3();
 
             float outForce = 0f;
             while(!isGrounded()) {
-                outForce += 1f;
+                outForce = rb.linearVelocity.y;
                 rb.AddForce(-transform.up * jumpForce * 2f);
                 yield return new WaitForSeconds(0.1f);
             }
 
+            addVel.AddForce(Mathf.Abs(outForce));
+
             if (eevee.input.Check("Slam")) {
                 rb.linearVelocity = hldVel;
-                addVel.AddForce(outForce);
 
                 StartCoroutine(slide());
             } else CanMove = true;
@@ -538,7 +542,7 @@ namespace movement {
         }
 
         public Vector3 getVelocity(MonoBehaviour Mono) {return Mono.transform.forward * this.vel;}
-        public void AddForce(float force) {this.vel += Mathf.Clamp(force, -this.maxVel, this.maxVel);}
+        public void AddForce(float force) {this.vel += force;}
 
         public IEnumerator start(Rigidbody rb) {
             while (true) {

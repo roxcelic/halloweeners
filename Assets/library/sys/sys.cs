@@ -73,6 +73,11 @@ namespace sys {
         public static void applyFrameCap() {
             Application.targetFrameRate = 60;
         }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
+        public static void applyResolution() {
+            Screen.SetResolution(512 * 3, 256 * 3, true);
+        }
     }
 
     public class text {
@@ -85,19 +90,21 @@ namespace sys {
                 if ((word.Length - 1) > 5 && word.Substring(0, 5) == "!key:") {
                     string key = word.Substring(5, word.Length - 5);
                     Dictionary<string, eevee.config> FullConfig = eevee.inject.retrieve().FullConfig;
+
                     if (!FullConfig.ContainsKey(key)) selectedWords.Add(word);
+                    else {
+                        eevee.config selected_input = FullConfig[key];
 
-                    eevee.config selected_input = FullConfig[key];
+                        switch(eevee.conf.autoDetect()) {
+                            case eevee.inputCL.keyboard: 
+                                foreach (int keyCode in selected_input.KEYBOARD_code) selectedWords.Add(((KeyCode)keyCode).ToString());
 
-                    switch(eevee.conf.autoDetect()) {
-                        case eevee.inputCL.keyboard: 
-                            foreach (int keyCode in selected_input.KEYBOARD_code) selectedWords.Add(((KeyCode)keyCode).ToString());
+                                break;
+                            case eevee.inputCL.controller: 
+                                foreach (string buttonCode in selected_input.CONTROLLER_name) selectedWords.Add(buttonCode);
 
-                            break;
-                        case eevee.inputCL.controller: 
-                            foreach (string buttonCode in selected_input.CONTROLLER_name) selectedWords.Add(buttonCode);
-
-                            break;
+                                break;
+                        }
                     }
                 } else {
                     selectedWords.Add(word);

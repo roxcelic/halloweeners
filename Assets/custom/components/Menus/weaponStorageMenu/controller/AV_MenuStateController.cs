@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class AV_MenuStateController : MonoBehaviour {
+public class AV_MenuStateController : interactableMenu {
     [Header("components")]
-    public string playerTag = "Player";
-    public brain mainBrain;
-    public bool interactAble = false;
     public AV_MenuController AV;
 
-    [Header("data")]
-    public sys.Text openText = new sys.Text();
-
-    void Update() {
+    protected override void Update() {
         if (!interactAble || GS.live.state.paused || GS.live.state.helped) return;
         GameObject target = transform.GetChild(0).gameObject;
         if (eevee.input.Collect("interact", "AVO")) {

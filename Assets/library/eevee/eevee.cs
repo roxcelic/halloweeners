@@ -254,7 +254,8 @@ namespace eevee {
 
             File.WriteAllText(var.ConfPath, wrap(FullConfig));
         }
-
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static Dictionary<string, eevee.config> extractr() {
             if (File.Exists(var.ConfPath)) {
                 string json = File.ReadAllText(var.ConfPath);

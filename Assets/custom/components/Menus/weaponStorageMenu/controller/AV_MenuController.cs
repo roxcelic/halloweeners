@@ -52,6 +52,9 @@ public class AV_MenuController : MonoBehaviour {
     public TMP_Text UG_weaponDamage;
     public TMP_Text UG_weaponLifeSteal;
 
+    public GameObject weaponMenu;
+    public TMP_InputField weaponAddInput;
+
     [Header("config")]
     public Vector3 itemStartLocation;
     public Vector2 itemOffset;
@@ -178,7 +181,10 @@ public class AV_MenuController : MonoBehaviour {
 
     /// <summery> a function to open the attack name edit </summery>
     public void openName(bool open = true) {
-        if (upgradeMenu.activeSelf) return;
+        if (inMenu && open) {
+            openWeapon(false);
+            openUpgrade(false);
+        }
 
         inMenu = open;
         if (!selectedAnAttack || selectedAttack == null) return;
@@ -202,7 +208,11 @@ public class AV_MenuController : MonoBehaviour {
 
     /// <summery> a function to open the attakc upgrade </summery>
     public void openUpgrade(bool open = true) {
-        if (nameMenu.activeSelf) return;
+        if (inMenu && open) {
+            openWeapon(false);
+            openName(false);
+        }
+
         inMenu = open;
         if (!selectedAnAttack || selectedAttack == null) return;
         if (open) {
@@ -212,6 +222,28 @@ public class AV_MenuController : MonoBehaviour {
         }
 
         upgradeMenu.SetActive(open);
+    }
+
+    /// <summery> a function to open the weapon add menu </summery>
+    public void openWeapon(bool open = true) {
+        if (inMenu && open) {
+            openUpgrade(false);
+            openName(false);
+        }
+
+        inMenu = open;
+        weaponMenu.SetActive(open);
+    }
+
+    public void giveWeapon() {
+        AT_base selected = GS.live.state.getCurrentAttack(weaponAddInput.text);
+        if (selected == null) return;
+        
+        save.saveData currentSave = save.getData.viewSave();
+        currentSave.savedAttacks.Add(new AVdata.savedAttack(selected));
+        save.getData.save(currentSave);
+
+        loadPages();
     }
     
     /// <summery> a function to upgrade an attacks life steal </summery>
@@ -257,6 +289,7 @@ public class AV_MenuController : MonoBehaviour {
     public void closeMenu() {
         if (upgradeMenu.activeSelf) upgradeMenu.SetActive(false);
         else if (nameMenu.activeSelf) nameMenu.SetActive(false);
+        else if (nameMenu.activeSelf) weaponMenu.SetActive(false);
 
         inMenu = false;
     }

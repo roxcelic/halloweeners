@@ -73,6 +73,14 @@ namespace ext {
             int elementCount = endIndex-startIndex + 1;
             return input.Skip(startIndex).Take(elementCount).ToList();
         }
+
+        /// <summery> removes all null items </summery>
+        public static List<T> removeAllNull<T>(this List<T> input) {
+            List<T> newList = new List<T>();
+            foreach(T item in input) if (item != null) newList.Add(item);
+
+            return newList;
+        }
     }
     #endregion
 

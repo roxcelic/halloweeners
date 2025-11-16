@@ -12,6 +12,7 @@ public class AT_base : ScriptableObject {
         [Range(0f, 100f)] public float range = 25f;
         [Range(0f, 25f)] public float shootDelay = 1f;
         [Range(0f, 25f)] public float enemyShootDelay = 1f;
+        [Range(0f, 25f)] public float nockbackForce = 10f;
         public bool canShoot = true;
         public bool lifeSteal = false;
         
@@ -144,7 +145,7 @@ public class AT_base : ScriptableObject {
                         character.ScreenEffect.Play("flash");
 
                         // sound
-                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
+                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
                             attackData.killCount++;
                             liveKills++;
                             character.heal((int)(1 * attackData.lifeStealModifer));
@@ -177,7 +178,7 @@ public class AT_base : ScriptableObject {
 
                     if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                         // sound
-                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
+                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
                             attackData.killCount++;
                             character.heal((int)(1 * attackData.lifeStealModifer));
                         }
@@ -219,7 +220,7 @@ public class AT_base : ScriptableObject {
 
                     if ((player = hit.transform.GetComponent<playerController>()) != null) {
                         // sound
-                        player.DealDamage();
+                        player.DealDamage(1, enemy.transform, true, nockbackForce);
                     }   
                 }
 

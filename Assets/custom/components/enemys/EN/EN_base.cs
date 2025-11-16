@@ -20,28 +20,25 @@ public class EN_base : MonoBehaviour {
 
     public bool dead = false;
 
+    public movement.additionalVelocity addVel;
+
     [Header("sounds")]
     public AudioClip spawnSound;
     public AudioClip hurtsound;
     public AudioClip deathSound;
 
     [Header("data")]
-    [Range(0f, 100f)] public float moveSpeed;
 
     public string playerTag = "Player";
     public AT_base attack;
 
-    [Range(0, 5f)] public float pathCalculationDelay = 2.5f;
-
-    // movement
-    private bool canMove = true;
-    private UnityEngine.AI.NavMeshAgent NV_Agent; // should be in the components but oh wells
+    private NEN_base movement;
 
 
     /*
         Start, initialise pathFinding and such
     */
-    void Start() {
+    protected virtual void Start() {
         // sounds
         if (spawnSound != null) AudioSource.PlayClipAtPoint(spawnSound, transform.position);
 
@@ -49,10 +46,11 @@ public class EN_base : MonoBehaviour {
         brain = GetComponent<brain>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        NV_Agent = GetComponent<NavMeshAgent>();
+        movement = GetComponent<NEN_base>();
 
-        // load Nav Mesh data
-        NV_Agent.speed = moveSpeed;
+        // vel
+        addVel = new movement.additionalVelocity(0, 1);
+        StartCoroutine(addVel.start(rb));
 
         // grab player
         player = GameObject.FindGameObjectsWithTag(playerTag)[0];
@@ -69,33 +67,34 @@ public class EN_base : MonoBehaviour {
         currentHealth = maxHealth;
         brain.thought = $"{currentHealth}/{maxHealth}";
 
-        // start co routines
-        StartCoroutine(movement());
+        // start the movmenet
+        movement.begin();
     }
 
     /*
         Update, movement and what not
     */
-    void Update() {
+    protected virtual void Update() {
+        rb.AddForce(addVel.getVelocity(this));
         if (dead) return;
 
         // movement
         if (attack != null) {
             if (Vector3.Distance(transform.position, player.transform.position) > attack.range * 0.9) {
                 if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
-                canMove = true;
+                movement.canMove = true;
             } else {
                 attack.EN_attack(this);
-                canMove = false;
+                movement.canMove = false;
             }
         } else {
-            canMove = true;
+            movement.canMove = true;
         }
     }
 
     #region utils
     // DealDamage
-    public bool DealDamage(int damage, Transform dealer = null, bool nockback = true, float nockbackForce =  400f) {
+    public virtual bool DealDamage(int damage, Transform dealer = null, bool nockback = true, float nockbackForce = 1f) {
         if (dead) return false; // idk why i didnt do this originally
         bool killed = false;
 
@@ -111,34 +110,19 @@ public class EN_base : MonoBehaviour {
         else AudioSource.PlayClipAtPoint(hurtsound, transform.position);
 
         if (dealer != null && nockback) {
-            rb.AddForce((dealer.forward * nockbackForce) + new Vector3(0, 20, 0));
+            addVel.AddForce(-(nockbackForce));
         }
 
         return killed;
     }
 
     // die
-    public void Die() {
+    public virtual void Die() {
         dead = true;
         AudioSource.PlayClipAtPoint(deathSound, transform.position);
         if(!sr) Destroy(sr.transform.gameObject);
-        NV_Agent.enabled = false;
+        movement.NV_Agent.enabled = false;
         anim.Play("die");
     }
     #endregion
-
-    /*
-        CoRoutine to keep track of the player and if the player can move
-    */
-    public IEnumerator movement() {
-        while (true && !dead && NV_Agent.enabled) {
-            NV_Agent.SetDestination(canMove ? player.transform.position : transform.position);
-            
-            yield return new WaitForSeconds(pathCalculationDelay);
-
-            float passedTime = 0f;
-            bool cached = canMove;
-            while (passedTime < pathCalculationDelay && cached == canMove) passedTime += Time.deltaTime;
-        }
-    }
 }

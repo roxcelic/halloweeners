@@ -12,21 +12,19 @@ public class AB_base : ScriptableObject {
     /// <summery> the main functions </summery>
     #region Main    
         /// <summery> the start function, use to load values etc </summery>
-        public virtual void start(playerController character) {Debug.Log("loaded");}
+        public virtual void start(playerController character) {}
 
         /// <summery> code ran every frame </summery>
-        public virtual void update(playerController character) {Debug.Log("update");}
+        public virtual void update(playerController character) {}
 
         /// <summery> code ran on the end of the scene </summery>
-        public virtual void end(playerController character) {Debug.Log("ended");}
+        public virtual void end(playerController character) {}
         
         /// <summery> the main ability </summery>
         public virtual void use(playerController character) {
             // cost
             if (character.attack.liveKills < cost) return;
             character.attack.liveKills -= cost;
-
-            Debug.Log("used ability");
         }
     #endregion
 }

@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2498245959164097855}
   - component: {fileID: 4499840994402030930}
   - component: {fileID: 2386564101772615793}
+  - component: {fileID: 4462511940112209966}
   m_Layer: 6
   m_Name: ricardo
   m_TagString: Enemy
@@ -250,10 +251,8 @@ MonoBehaviour:
   spawnSound: {fileID: 8300000, guid: f81d1fe4b581647a3b010e2226370d66, type: 3}
   hurtsound: {fileID: 8300000, guid: a6a328eab0c6c432a9d524b3e0dab5d3, type: 3}
   deathSound: {fileID: 8300000, guid: 6d0f2f1d855004b0baf40b5a02b36843, type: 3}
-  moveSpeed: 20
   playerTag: Player
   attack: {fileID: 11400000, guid: 1c33d23c251fb4088b92e10db4270589, type: 2}
-  pathCalculationDelay: 0
 --- !u!114 &7107499883977365331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +284,7 @@ MonoBehaviour:
   lockX: 0
   lockY: 1
   lockZ: 0
+  on: 1
 --- !u!54 &2498245959164097855
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -356,3 +356,20 @@ NavMeshAgent:
   m_BaseOffset: 0.6
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4462511940112209966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950887697540959435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccc3805b87664536ad1cbd8227cd1ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 1
+  pathCalculationDelay: 2.5
+  moveSpeed: 15
+  self: {fileID: 0}
+  NV_Agent: {fileID: 0}

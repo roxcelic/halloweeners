@@ -15,6 +15,7 @@ MonoBehaviour:
   range: 10
   shootDelay: 0
   enemyShootDelay: 1
+  nockbackForce: 25
   canShoot: 1
   lifeSteal: 1
   pierce: 1
@@ -39,6 +40,7 @@ MonoBehaviour:
   maxAmmo: 1
   currentAmmo: 1
   damage: 100
+  liveKills: 0
   attackData:
     killCount: 0
     name: 

@@ -27,6 +27,8 @@ namespace save {
 
         public bool firstTimeInPauseMenu = false;
 
+        public string mainColor = "#c0000D";
+
         [Header("inventory")]
         public string currentAttack = "";
         public string currentAbility = "";
@@ -124,6 +126,33 @@ namespace save {
             }
 
             return new fullSave();
+        }
+    }
+
+    /*
+        a class to store sone siple utils
+    */
+    public static class utils {
+        // a function to get the current color
+        public static Color getColor() {
+            if (ColorUtility.TryParseHtmlString( getData.viewSave().mainColor, out Color myColor)) {
+                return myColor;
+            } else {
+                return Color.red;
+            }
+        }
+
+        public static string getHexColor() {
+            if (ColorUtility.TryParseHtmlString( getData.viewSave().mainColor, out Color myColor) && getData.viewSave().mainColor.Length == 7) {
+                return getData.viewSave().mainColor;
+            } else {
+                return "#c0000D";
+            }
+        }
+
+        // a function to get the dev status
+        public static bool getDev() {
+            return getData.viewSave().dev;
         }
     }
 }

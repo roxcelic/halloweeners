@@ -79,8 +79,8 @@ public class EN_Tracker : MonoBehaviour {
                 // organise trackers
                 Dictionary<float, string> enemys = new Dictionary<float, string>();
                 foreach (waveManagerTypes.enemyTracker enm in currentEnemys) {
-                    if (enemys.ContainsKey(enm.position)) enemys[enm.position] = $"<color=#ff0000{clacColor(enm.distance)}>{enemys[enm.position]}{T_activeCharacter}</color>";
-                    else enemys.Add(enm.position, $"<color=#ff0000{clacColor(enm.distance)}>{T_activeCharacter}</color>");
+                    if (enemys.ContainsKey(enm.position)) enemys[enm.position] = $"<color={save.utils.getHexColor()}{clacColor(enm.distance)}>{enemys[enm.position]}{T_activeCharacter}</color>";
+                    else enemys.Add(enm.position, $"<color={save.utils.getHexColor()}{clacColor(enm.distance)}>{T_activeCharacter}</color>");
                 }
 
                 // left
