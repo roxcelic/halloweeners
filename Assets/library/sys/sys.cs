@@ -7,6 +7,21 @@ using System.Collections.Generic;
 using ext;
 
 namespace sys {
+
+
+    /// <summery> test </sumery>
+    public class video {
+        private string name;
+        private int NumOfViews;
+        private float starRating;
+
+        public video(string videoName) {
+            name = videoName;
+            NumOfViews = 0;
+            starRating = 3;
+        }
+    }
+
     public static class programNames {
         public static sys.Text dev = new sys.Text();
         public static sys.Text system = new sys.Text();
