@@ -81,6 +81,24 @@ namespace ext {
 
             return newList;
         }
+
+        /// <summery> a function that does a thing </summery>
+        public static float FindClosestIndex(this List<float> input, float target) { 
+            float closest = 0;
+            float? difference = null;
+
+            foreach (float number in input) {
+                if (difference == null) {
+                    difference = Mathf.Abs(closest - number);
+                    closest = number;
+                } else if (Mathf.Abs(closest - number) < difference) {
+                    difference = Mathf.Abs(closest - number);
+                    closest = number;
+                }
+            }
+
+            return closest;
+        }
     }
     #endregion
 

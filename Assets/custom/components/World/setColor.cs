@@ -11,23 +11,12 @@ using ext;
 
 namespace colorManager {
     public static class data{
-        public static List<setColor> themedObjects = new List<setColor>();
         public static Color targetColor;
 
-        static data() {
-            targetColor = save.utils.getColor();
-        }
+        static data() {targetColor = save.utils.getColor();}
 
-
-        public static void forceColor(Color forcedColor) {
-            themedObjects = themedObjects.removeAllNull();
-            targetColor = forcedColor;
-        }
-
-        public static void freeColor() {
-            themedObjects = themedObjects.removeAllNull();
-            targetColor = save.utils.getColor();
-        }
+        public static void forceColor(Color forcedColor) {targetColor = forcedColor;}
+        public static void freeColor() {targetColor = save.utils.getColor();}
     }
 }
 
@@ -38,7 +27,8 @@ public class setColor : MonoBehaviour {
     public enum typeOfData {
         mat,
         image,
-        text
+        text,
+        baseMat
     }
 
     // comp
@@ -46,8 +36,6 @@ public class setColor : MonoBehaviour {
     private TMP_Text text;
 
     void Start(){
-        colorManager.data.themedObjects.Add(this);
-
         image = transform.GetComponent<Image>();
         text = transform.GetComponent<TMP_Text>();
     }
@@ -56,6 +44,9 @@ public class setColor : MonoBehaviour {
         switch (affect) {
             case typeOfData.mat:
                 M_worldMat.SetColor("_outlineColor", Color.Lerp(M_worldMat.GetColor("_outlineColor"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
+                break;
+            case typeOfData.baseMat:
+                M_worldMat.SetColor("_Color", Color.Lerp(M_worldMat.GetColor("_Color"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.image:
                 image.color = Color.Lerp(image.color, colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
@@ -67,13 +58,16 @@ public class setColor : MonoBehaviour {
     }
 
     void OnEnable() {
-        ChangeColor(save.utils.getColor());
+        ChangeColor(colorManager.data.targetColor);
     }
 
     public void ChangeColor(Color newColor) {
         switch (affect) {
             case typeOfData.mat:
                 M_worldMat.SetColor("_outlineColor", newColor);
+                break;
+            case typeOfData.baseMat:
+                M_worldMat.SetColor("_color", Color.Lerp(M_worldMat.GetColor("_color"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.image:
                 transform.GetComponent<Image>().color = newColor;
