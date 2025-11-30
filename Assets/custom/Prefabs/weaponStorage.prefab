@@ -345,7 +345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &53860243759698015
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +494,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!114 &1537430806453424822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,7 +772,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &343030109484134493
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,7 +932,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &833581507358084130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1256,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &1457948405658829414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,7 +1971,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &2110742844864111084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,7 +2353,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &2627814333213370614
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,7 +2596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &2880414807494266356
 GameObject:
   m_ObjectHideFlags: 0
@@ -3304,7 +3296,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &4128663353821085723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3816,7 +3807,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &4593990874943069833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3984,7 +3974,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &4601363944260946503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,7 +4363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4373571367415106177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4967,7 +4956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &5638988540202923380
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,7 +5050,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &5644879216968666064
 GameObject:
   m_ObjectHideFlags: 0
@@ -5657,7 +5644,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &6654661104580806617
 GameObject:
   m_ObjectHideFlags: 0
@@ -5753,7 +5739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &6775615672136119636
 GameObject:
   m_ObjectHideFlags: 0
@@ -6147,7 +6132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &7370060435801567570
 GameObject:
   m_ObjectHideFlags: 0
@@ -6645,7 +6629,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &7645489074566837775
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,7 +6777,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &7691354481124880418
 GameObject:
   m_ObjectHideFlags: 0
@@ -7321,7 +7303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &8240109939212280610
 GameObject:
   m_ObjectHideFlags: 0
@@ -7793,7 +7774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &8418686513995637057
 GameObject:
   m_ObjectHideFlags: 0
@@ -7888,7 +7868,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &8432118986375541561
 GameObject:
   m_ObjectHideFlags: 0
@@ -8037,7 +8016,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &8641017056779950235
 GameObject:
   m_ObjectHideFlags: 0
@@ -8837,7 +8815,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &9133096619175954781
 GameObject:
   m_ObjectHideFlags: 0
@@ -8986,7 +8963,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   M_worldMat: {fileID: 0}
   affect: 1
-  forceColor: 0
 --- !u!1 &9194898457208482290
 GameObject:
   m_ObjectHideFlags: 0

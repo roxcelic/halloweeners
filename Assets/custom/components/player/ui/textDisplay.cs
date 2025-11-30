@@ -38,18 +38,18 @@ public class textDisplay : MonoBehaviour {
                     
                     if (eevee.input.Collect("interact", "TD1")) screen.text = textToDisplay[0].localise();
 
-                    yield return new WaitForSeconds(keyDelay);
+                    yield return new WaitForSecondsRealtime(keyDelay);
                 }
 
                 textToDisplay.RemoveAt(0);
 
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSecondsRealtime(0.15f);
 
                 while (screen.text.Length > 0) {
                     screen.text = screen.text.Substring(0, screen.text.Length - 1);
                     if (eevee.input.Collect("interact", "TD1")) screen.text = "";
 
-                    yield return new WaitForSeconds(keyDelay);
+                    yield return new WaitForSecondsRealtime(keyDelay);
                 }
             }
             
