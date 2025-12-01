@@ -44,8 +44,11 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _blend: 0.12
+    - _smoothness: 2.18
     m_Colors:
-    - _mainColor: {r: 1, g: 0.23687866, b: 0, a: 1}
+    - _mainColor: {r: 1, g: 0, b: 0.18564272, a: 1}
+    - _tiling: {r: 100, g: 100, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &1242093506950715798
