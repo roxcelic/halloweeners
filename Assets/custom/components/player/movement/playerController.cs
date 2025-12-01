@@ -44,6 +44,7 @@ public class playerController : MonoBehaviour {
         [Header("slide")]
         public float slideDecay;
         public float stopSpeed;
+        public float maxForceForSlideAddition = 40;
 
         [Header("dash")]
         public bool canDash = true;
@@ -88,6 +89,7 @@ public class playerController : MonoBehaviour {
         [Header("stats")]
         public int maxHealth;
         public int health;
+        public int charge;
 
         [Header("sounds")]
         public AudioClip hurtsound;
@@ -447,14 +449,20 @@ public class playerController : MonoBehaviour {
 
                 yield return 0.1f;
             }
-            
+
             addVel.update = true;
             CanMove = true;
 
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
-        
+
+            rb.linearVelocity = slideForce;
+
             if (eevee.input.Grab("Jump")) {
-                addVel.AddForce(5);
+                if (slideForce.magnitude > maxForceForSlideAddition) {
+                    addVel.AddForce(5 + slideForce.magnitude - 10);
+                } else {
+                    addVel.AddForce(slideForce.magnitude - 10);
+                }
                 jump();
             }
         }

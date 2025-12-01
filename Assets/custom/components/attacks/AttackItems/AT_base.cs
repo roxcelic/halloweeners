@@ -51,7 +51,6 @@ public class AT_base : ScriptableObject {
         public float damage = 10f;
 
         [Header("save data")]
-        public int liveKills = 0;
         public attack.attackData attackData = new attack.attackData();
     #endregion
 
@@ -119,7 +118,7 @@ public class AT_base : ScriptableObject {
 
                 GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
                 tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
-                tmpObj.transform.GetComponent<damageOnHit>().attributeKill = this;
+                tmpObj.transform.GetComponent<damageOnHit>().attributeKill = character;
             
                 character.StartCoroutine(fireCondition(shootDelay));
                 if (useAmmo) currentAmmo -= useageAmmo;
@@ -147,7 +146,7 @@ public class AT_base : ScriptableObject {
                         // sound
                         if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
                             attackData.killCount++;
-                            liveKills++;
+                            character.charge++;
                             character.heal((int)(1 * attackData.lifeStealModifer));
                         }
                     }

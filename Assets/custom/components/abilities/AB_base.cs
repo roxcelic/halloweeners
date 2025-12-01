@@ -23,8 +23,8 @@ public class AB_base : ScriptableObject {
         /// <summery> the main ability </summery>
         public virtual void use(playerController character) {
             // cost
-            if (character.attack.liveKills < cost) return;
-            character.attack.liveKills -= cost;
+            if (character.charge < cost) return;
+            character.charge -= cost;
         }
     #endregion
 }

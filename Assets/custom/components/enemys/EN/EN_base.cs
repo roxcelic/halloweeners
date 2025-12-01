@@ -59,7 +59,7 @@ public class EN_base : MonoBehaviour {
         if (attack != null) {
             attack = Instantiate(attack);
             attack.enemyLoad(this);
-            sr.sprite = attack.sprite;
+            if (sr != null) sr.sprite = attack.sprite;
         }
 
         // set health
@@ -68,7 +68,7 @@ public class EN_base : MonoBehaviour {
         brain.thought = $"{currentHealth}/{maxHealth}";
 
         // start the movmenet
-        movement.begin();
+        if (movement != null) movement.begin();
     }
 
     /*
@@ -79,16 +79,18 @@ public class EN_base : MonoBehaviour {
         if (dead) return;
 
         // movement
-        if (attack != null) {
-            if (Vector3.Distance(transform.position, player.transform.position) > attack.range * 0.9) {
-                if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
-                movement.canMove = true;
+        if (movement != null) {
+            if (attack != null) {
+                if (Vector3.Distance(transform.position, player.transform.position) > attack.range * 0.9) {
+                    if (anim.GetCurrentAnimatorClipInfo(0).Length > 0 && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
+                    movement.canMove = true;
+                } else {
+                    attack.EN_attack(this);
+                    movement.canMove = false;
+                }
             } else {
-                attack.EN_attack(this);
-                movement.canMove = false;
+                movement.canMove = true;
             }
-        } else {
-            movement.canMove = true;
         }
     }
 
@@ -107,7 +109,7 @@ public class EN_base : MonoBehaviour {
             killed = true;
         }
         
-        else AudioSource.PlayClipAtPoint(hurtsound, transform.position);
+        else if (hurtsound != null) AudioSource.PlayClipAtPoint(hurtsound, transform.position);
 
         if (dealer != null && nockback) {
             addVel.AddForce(-(nockbackForce));
@@ -119,9 +121,9 @@ public class EN_base : MonoBehaviour {
     // die
     public virtual void Die() {
         dead = true;
-        AudioSource.PlayClipAtPoint(deathSound, transform.position);
-        if(!sr) Destroy(sr.transform.gameObject);
-        movement.NV_Agent.enabled = false;
+        if (deathSound != null) AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        if(sr != null) Destroy(sr.transform.gameObject);
+        if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = false;
         anim.Play("die");
     }
     #endregion

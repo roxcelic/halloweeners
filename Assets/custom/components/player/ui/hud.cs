@@ -39,7 +39,7 @@ public class hud : MonoBehaviour {
     public IEnumerator CO_trackWeapon() {
         while (true) {
             yield return 0;
-            weaponOutput.text = $"{player.attack.displayName.localise()} : {player.attack.attackData.name} : {player.attack.attackData.killCount} : charge {player.attack.liveKills}";
+            weaponOutput.text = $"{player.attack.displayName.localise()} : {player.attack.attackData.name} : {player.attack.attackData.killCount} : charge {player.charge}";
         }
     }
 

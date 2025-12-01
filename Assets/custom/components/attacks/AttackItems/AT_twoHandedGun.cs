@@ -71,7 +71,7 @@ public class AT_twoHandedGun : AT_base {
 
             GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
             tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
-            tmpObj.transform.GetComponent<damageOnHit>().attributeKill = this;
+            tmpObj.transform.GetComponent<damageOnHit>().attributeKill = character;
         
             character.StartCoroutine(fireCondition(shootDelay));
         } else {
@@ -88,7 +88,7 @@ public class AT_twoHandedGun : AT_base {
                     // sound
                     if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
                         attackData.killCount++;
-                        liveKills++;
+                        character.charge++;
                         character.heal((int)(1 * attackData.lifeStealModifer));
                     }
                 }
