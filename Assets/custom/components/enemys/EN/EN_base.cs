@@ -125,6 +125,8 @@ public class EN_base : MonoBehaviour {
         if(sr != null) Destroy(sr.transform.gameObject);
         if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = false;
         anim.Play("die");
+
+        Instantiate(Resources.Load<GameObject>("effects/explode"), transform.position, Quaternion.identity);
     }
     #endregion
 }

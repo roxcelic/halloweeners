@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
+using ext;
+
 // [RequireComponent(typeof(Rigidbody))]
 public class playerController : MonoBehaviour {
     /// <summery> variables </summery>
@@ -29,11 +31,14 @@ public class playerController : MonoBehaviour {
 
             public string targetLayer = "Ground";
 
+            private Vector3 lastSafePos;
+
             [Header("rotation")]
             public bool cameraY = false;
             public Vector2 cameraClamp;
             [Range(0f, 15f)] public float RT_Modifier = 5f;
             new public Transform camera;
+
         
         [Header("Jump")]
         [Range(0, 400f)] public float jumpForce;
@@ -108,7 +113,7 @@ public class playerController : MonoBehaviour {
             AS = GetComponent<AudioSource>();
 
             // velocity
-            addVel = new movement.additionalVelocity(0, updateSpeed);
+            addVel = new movement.additionalVelocity(0, updateSpeed, true);
             StartCoroutine(addVel.start(rb));
 
             // curser
@@ -307,7 +312,14 @@ public class playerController : MonoBehaviour {
         /// <summery> a basic is grounded check </summery>
         public bool isGrounded(float multiplier = 1.1f, float distance = 0f) {
             if (Physics.Raycast(transform.position, -Vector2.up, out RaycastHit hit, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance)) {
-                if (hit.collider.gameObject.layer == 3) return true;
+                if (hit.collider.gameObject.layer == 3) {
+                    if (hit.collider.gameObject.transform.GetComponent<damageOnHit>() == null) {
+                        lastSafePos = new Vector3(hit.collider.bounds.center.x, hit.point.y, hit.collider.bounds.center.z);
+                        Debug.Log(lastSafePos);
+                    }
+
+                    return true;
+                }
                 return false;
             } else {
                 return false;
@@ -369,6 +381,21 @@ public class playerController : MonoBehaviour {
                 }));
             }
         }
+
+        /// <summery> reset pos </summery>
+        /// A nice little function to add the glitch effect to the screen and move the player back to where they where last safe
+        public void resetToSaftey() {
+            ScreenEffect.Play("glitch");
+            transform.position = lastSafePos;
+            CanMove = false;
+
+            StartCoroutine(waitForTime(() => {
+                transform.position = lastSafePos;
+                rb.linearVelocity = new Vector3();
+                addVel.vel = 0;
+                CanMove = true;
+            }, 0.1f));
+        }
     #endregion
 
     /// <summery> coroutines </summery>
@@ -418,10 +445,10 @@ public class playerController : MonoBehaviour {
             CanMove = false;
             addVel.update = false;
 
-            Vector3 slideForce = rb.linearVelocity + (transform.forward * 5) + addVel.getVelocity(this);
+            Vector3 slideForce = rb.linearVelocity + addVel.getVelocity(this);
             addVel.vel = 0;
 
-            while(eevee.input.Check("Slam") && isGrounded(1, 2f) && !eevee.input.Check("Jump")) {
+            while(eevee.input.Check("Slam") && isGrounded(1, 2f) && (!eevee.input.Check("Jump") || jumpCount <= 0)) {
 
                 rb.linearVelocity = slideForce;
 
@@ -447,7 +474,7 @@ public class playerController : MonoBehaviour {
 
                 slideForce = new Vector3(slideForce.x, 0, slideForce.z);
 
-                yield return 0.1f;
+                yield return 0;
             }
 
             addVel.update = true;
@@ -455,14 +482,11 @@ public class playerController : MonoBehaviour {
 
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
 
-            rb.linearVelocity = slideForce;
+            addVel.AddForce(Mathf.Clamp(slideForce.magnitude - 10, 0, Mathf.Infinity));
 
-            if (eevee.input.Grab("Jump")) {
-                if (slideForce.magnitude > maxForceForSlideAddition) {
-                    addVel.AddForce(5 + slideForce.magnitude - 10);
-                } else {
-                    addVel.AddForce(slideForce.magnitude - 10);
-                }
+            if (eevee.input.Grab("Jump") && jumpCount > 0) {
+                if (slideForce.magnitude > maxForceForSlideAddition) addVel.AddForce(5);
+
                 jump();
             }
         }
@@ -476,19 +500,24 @@ public class playerController : MonoBehaviour {
             rb.linearVelocity = new Vector3();
 
             float outForce = 0f;
-            while(!isGrounded()) {
+            while(!isGrounded() && (!eevee.input.Check("Jump") || jumpCount <= 0)) {
                 outForce = rb.linearVelocity.y;
                 rb.AddForce(-transform.up * jumpForce * 2f);
                 yield return new WaitForSeconds(0.1f);
             }
 
-            addVel.AddForce(Mathf.Abs(outForce));
+            if (eevee.input.Check("Jump")) {
+                jump();
+                CanMove = true;
+            } else {
+                addVel.AddForce(Mathf.Abs(outForce));
 
-            if (eevee.input.Check("Slam")) {
-                rb.linearVelocity = hldVel;
+                if (eevee.input.Check("Slam")) {
+                    rb.linearVelocity = hldVel;
 
-                StartCoroutine(slide());
-            } else CanMove = true;
+                    StartCoroutine(slide());
+                } else CanMove = true;
+            }
         }
 
         /// <summery> similar to slide, yet this freezes the player in air and stops time <summery>
@@ -543,19 +572,30 @@ namespace movement {
         public float maxVel = 25f;
         public float updateSpeed = 1f;
         public bool update = true;
+        public bool player = false;
 
-        public additionalVelocity(float startVel = 0, float startSpeed = 1 ) {
+        public additionalVelocity(float startVel = 0, float startSpeed = 1, bool player = false ) {
             this.vel = startVel;
             this.updateSpeed = startSpeed;
+            this.player = player;
         }
 
-        public Vector3 getVelocity(MonoBehaviour Mono) {return Mono.transform.forward * this.vel;}
+        public Vector3 getVelocity(MonoBehaviour Mono) {return (Mono.transform.forward * this.vel).Clamp(-maxVel, maxVel);}
         public void AddForce(float force) {this.vel += force;}
 
         public IEnumerator start(Rigidbody rb) {
             while (true) {
                 while (this.update) {
-                    this.vel = Mathf.Lerp(vel, 0, Time.deltaTime * (rb.linearVelocity.magnitude > 10 ? this.updateSpeed : this.updateSpeed * 10));
+                    bool isPlayerMoving = !player || (
+                        eevee.input.Check("left") ||
+                        eevee.input.Check("right") ||
+                        eevee.input.Check("down") ||
+                        eevee.input.Check("up")
+                    );
+
+                    float mod = this.updateSpeed * (isPlayerMoving ? 1 : 10);
+
+                    this.vel = Mathf.Lerp(vel, 0, Time.deltaTime * mod);
 
                     yield return 0;
                 }

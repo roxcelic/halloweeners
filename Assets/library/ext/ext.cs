@@ -60,6 +60,14 @@ namespace ext {
                 Mathf.Round(vector3.y * multiplier) / multiplier,
                 Mathf.Round(vector3.z * multiplier) / multiplier);
 	    }
+
+        public static Vector3 Clamp(this Vector3 vector3, float clampMin, float clampMax) {
+            return new Vector3(
+                Mathf.Clamp(vector3.x, clampMin, clampMax),
+                Mathf.Clamp(vector3.y, clampMin, clampMax),
+                Mathf.Clamp(vector3.z, clampMin, clampMax)
+            );
+	    }
     }
     #endregion
 

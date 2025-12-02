@@ -3,6 +3,7 @@ using UnityEngine;
 public class damageOnHit : MonoBehaviour {
     public bool destroyOnHit = true;
     public bool destroyOnContact = false;
+    public bool resetPlayerToSaftey = false;
     public playerController attributeKill = null;
 
     public attackType type = attackType.both;
@@ -36,9 +37,12 @@ public class damageOnHit : MonoBehaviour {
             playerController player = null;
             if ((player = collision.transform.GetComponent<playerController>()) != null) {
                 player.DealDamage(damage == 0 ? 0 : 1, transform);
-                player.rb.AddForce(sys.nockback.calculateNockback(transform.position, player.transform.position) * nockbackForce);
+                
+                if (resetPlayerToSaftey) player.resetToSaftey();
+                else player.rb.AddForce(sys.nockback.calculateNockback(transform.position, player.transform.position) * nockbackForce);
 
                 if (destroyOnHit) Destroy(transform.gameObject);
+
             }
         }
 
