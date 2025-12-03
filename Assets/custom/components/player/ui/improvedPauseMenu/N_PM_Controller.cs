@@ -23,18 +23,20 @@ public class pauseMenuController : MonoBehaviour {
     public TMP_Text LogDisplay;
     public ScrollRect LogDisplaySR;
 
-    // [Header("text")]
-    // public sys.Text newOptionsMessage = new sys.Text();
-    // public sys.Text introMessage = new sys.Text();
+    [Header("config")]
+    public float textHeight = 15f; // this is for the offset when selecting options
+    public int ignorance = 5;
 
     // data
     [Header("data")]
     public bool interactable = true;
     public string responded = "";
     private int selectedIndex = 0;
+    private float textboxStartHeight;
 
     #region main
     void Start() {
+        textboxStartHeight = MainDisplay.transform.position.y;
         currentItems = baseCommands;
         displayText();
     }
@@ -49,13 +51,14 @@ public class pauseMenuController : MonoBehaviour {
 
         if (!interactable) return;
 
-        if (eevee.input.Collect("down", "pm")) {selectedIndex++; if (selectedIndex > currentItems.Count - 1) selectedIndex = 0;}
-        if (eevee.input.Collect("up", "pm")) {selectedIndex--; if (selectedIndex < 0) selectedIndex = currentItems.Count - 1;}
+        if (eevee.input.Collect("down", "pm")) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;}
+        if (eevee.input.Collect("up", "pm")) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;}
     
-        if (eevee.input.Collect("interact", "pm")) {currentItems[selectedIndex].action(this, "");}
+        if (eevee.input.Collect("interact", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
 
         displayText();
+        alignTextBox();
     }
 
     void FixedUpdate() {}
@@ -78,9 +81,22 @@ public class pauseMenuController : MonoBehaviour {
     /// <summery> displays the text </summery>
     public string displayText() {
         string result = "";
-        for (int i = 0; i < currentItems.Count; i++) result += $"{(selectedIndex == i ? ">" : "")} {currentItems[i].name.localise()} \n";
+        
+        for (int i = 0; i < getPirvlagedOptions().Count; i++) {
+            result += $"{(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} \n";
+        }
+
         MainDisplay.text = result;
         return result;
+    }
+
+    /// <summery> get the list of options the user has privlage to </summery>
+    public List<PM_Base> getPirvlagedOptions() {
+        List<PM_Base> finalList = new List<PM_Base>();
+
+        foreach (PM_Base item in currentItems) if (!item.dev || save.getData.isDev()) finalList.Add(item);
+
+        return finalList;
     }
 
     /// <summery> select a new menu </summery>
@@ -124,6 +140,9 @@ public class pauseMenuController : MonoBehaviour {
 
     /// <summery> allows an input to be given </summery>
     public void setTextRep() {responded = actualInput.text;}
+
+    /// <summery> aligns the text box correctly </summery>
+    private void alignTextBox() {MainDisplay.transform.position = Vector3.Lerp(MainDisplay.transform.position, new Vector3(MainDisplay.transform.position.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight + textboxStartHeight, MainDisplay.transform.position.z), Time.fixedDeltaTime * 5);}
 
     #endregion
 

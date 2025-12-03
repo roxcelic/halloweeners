@@ -46,7 +46,7 @@ public class setColor : MonoBehaviour {
                 M_worldMat.SetColor("_outlineColor", Color.Lerp(M_worldMat.GetColor("_outlineColor"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.baseMat:
-                M_worldMat.SetColor("_Color", Color.Lerp(M_worldMat.GetColor("_Color"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
+                M_worldMat.SetColor("_color", Color.Lerp(M_worldMat.GetColor("_color"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.image:
                 image.color = Color.Lerp(image.color, colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
