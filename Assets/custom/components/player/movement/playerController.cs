@@ -315,7 +315,6 @@ public class playerController : MonoBehaviour {
                 if (hit.collider.gameObject.layer == 3) {
                     if (hit.collider.gameObject.transform.GetComponent<damageOnHit>() == null) {
                         lastSafePos = new Vector3(hit.collider.bounds.center.x, hit.point.y, hit.collider.bounds.center.z);
-                        Debug.Log(lastSafePos);
                     }
 
                     return true;
@@ -484,9 +483,7 @@ public class playerController : MonoBehaviour {
 
             addVel.AddForce(Mathf.Clamp(slideForce.magnitude - 10, 0, Mathf.Infinity));
 
-            if (eevee.input.Grab("Jump") && jumpCount > 0) {
-                if (slideForce.magnitude > maxForceForSlideAddition) addVel.AddForce(5);
-
+            if (eevee.input.Check("Jump") && jumpCount > 0) {
                 jump();
             }
         }
