@@ -20,6 +20,7 @@ public class pauseMenuController : MonoBehaviour {
     [Header("comp")]
     public TMP_InputField actualInput;
     public TMP_Text MainDisplay;
+    private RectTransform MainDisplayRect;
     public TMP_Text LogDisplay;
     public ScrollRect LogDisplaySR;
 
@@ -32,13 +33,12 @@ public class pauseMenuController : MonoBehaviour {
     public bool interactable = true;
     public string responded = "";
     private int selectedIndex = 0;
-    private float textboxStartHeight;
 
     #region main
     void Start() {
-        textboxStartHeight = MainDisplay.transform.position.y;
         currentItems = baseCommands;
         displayText();
+        MainDisplayRect = MainDisplay.transform.GetComponent<RectTransform>();
     }
     
     void Update() {
@@ -51,13 +51,12 @@ public class pauseMenuController : MonoBehaviour {
 
         if (!interactable) return;
 
-        if (eevee.input.Collect("down", "pm")) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;}
-        if (eevee.input.Collect("up", "pm")) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;}
+        if (eevee.input.Collect("down", "pm")) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
+        if (eevee.input.Collect("up", "pm")) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
     
-        if (eevee.input.Collect("interact", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");}
+        if (eevee.input.Collect("interact", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
 
-        displayText();
         alignTextBox();
     }
 
@@ -83,6 +82,7 @@ public class pauseMenuController : MonoBehaviour {
         string result = "";
         
         for (int i = 0; i < getPirvlagedOptions().Count; i++) {
+            getPirvlagedOptions()[i].onLoad(this);
             result += $"{(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} \n";
         }
 
@@ -105,6 +105,7 @@ public class pauseMenuController : MonoBehaviour {
         if(!hide) previousItems.Add(currentItems);
         currentItems = newItems;
         selectedIndex = 0;
+        displayText();
     }
 
     /// <summery> load the previous menu </summery>
@@ -118,6 +119,7 @@ public class pauseMenuController : MonoBehaviour {
         previousItems.RemoveAt(previousItems.Count - 1);
 
         selectedIndex = 0;
+        displayText();
     }
 
     /// <summery> gets a user input </summery>
@@ -142,7 +144,7 @@ public class pauseMenuController : MonoBehaviour {
     public void setTextRep() {responded = actualInput.text;}
 
     /// <summery> aligns the text box correctly </summery>
-    private void alignTextBox() {MainDisplay.transform.position = Vector3.Lerp(MainDisplay.transform.position, new Vector3(MainDisplay.transform.position.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight + textboxStartHeight, MainDisplay.transform.position.z), Time.fixedDeltaTime * 5);}
+    private void alignTextBox() {MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);}
 
     #endregion
 

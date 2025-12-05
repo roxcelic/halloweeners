@@ -24,10 +24,10 @@ public class AB_timeTravel : AB_base {
         public override void update(playerController character) {
             if (Time.timeScale == 0) return;
 
-            TimeDevice.Add(Time.time, new AB_timeTravel_space.spaceTracking(character.transform.localPosition, character.health));
+            TimeDevice.Add(Time.time, new AB_timeTravel_space.spaceTracking(character.transform.position, character.health));
             Dictionary<float, AB_timeTravel_space.spaceTracking> tmp = new Dictionary<float, AB_timeTravel_space.spaceTracking>(TimeDevice);
 
-            foreach (float key in tmp.Keys) if (key < Time.time - distance) TimeDevice.Remove(key);
+            foreach (float key in tmp.Keys) if (key < Time.time - (distance + 1)) TimeDevice.Remove(key);
         }
 
         /// <summery> code ran on the end of the scene </summery>
@@ -45,11 +45,11 @@ public class AB_timeTravel : AB_base {
 
             character.ScreenEffect.Play("glitch");
 
-            character.transform.localPosition = TimeDevice[selectedTime].pos;
+            character.transform.position = TimeDevice[selectedTime].pos;
             if (character.health < TimeDevice[selectedTime].health) character.health = TimeDevice[selectedTime].health;
             character.charge -= (int)mod;
 
-            Debug.Log(TimeDevice[selectedTime]);
+            Debug.Log($"match {TimeDevice[selectedTime].pos == character.transform.position} \n target pos was {TimeDevice[selectedTime].pos}, resulted position is {character.transform.position}");
 
             TimeDevice = new Dictionary<float, AB_timeTravel_space.spaceTracking>(); // reset
         }

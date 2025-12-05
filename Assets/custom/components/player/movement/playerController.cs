@@ -43,6 +43,7 @@ public class playerController : MonoBehaviour {
         [Header("Jump")]
         [Range(0, 400f)] public float jumpForce;
         public bool canResetJump = true;
+        public bool canJump = true;
         public int jumpCount = 1;
         public int maxJumpCount = 1;
 
@@ -227,12 +228,19 @@ public class playerController : MonoBehaviour {
         /// <summery> allows the player to add a set amount of velocity to the player </summery>
         /// it also clears the players Y velocity 
         void jump() {
-            if (jumpCount <= 0) return; // if cant jump then dont
+            if (jumpCount <= 0 || !canJump) return; // if cant jump then dont
 
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             rb.AddForce(transform.up * jumpForce);
             jumpCount--;
+
             StartCoroutine(allowNextJump());
+            
+            canJump = false;
+            StartCoroutine(waitForTime(
+                () => {canJump = true;},
+                0.25f
+            ));
         }
 
         /// <summery> This function basically checks if the player can dash and then starts the `dasher` coroutine </summery>

@@ -97,10 +97,10 @@ namespace ext {
 
             foreach (float number in input) {
                 if (difference == null) {
-                    difference = Mathf.Abs(closest - number);
+                    difference = Mathf.Abs(target - number);
                     closest = number;
-                } else if (Mathf.Abs(closest - number) < difference) {
-                    difference = Mathf.Abs(closest - number);
+                } else if (Mathf.Abs(target - number) < difference) {
+                    difference = Mathf.Abs(target - number);
                     closest = number;
                 }
             }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: timeTravel
   m_EditorClassIdentifier: 
   cost: 5
-  distance: 5
+  distance: 2
