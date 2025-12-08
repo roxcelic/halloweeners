@@ -167,11 +167,11 @@ public class AT_base : ScriptableObject {
 
                 int count = 0;
                 foreach (RaycastHit hit in hits) { 
-                    if (hit.collider.gameObject.layer == wallLayerIndex) break;
-                    if (count >= pierce && !infinatePierce) break;
-
                     cols.Add(hit.collider);
                     count++;
+
+                    if (hit.collider.gameObject.layer == wallLayerIndex) break;
+                    if (count >= pierce && !infinatePierce) break;
                 }
 
                 return cols;
@@ -218,6 +218,8 @@ public class AT_base : ScriptableObject {
                         character.heal((int)(1 * attackData.lifeStealModifer));
                     }
 
+                } else if (hit.transform.gameObject.tag == AT_fortniteBuild.fortniteTag) {
+                    Destroy(hit.transform.gameObject);
                 }
             }
 

@@ -21,7 +21,7 @@ public class NEN_base : MonoBehaviour {
         self = transform.GetComponent<EN_base>();
         NV_Agent = transform.GetComponent<NavMeshAgent>();
 
-        NV_Agent.speed = moveSpeed;
+        if(NV_Agent != null) NV_Agent.speed = moveSpeed;
     }
 
     public virtual void begin() {

@@ -53,6 +53,6 @@ Material:
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.19359972, g: 0.5849053, b: 0.063456714, a: 0.9999997}
-    - _color: {r: 0.11020583, g: 0.5849059, b: 8.3e-44, a: 0.9999997}
+    - _color: {r: 0.11020583, g: 0.58490443, b: 8.3e-44, a: 0.9999997}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

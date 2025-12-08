@@ -70,8 +70,8 @@ public class EN_base : MonoBehaviour {
         Update, movement and what not
     */
     protected virtual void Update() {
-        rb.AddForce(addVel.getVelocity(this));
         if (dead) return;
+        rb.AddForce(addVel.getVelocity(this));
 
         // movement
         if (movement != null) {

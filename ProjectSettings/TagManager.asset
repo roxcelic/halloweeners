@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Ramp
+  - Fortnite
   layers:
   - Default
   - TransparentFX

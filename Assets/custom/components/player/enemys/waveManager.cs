@@ -101,7 +101,6 @@ public class waveManager : MonoBehaviour {
             Vector3 chosenLocation = new Vector3();
 
             while (!checkPosition(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius)))) {
-                Debug.Log($"position: {chosenLocation} failed the check trying again...");
                 yield return new WaitForSeconds(1f);
             }
 

@@ -12,6 +12,12 @@ public class AT_fortniteBuild : AT_base {
     public GameObject ui = null;
     [Range(0, 10)] public int gridSize = 10;
     private string selected;
+    private Vector3 pointerOffset;
+    private Vector3 rotOffset;
+    private Vector3 rot;
+
+    [Header("globals")]
+    public static string fortniteTag = "Fortnite";
 
     public override void load(playerController character, bool reload = true) {
         character.AttackDisplay.runtimeAnimatorController = AC;
@@ -39,12 +45,18 @@ public class AT_fortniteBuild : AT_base {
             distance.z > 0 ? pos.z.roundToNearestCeil(gridSize) : pos.z.roundToNearest(gridSize)
         );
         
-        pointer.transform.position = pos;
+        if (pointer == null) changeActive("1");
+        pointer.transform.position = pos + pointerOffset;
+        Vector3 tmpRot = rot + rotOffset;
+        pointer.transform.rotation = Quaternion.Euler(tmpRot.x, tmpRot.y, tmpRot.z);
 
         if (Input.GetKeyDown("z")) {changeActive("1");}
         if (Input.GetKeyDown("x")) {changeActive("2");}
         if (Input.GetKeyDown("c")) {changeActive("3");}
         if (Input.GetKeyDown("v")) {changeActive("4");}
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f) {rot += new Vector3(0, 90, 0);}
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) {rot -= new Vector3(0, 90, 0);}
     } 
 
     public override void attack(playerController character) {
@@ -58,8 +70,12 @@ public class AT_fortniteBuild : AT_base {
         );
 
         GameObject block = Instantiate(Resources.Load<GameObject>($"weapons/dev/fortnite/{selected}"));
-        block.transform.position = pos;
+        block.transform.position += pos;
+
+        Vector3 tmpRot = rot + rotOffset;
+        block.transform.rotation = Quaternion.Euler(tmpRot.x, tmpRot.y, tmpRot.z);
         block.layer = 3;
+        block.tag = fortniteTag;
     }
 
 
@@ -68,6 +84,8 @@ public class AT_fortniteBuild : AT_base {
         selected = newActive;
         if(pointer != null) Destroy(pointer);
         pointer = Instantiate(Resources.Load<GameObject>($"weapons/dev/fortnite/{newActive}"));
+        pointerOffset = pointer.transform.position;
+        rotOffset = pointer.transform.rotation.eulerAngles;
         pointer.transform.GetComponent<Collider>().isTrigger = true;
         ui.transform.GetComponent<Animator>().Play(newActive);
     }
