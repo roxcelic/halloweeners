@@ -9,6 +9,7 @@ namespace GS {
         static live () {
             GS.live.state = Resources.Load<GameState>("GameState");
         }
+        
         static public GameState state = null;
     }
 }

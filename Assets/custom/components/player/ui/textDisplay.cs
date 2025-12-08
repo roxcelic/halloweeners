@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using TMPro;
 
 public class textDisplay : MonoBehaviour {
+    public static textDisplay instance;
+
     [Header("components")]
     public TMP_Text screen;
     public TMP_Text continueMessage;
@@ -19,7 +21,7 @@ public class textDisplay : MonoBehaviour {
     public List<sys.Text> textToDisplay = new List<sys.Text>();
     public sys.Text continueText = new sys.Text();
 
-    void Start() {StartCoroutine(type());}
+    void Start() {StartCoroutine(type());instance = this;}
     public void addText(List<sys.Text> textToAdd) {foreach (sys.Text item in textToAdd)textToDisplay.Add(item);}
 
     public IEnumerator type() {

@@ -344,6 +344,7 @@ public class AV_MenuController : MonoBehaviour {
 
         AT_base cachedAttack = player.attack;
 
+        Debug.Log(selectedAttack.attackName);
         AT_base loadedAttack = Instantiate(GS.live.state.getCurrentAttack(selectedAttack.attackName));
         loadedAttack.attackData = selectedAttack.attackData;
 

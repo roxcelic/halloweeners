@@ -12,7 +12,6 @@ public class EN_base : MonoBehaviour {
     public Animator anim;
     public Animator AttackDisplay;
     public SpriteRenderer sr;
-    public GameObject player;
 
     [Header("heath")]
     public int maxHealth = 100;
@@ -29,7 +28,6 @@ public class EN_base : MonoBehaviour {
 
     [Header("data")]
 
-    public string playerTag = "Player";
     public AT_base attack;
 
     private NEN_base movement;
@@ -51,9 +49,6 @@ public class EN_base : MonoBehaviour {
         // vel
         addVel = new movement.additionalVelocity(0, 1);
         StartCoroutine(addVel.start(rb));
-
-        // grab player
-        player = GameObject.FindGameObjectsWithTag(playerTag)[0];
 
         // load my attack
         if (attack != null) {
@@ -81,7 +76,7 @@ public class EN_base : MonoBehaviour {
         // movement
         if (movement != null) {
             if (attack != null) {
-                if (Vector3.Distance(transform.position, player.transform.position) > attack.range * 0.9) {
+                if (Vector3.Distance(transform.position, playerController.mainPlayer.transform.position) > attack.range * 0.9) {
                     if (anim.GetCurrentAnimatorClipInfo(0).Length > 0 && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
                     movement.canMove = true;
                 } else {

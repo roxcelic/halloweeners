@@ -11,6 +11,8 @@ using TMPro;
 using ext;
 
 public class pauseMenuController : MonoBehaviour {
+    public static pauseMenuController instance;
+
     [Header("items")]
     public List<PM_Base> baseCommands;
 
@@ -36,6 +38,7 @@ public class pauseMenuController : MonoBehaviour {
 
     #region main
     void Start() {
+        instance = this;
         currentItems = baseCommands;
         displayText();
         MainDisplayRect = MainDisplay.transform.GetComponent<RectTransform>();

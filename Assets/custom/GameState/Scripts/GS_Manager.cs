@@ -1,7 +1,6 @@
 using UnityEngine;
 
 public class GS_Manager : MonoBehaviour {
-    public GameState GameS;
     public GameObject player;
 
     void Start() {
@@ -10,5 +9,9 @@ public class GS_Manager : MonoBehaviour {
         GS.live.state.menued = false;
         GS.live.state.loaded = false;
         GS.live.state.player = player;
+
+        // time stuff
+        GS.live.state.gameSpeed = 1f;
+        Time.timeScale = GS.live.state.gameSpeed;
     }
 }

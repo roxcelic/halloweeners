@@ -35,7 +35,7 @@ public class NEN_base : MonoBehaviour {
     public virtual IEnumerator movement() {
         Debug.Log("starting");
         while (true && !self.dead && NV_Agent.enabled) {
-            NV_Agent.SetDestination(canMove ? self.player.transform.position : transform.position);
+            NV_Agent.SetDestination(canMove ? playerController.mainPlayer.transform.position : transform.position);
             
             yield return new WaitForSeconds(pathCalculationDelay);
 

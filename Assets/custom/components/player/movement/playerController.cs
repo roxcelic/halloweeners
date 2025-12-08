@@ -11,6 +11,7 @@ using ext;
 public class playerController : MonoBehaviour {
     /// <summery> variables </summery>
     #region variables
+        public static playerController mainPlayer;
         
         [Header("data")]
         // im not sure what this is
@@ -35,7 +36,7 @@ public class playerController : MonoBehaviour {
 
             [Header("rotation")]
             public bool cameraY = false;
-            public Vector2 cameraClamp;
+            public float cameraClamp = 40f;
             [Range(0f, 15f)] public float RT_Modifier = 5f;
             new public Transform camera;
 
@@ -46,6 +47,11 @@ public class playerController : MonoBehaviour {
         public bool canJump = true;
         public int jumpCount = 1;
         public int maxJumpCount = 1;
+
+        [Header("slope handeling")]
+        public float maxSlopAngle = 40f;
+        public string rampTag = "ramp";
+        private RaycastHit slopeHit;
 
         [Header("slide")]
         public float slideDecay;
@@ -108,6 +114,9 @@ public class playerController : MonoBehaviour {
     /// <summery> basic start </summery>
     #region Start
         void Start() {
+            // set the player refrence globally
+            mainPlayer = this;
+            
             // get the components
             rb = GetComponent<Rigidbody>();
             col = GetComponent<Collider>();
@@ -162,9 +171,19 @@ public class playerController : MonoBehaviour {
             if (CanMove) {
                 // movement
                     // get the desired force
-                    Vector3 targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
-                    targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
-                    targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z) + addVel.getVelocity(this);
+                    Vector3 targetVelocity = new Vector3();
+
+                    if (onSlope(2f)) {
+                        targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down");
+                        targetVelocity += transform.right * eevee.input.CheckAxis("right", "left");
+                        targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z) + addVel.getVelocity(this);
+
+                        targetVelocity = getSlopeModeDirection(targetVelocity) * moveSpeed;
+                    } else {
+                        targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down") * moveSpeed;
+                        targetVelocity += transform.right * eevee.input.CheckAxis("right", "left") * moveSpeed;
+                        targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z) + addVel.getVelocity(this);
+                    }
 
                     if (SmoothMovement && Control){ // apply it naturally
                         rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
@@ -221,7 +240,7 @@ public class playerController : MonoBehaviour {
             if(cameraY) {
                 camera.Rotate((Vector3.right * -mouseY));
 
-                camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, 45) : Mathf.Clamp(camera.localEulerAngles.x, 0, 45), camera.localEulerAngles.y, camera.localEulerAngles.z);
+                camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, cameraClamp) : Mathf.Clamp(camera.localEulerAngles.x, 0, cameraClamp), camera.localEulerAngles.y, camera.localEulerAngles.z);
             }
         }
 
@@ -262,6 +281,23 @@ public class playerController : MonoBehaviour {
             }
 
             StartCoroutine(dasher(transform.position + new Vector3(dashForce.x, 0, dashForce.z)));
+        }
+
+        /// <summery> a check to see if the player is on a slop </summery>
+        public bool onSlope(float multiplier = 1.1f, float distance = 0f) {
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance)) {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+
+                if (slopeHit.collider.gameObject.tag == rampTag) return false;
+                return angle < maxSlopAngle && angle != 0;
+            }
+
+            return false;
+        }
+
+        /// <summery> find force direction on slope </summery>
+        private Vector3 getSlopeModeDirection(Vector3 moveDirection) {
+            return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
         }
     #endregion
 
@@ -539,7 +575,7 @@ public class playerController : MonoBehaviour {
                 yield return 0;
             }
 
-            Time.timeScale = 1f;
+            Time.timeScale = GS.live.state.gameSpeed;
             CanMove = true;
 
             addVel.AddForce(outDashForce);

@@ -11,6 +11,8 @@ public class GameState : ScriptableObject {
     public bool menued = false;
     public bool loaded = false;
 
+    public float gameSpeed = 1f;
+
     public GameObject player;
 
     public List<attack.attackRegistration> registeredAttacks;
@@ -19,7 +21,7 @@ public class GameState : ScriptableObject {
     public roomData.map map;
 
     public void pause(bool pauseSet) {
-        Time.timeScale = pauseSet ? 0 : 1;
+        Time.timeScale = pauseSet ? 0 : gameSpeed;
         paused = pauseSet;
 
         Cursor.lockState = (pauseSet ? CursorLockMode.None : CursorLockMode.Locked);
@@ -27,7 +29,7 @@ public class GameState : ScriptableObject {
     }
 
     public void help(bool helpSet) {
-        Time.timeScale = helpSet ? 0 : 1;
+        Time.timeScale = helpSet ? 0 : gameSpeed;
         helped = helpSet;
 
         Cursor.lockState = (helpSet ? CursorLockMode.None : CursorLockMode.Locked);
@@ -35,7 +37,7 @@ public class GameState : ScriptableObject {
     }
 
     public void menu(bool menuSet) {
-        Time.timeScale = menuSet ? 0 : 1;
+        Time.timeScale = menuSet ? 0 : gameSpeed;
         menued = menuSet;
 
         Cursor.lockState = (menuSet ? CursorLockMode.None : CursorLockMode.Locked);

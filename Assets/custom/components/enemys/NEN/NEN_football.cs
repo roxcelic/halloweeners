@@ -16,7 +16,7 @@ public class NEN_football : NEN_base {
 
     public IEnumerator pathFinding() {
         while (true) {
-            List<Vector3> path = grid.findPath(transform, self.player.transform);
+            List<Vector3> path = grid.findPath(transform, playerController.mainPlayer.transform);
             
             if (path.Count > 0){
                 transform.position = path[Math.Clamp(2, 0, path.Count - 1)];

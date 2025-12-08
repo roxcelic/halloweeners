@@ -9,5 +9,6 @@ public class PM_copyDir : PM_Base {
 
     public override void action(pauseMenuController PMC, string input = "") {
         GUIUtility.systemCopyBuffer = Application.persistentDataPath;
+        PMC.log($"coppied path: {Application.persistentDataPath} to clipboard");
     }
 }

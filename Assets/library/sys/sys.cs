@@ -25,11 +25,22 @@ namespace sys {
         }
     }
 
+    public class utils {
+        public static void log(string input) {
+            Debug.Log(input);
+            pauseMenuController.instance.log(input);
+        }
+
+        public static void displayOnPlayer(sys.Text input) {
+            textDisplay.instance.textToDisplay.Add(input);
+        }
+    }
+
     
     [System.Serializable]
     public class Text {
         public string overrideName = "";
-        public textobject text;
+        public textobject text = null;
 
         public string localise() {
             if (this.overrideName != "") return this.overrideName;
@@ -57,6 +68,11 @@ namespace sys {
             }
 
             return sys.text.displayKeyButton(string.Join(" ", selectedWords));
+        }
+
+        public Text(string name = "", textobject text = null) {
+            this.overrideName = name;
+            if (text != null) this.text = text;
         }
     }
 

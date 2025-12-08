@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bb8cfca5aa6e640b98417b8a58bfce, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  paused: 0
+  paused: 1
   helped: 0
   menued: 0
   loaded: 1
+  gameSpeed: 1
   player: {fileID: 0}
   registeredAttacks:
   - name: dev
@@ -30,6 +31,9 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}
   - name: grapple
     attack: {fileID: 11400000, guid: a4d933ed4d3554746a28e5c6ab2a535e, type: 2}
+  - name: fortnite
+    attack: {fileID: 11400000, guid: 21dda5d86b2b64ee9a8a9e297e5b4c81, type: 2}
+  registeredAbilities: []
   map:
     width: 50
     height: 50

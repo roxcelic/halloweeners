@@ -17,7 +17,7 @@ public class AT_grapple : AT_base {
         
         public string targetTag = "enemy";
     
-    public override void load(playerController character) {
+    public override void load(playerController character, bool reload = true) {
         oldPlayerSpeed = character.moveSpeed;
         character.moveSpeed = newPlayerSpeed;
 

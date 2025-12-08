@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "new attack", menuName = "attacks/base")]
 public class AT_base : ScriptableObject {
-    /// <summery> variables </summery>
+        /// <summery> variables </summery>
     #region variables
         [Header("basic values")]
         [Range(0f, 100f)] public float range = 25f;
@@ -54,41 +54,23 @@ public class AT_base : ScriptableObject {
         public attack.attackData attackData = new attack.attackData();
     #endregion
 
-    /// <summery> an update which runs once per frame </summery>
-    /// similar to a mono-behaviour
-    ///     MonoBehaviour.update => update
-    ///     MonoBehaviour.onEnabled => safeLoad
-    ///     MonoBehaviour.Start => load
-    ///     MonoBehaviour.onDisable => unLoad
-    #region update
-        public virtual void update(playerController character) {
-            // do nothing
-        }
-    #endregion
+    // basics
+    #region basics
+        public virtual void update(playerController character) {}
+        public virtual void unLoad(playerController character) {}
 
-    /// <summery> load </summery>
-    /// the functions to load data into either the player or enemy
-    #region load
-        /// <summery> main load </summery>
-        /// adds the animatiors to the player character
-        public virtual void load(playerController character) {
+        public virtual void load(playerController character, bool reload = true) {
             // animators
             character.AttackDisplay.runtimeAnimatorController = AC;
             character.crosshairDisplay.runtimeAnimatorController = crosshair;
 
             // data
             canShoot = true;
-            currentAmmo = maxAmmo;
+            if (reload) currentAmmo = maxAmmo;
         }
 
-        /// <summery> adds the animators to the player but doesnt reset something like the ammo, preventing free reloads </summery>
-        public virtual void safeLoad(playerController character) {
-            character.AttackDisplay.runtimeAnimatorController = AC;
-            character.crosshairDisplay.runtimeAnimatorController = crosshair;
-            canShoot = true;
-        }
-
-        /// <summery> loads the animations into the enemy </summery>
+        public virtual void safeLoad(playerController character) {load(character, false);}
+        
         public virtual void enemyLoad(EN_base enemy) {
             // animators
             if (enemyDis) enemy.AttackDisplay.runtimeAnimatorController = enemyDisplay;
@@ -97,16 +79,11 @@ public class AT_base : ScriptableObject {
             canShoot = true;
             currentAmmo = maxAmmo;
         }
-
-        /// <summery> this function is used to do something like reset the players stats</summery>
-        public virtual void unLoad(playerController character) {
-            // do nothing
-        }
     #endregion
 
-    /// <summery> attacks </summery>
+    // attack
     #region attack
-        /// <summery> a fairly long function, this will run the actual attack code to find what youre aiming at and such </summery>
+
         public virtual void attack(playerController character) {
             if (!canShoot) return; // if the attack cannot be used return
             if (useAmmo && (currentAmmo - useageAmmo) < 0) return; // if the attack uses ammo and the user has no ammo, return
@@ -116,85 +93,21 @@ public class AT_base : ScriptableObject {
                 character.ScreenEffect.Play("flash");
                 character.AttackDisplay.Play("attack");
 
-                GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
-                tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
-                tmpObj.transform.GetComponent<damageOnHit>().attributeKill = character;
-            
-                character.StartCoroutine(fireCondition(shootDelay));
-                if (useAmmo) currentAmmo -= useageAmmo;
-                character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
+                projectileHit(character);
             } else {
                 // effects
                 character.AttackDisplay.Play("attack");
 
                 // if the attack is run in the animation break here
                 if (attackWithAnimation) return;
-                
-                // attack itself
-                List<Collider> hits = runHit(character.transform);
-            
-                // do something with the attack
-                foreach (Collider hit in hits) {
-                    EN_base enemey = null;
-
-                    character.AS.clip = SF_fire;
-                    character.AS.Play();
-
-                    if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
-                        character.ScreenEffect.Play("flash");
-
-                        // sound
-                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
-                            attackData.killCount++;
-                            character.charge++;
-                            character.heal((int)(1 * attackData.lifeStealModifer));
-                        }
-                    }
-                }
-
-                // shoot delay
-                character.StartCoroutine(fireCondition(shootDelay));
-
-                // lower ammo
-                if (useAmmo) currentAmmo -= useageAmmo;
-                character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
+                hit(character);
             }
         }
-        
-        /// <summery> an "extra attack" this is used to run an attack if the attack is ran via an animation </summery>
+
         public virtual void extraAttack(playerController character) {
-                // pickup where the other attack left off
-
-                // attack itself
-                List<Collider> hits = runHit(character.transform);
-            
-                // do something with the attack
-                foreach (Collider hit in hits) {
-                    EN_base enemey = null;
-
-                    character.AS.clip = SF_fire;
-                    character.AS.Play();
-
-                    if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
-                        // sound
-                        if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
-                            attackData.killCount++;
-                            character.heal((int)(1 * attackData.lifeStealModifer));
-                        }
-
-                    }
-                }
-
-                // shoot delay
-                character.StartCoroutine(fireCondition(shootDelay));
-
-                // lower ammo
-                if (useAmmo) currentAmmo -= useageAmmo;
-                character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
+            hit(character);
         }
 
-        /// <summery> this attack should do the same as the players attack but for any enemy holding a weapon </summery>
-        ///     if this weapon is player specific then you dont have to have this
         public virtual void EN_attack(EN_base enemy) {
             if (!canShoot) return; // if the attack cannot be used return
             if (useAmmo && (currentAmmo - useageAmmo) < -1) return; // if the attack uses ammo and the user has no ammo, return
@@ -232,7 +145,7 @@ public class AT_base : ScriptableObject {
         }
     #endregion
 
-    /// <summery> co-routines </summery>
+    // co-routines
     #region co-routines
         /// <summery> by default this is just a wait after firing but this can be modified to be something like standing still <summery>
         public virtual IEnumerator fireCondition(float delay) {
@@ -242,13 +155,11 @@ public class AT_base : ScriptableObject {
         }
     #endregion
 
-    /// <summery> basic utilities for this and subclasses </summery>
-    #region utils
-        /// <summery> this is the function i use to get what the player is aiming at </summery>
-        /// update this to use a boxcast at some point [o]
-        public List<Collider> runHit(Transform character, float offset = 0) {
+    // utils
+    #region  utils
+        public List<Collider> runHit(Transform character, float offset = 0, playerController PC = null) {
             Vector3 targetDirection = Vector3.forward + new Vector3(offset, 0, 0);
-            RaycastHit[] hits = Physics.RaycastAll(character.position, character.TransformDirection(targetDirection), range);
+            RaycastHit[] hits = PC == null ? Physics.RaycastAll(character.transform.position, character.TransformDirection(targetDirection), range) : Physics.RaycastAll(character.transform.position, PC.camera.TransformDirection(targetDirection), range);
 
             if (hits.Length > 0) { 
                 List<Collider> cols = new List<Collider>();
@@ -269,13 +180,63 @@ public class AT_base : ScriptableObject {
             return new List<Collider>();
         }
 
-    #endregion
+        public Vector3 getAimedLocation(Transform character, playerController PC = null) {
+            Vector3 targetDirection = Vector3.forward;
+            RaycastHit hit;
+            Ray r;
 
-    /// <summery> basic developer utils </summery>
-    #region dev
-        /// <summery> reloads the weapon </summery>
-        public void reload() {
-            currentAmmo = maxAmmo;
+            if (PC == null) {
+                r = new Ray(character.transform.position, character.TransformDirection(targetDirection));
+                if (Physics.Raycast(character.transform.position, character.TransformDirection(targetDirection), out hit, range, LayerMask.GetMask("Ground"))) {
+                    return hit.point;
+                }
+            } else {
+                r = new Ray(character.transform.position, PC.camera.TransformDirection(targetDirection));
+                if (Physics.Raycast(character.transform.position, PC.camera.TransformDirection(targetDirection), out hit, range, LayerMask.GetMask("Ground"))) {
+                    return hit.point;
+                }
+            }
+
+            return r.GetPoint(range);
+        }
+
+        public void hit(playerController character) {
+            // attack itself
+            List<Collider> hits = runHit(character.transform, 0, character);
+        
+            // do something with the attack
+            foreach (Collider hit in hits) {
+                EN_base enemey = null;
+
+                character.AS.clip = SF_fire;
+                character.AS.Play();
+
+                if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
+                    // sound
+                    if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
+                        attackData.killCount++;
+                        character.heal((int)(1 * attackData.lifeStealModifer));
+                    }
+
+                }
+            }
+
+            // shoot delay
+            character.StartCoroutine(fireCondition(shootDelay));
+
+            // lower ammo
+            if (useAmmo) currentAmmo -= useageAmmo;
+            character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
+        }
+
+        public void projectileHit(playerController character) {
+            GameObject tmpObj = Instantiate(projectilePrefab, character.transform.position + (character.transform.forward * 2), Quaternion.identity);
+            tmpObj.transform.GetComponent<Rigidbody>().AddForce((character.transform.forward * projectileForce) + new Vector3(0, 20, 0));
+            tmpObj.transform.GetComponent<damageOnHit>().attributeKill = character;
+        
+            character.StartCoroutine(fireCondition(shootDelay));
+            if (useAmmo) currentAmmo -= useageAmmo;
+            character.hud.displayText($"{currentAmmo}/{maxAmmo}", Color.red);
         }
     #endregion
 }

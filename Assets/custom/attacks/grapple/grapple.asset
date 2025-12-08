@@ -15,6 +15,7 @@ MonoBehaviour:
   range: 100
   shootDelay: 1
   enemyShootDelay: 1
+  nockbackForce: 10
   canShoot: 1
   lifeSteal: 0
   pierce: 1
@@ -26,7 +27,7 @@ MonoBehaviour:
   enemyDis: 1
   name: grapple
   displayName:
-    overrideName: 
+    overrideName: grapple
     text: {fileID: 0}
   attackWithAnimation: 0
   sprite: {fileID: 21300000, guid: 9e10b06c3a8bd41a68ae5098b6193185, type: 3}

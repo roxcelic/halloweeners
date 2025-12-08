@@ -47,6 +47,24 @@ namespace ext {
 
     #endregion
 
+    #region float
+    public static class floatStuff {
+        public static float roundToNearestCeil(this float source, int round) {
+            source /= round;
+            source = Mathf.Ceil(source) * round;
+
+            return source;
+        }
+
+        public static float roundToNearest(this float source, int round) {
+            source /= round;
+            source = (int)source * round;
+
+            return source;
+        }
+    }
+    #endregion
+
     #region vector3
     public static class vector3Stuff {
         public static Vector3 Round(this Vector3 vector3, int decimalPlaces = 2) {
