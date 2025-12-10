@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using ext;
 
 namespace sys {
+
     public static class programNames {
         public static sys.Text dev = new sys.Text();
         public static sys.Text system = new sys.Text();
@@ -36,6 +37,11 @@ namespace sys {
         }
     }
 
+    [System.Serializable]
+    public class texWithName {
+        public Texture2D tex;
+        public string name;        
+    }
     
     [System.Serializable]
     public class Text {

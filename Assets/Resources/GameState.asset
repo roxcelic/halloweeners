@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bb8cfca5aa6e640b98417b8a58bfce, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  paused: 1
+  paused: 0
   helped: 0
   menued: 0
   loaded: 1
@@ -23,17 +23,19 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: eef007f513c2fb046a5f2c8cc89cf0b9, type: 2}
   - name: fists
     attack: {fileID: 11400000, guid: 4e60b7fa556c44c0591304d38f701396, type: 2}
-  - name: pear
-    attack: {fileID: 11400000, guid: 1febfd79c437b4622847f9351918ac1d, type: 2}
   - name: scythe
     attack: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
   - name: two handed gun
     attack: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}
   - name: grapple
     attack: {fileID: 11400000, guid: a4d933ed4d3554746a28e5c6ab2a535e, type: 2}
-  - name: fortnite
+  - name: builds
     attack: {fileID: 11400000, guid: 21dda5d86b2b64ee9a8a9e297e5b4c81, type: 2}
-  registeredAbilities: []
+  - name: creativeMode
+    attack: {fileID: 11400000, guid: 464d96846c2c74a08ab82b3be5274d08, type: 2}
+  registeredAbilities:
+  - name: time travel
+    ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}
   map:
     width: 50
     height: 50
