@@ -219,7 +219,7 @@ public class AT_base : ScriptableObject {
                         character.heal((int)(1 * attackData.lifeStealModifer));
                     }
 
-                } else if (hit.transform.gameObject.tag == AT_fortniteBuild.fortniteTag) {
+                } else if (hit.transform.gameObject.tag == AT_fortniteBuild.fortniteTag || hit.transform.gameObject.tag == AT_minecraftCreativeMode.minecraftTag) {
                     Destroy(hit.transform.gameObject);
                 }
             }
