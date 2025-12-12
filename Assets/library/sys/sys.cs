@@ -8,6 +8,18 @@ using ext;
 
 namespace sys {
 
+    public static class var {
+        public static class layers {
+            public static int ground = LayerMask.NameToLayer("Ground");
+            public static int enemys = LayerMask.NameToLayer("enemys");
+            public static int ignoreRP = LayerMask.NameToLayer("ignoreRP");
+            public static int ingoreRPGround = LayerMask.NameToLayer("ignoreRPGround");
+
+            public static LayerMask groundLayerLock = (1 << ground) | (1 << ingoreRPGround);
+        }
+
+    }
+
     public static class programNames {
         public static sys.Text dev = new sys.Text();
         public static sys.Text system = new sys.Text();
@@ -35,12 +47,10 @@ namespace sys {
         public static void displayOnPlayer(sys.Text input) {
             textDisplay.instance.textToDisplay.Add(input);
         }
-    }
 
-    [System.Serializable]
-    public class texWithName {
-        public Texture2D tex;
-        public string name;        
+        public static void playScreenEffect(string name) {
+            playerController.mainPlayer.ScreenEffect.Play(name);
+        }
     }
     
     [System.Serializable]

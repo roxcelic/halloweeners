@@ -86,6 +86,14 @@ namespace ext {
                 Mathf.Clamp(vector3.z, clampMin, clampMax)
             );
 	    }
+
+        public static Vector3 Multiply(this Vector3 vector3, Vector3 res) {
+            return new Vector3(
+                vector3.x * res.x,
+                vector3.y * res.y,
+                vector3.z * res.z
+            );
+	    }
     }
     #endregion
 

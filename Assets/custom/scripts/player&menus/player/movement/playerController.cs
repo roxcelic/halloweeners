@@ -356,7 +356,7 @@ public class playerController : MonoBehaviour {
         /// <summery> a basic is grounded check </summery>
         public bool isGrounded(float multiplier = 1.1f, float distance = 0f) {
             if (Physics.Raycast(transform.position, -Vector2.up, out RaycastHit hit, distance == 0f ? Vector3.Distance(transform.position, groundCheck.position) * multiplier : distance)) {
-                if (hit.collider.gameObject.layer == 3) {
+                if (hit.collider.gameObject.layer == sys.var.layers.ground || hit.collider.gameObject.layer == sys.var.layers.ingoreRPGround) {
                     if (hit.collider.gameObject.transform.GetComponent<damageOnHit>() == null) {
                         lastSafePos = new Vector3(hit.collider.bounds.center.x, hit.point.y, hit.collider.bounds.center.z);
                     }

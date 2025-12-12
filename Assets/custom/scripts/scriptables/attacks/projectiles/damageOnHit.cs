@@ -1,9 +1,12 @@
 using UnityEngine;
 
+using ext;
+
 public class damageOnHit : MonoBehaviour {
     public bool destroyOnHit = true;
     public bool destroyOnContact = false;
     public bool resetPlayerToSaftey = false;
+    public bool parryable = false;
     public playerController attributeKill = null;
 
     public attackType type = attackType.both;
@@ -15,7 +18,19 @@ public class damageOnHit : MonoBehaviour {
         player,
         enemy
     }
-    
+
+    [Header("spawn force")]
+    public bool spawnForce = false;
+    public bool useCharacterDirection = false;
+    public Vector3 force;
+
+    void Start() {
+        if (!spawnForce) return;
+
+        if (useCharacterDirection) force = force.Multiply(playerController.mainPlayer.camera.forward);
+        transform.GetComponent<Rigidbody>().AddForce(force);
+    }
+
     void OnCollisionEnter(Collision collision) {
         // player
         if (type == attackType.both || type == attackType.player) {

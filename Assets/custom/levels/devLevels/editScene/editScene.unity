@@ -351,10 +351,14 @@ MonoBehaviour:
   destroyOnHit: 0
   destroyOnContact: 0
   resetPlayerToSaftey: 1
+  parryable: 0
   attributeKill: {fileID: 0}
   type: 0
   damage: 10
   nockbackForce: 400
+  spawnForce: 0
+  useCharacterDirection: 0
+  force: {x: 0, y: 0, z: 0}
 --- !u!1 &125834546
 GameObject:
   m_ObjectHideFlags: 0
@@ -8625,6 +8629,14 @@ PrefabInstance:
     - target: {fileID: 4114078260107421531, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246665546769223488, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246665546769223488, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 448
       objectReference: {fileID: 0}
     - target: {fileID: 5406433062988573755, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_AnchorMax.x

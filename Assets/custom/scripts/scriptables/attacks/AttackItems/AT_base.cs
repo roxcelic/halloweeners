@@ -188,12 +188,12 @@ public class AT_base : ScriptableObject {
 
             if (PC == null) {
                 r = new Ray(character.transform.position, character.TransformDirection(targetDirection));
-                if (Physics.Raycast(character.transform.position, character.TransformDirection(targetDirection), out hit, range, LayerMask.GetMask("Ground"))) {
+                if (Physics.Raycast(character.transform.position, character.TransformDirection(targetDirection), out hit, range, sys.var.layers.groundLayerLock)) {
                     return hit.point;
                 }
             } else {
                 r = new Ray(character.transform.position, PC.camera.TransformDirection(targetDirection));
-                if (Physics.Raycast(character.transform.position, PC.camera.TransformDirection(targetDirection), out hit, range, LayerMask.GetMask("Ground"))) {
+                if (Physics.Raycast(character.transform.position, PC.camera.TransformDirection(targetDirection), out hit, range, sys.var.layers.groundLayerLock)) {
                     return hit.point;
                 }
             }
