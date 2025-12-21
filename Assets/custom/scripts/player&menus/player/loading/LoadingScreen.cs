@@ -18,6 +18,9 @@ public class LoadingScreen : MonoBehaviour {
     public List<sys.Text> startMessage;
     public sys.Text generationMessage = new sys.Text();
 
+    [Header("data")]
+    public Dictionary<string, bool> loadingItems = new Dictionary<string, bool>();
+
     void Start() {
         PC = transform.GetComponent<playerController>();
     }
@@ -29,7 +32,7 @@ public class LoadingScreen : MonoBehaviour {
         else text.text = $"{(100 - Math.Round(completion, 2)).ToString()}";
 
         if (completion >= 95.5f) {
-            StartCoroutine(go());
+            StartCoroutine(waitForTasksToLoad());
 
             active = false;
         }
@@ -57,5 +60,16 @@ public class LoadingScreen : MonoBehaviour {
         
         GS.live.state.loaded = true;
         PC.loaded = true;
+    }
+
+    public IEnumerator waitForTasksToLoad() {
+        text.text = "...";
+        yield return new WaitForSeconds(0.5f);
+        foreach(string key in loadingItems.Keys) {
+            text.text = key;
+            yield return new WaitUntil(() => loadingItems[key]);
+        }
+
+        StartCoroutine(go());
     }
 }

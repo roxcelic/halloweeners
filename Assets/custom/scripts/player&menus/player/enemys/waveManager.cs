@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -57,6 +58,10 @@ public class waveManager : MonoBehaviour {
 
     [Header("text")]
     public sys.Text spawningMessage = new sys.Text();
+
+    [Header("config")]
+    public string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    public int len = 5;
 
     public void Begin() {
         if (generateWaves) StartCoroutine(startWaves());
@@ -165,11 +170,27 @@ public class waveManager : MonoBehaviour {
             }
 
             int aliveEnemys = 0;
-            foreach (EN_base enemy in enemys) if (!enemy.dead) aliveEnemys++;
-
-            T_display.text = $"{aliveEnemys}/{enemys.Count}";
+            foreach (EN_base enemy in enemys) {
+                if (!enemy.dead) aliveEnemys++;
+                else StartCoroutine(killAfter(enemy.transform.gameObject));
+            }
+            
+            T_display.text = $"{(aliveEnemys > 0 ? $"|-{String.Format("{0:00000}", aliveEnemys)}-|" : $"|-{genString()}-|")}";
 
             yield return new WaitForSeconds(trackingUpdate);
         }
+    }
+
+    public IEnumerator killAfter(GameObject target, float duration = 5f) {
+        yield return new WaitForSeconds(duration);
+        Destroy(target);
+    }
+
+    /// <summery> a util to make a random string </summery>
+    private string genString() {
+        System.Random random = new System.Random();
+
+        return new string(Enumerable.Repeat(chars, len)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 }

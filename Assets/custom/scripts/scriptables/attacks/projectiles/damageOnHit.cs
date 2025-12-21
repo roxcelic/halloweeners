@@ -1,5 +1,9 @@
 using UnityEngine;
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 using ext;
 
 public class damageOnHit : MonoBehaviour {
@@ -24,11 +28,22 @@ public class damageOnHit : MonoBehaviour {
     public bool useCharacterDirection = false;
     public Vector3 force;
 
-    void Start() {
-        if (!spawnForce) return;
+    [Header("bullet settings")]
+    public bool bullet = false;
+    public float distance = 50f;
+    public Vector3 direction;
+    public float speed = 1f;
 
-        if (useCharacterDirection) force = force.Multiply(playerController.mainPlayer.camera.forward);
-        transform.GetComponent<Rigidbody>().AddForce(force);
+
+    void Start() {
+        if (bullet) StartCoroutine(shot());
+        else {
+            if (!spawnForce) return;
+
+            if (useCharacterDirection) force = force.Multiply(playerController.mainPlayer.camera.forward);
+            transform.GetComponent<Rigidbody>().AddForce(force);   
+        }
+
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -63,5 +78,14 @@ public class damageOnHit : MonoBehaviour {
 
         // kill
         if (destroyOnContact) Destroy(transform.gameObject);
+    }
+
+    public IEnumerator shot() {
+        Vector3 startPos = transform.position;
+
+        while(Vector3.Distance(startPos, transform.position) < distance) {
+            transform.position = Vector3.Lerp(transform.position, transform.position + direction, Time.deltaTime * speed);
+            yield return 0;
+        }
     }
 }

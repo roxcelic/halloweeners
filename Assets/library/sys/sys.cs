@@ -121,17 +121,21 @@ namespace sys {
                     if (!FullConfig.ContainsKey(key)) selectedWords.Add(word);
                     else {
                         eevee.config selected_input = FullConfig[key];
+                        string result = "";
 
                         switch(eevee.conf.autoDetect()) {
                             case eevee.inputCL.keyboard: 
-                                foreach (int keyCode in selected_input.KEYBOARD_code) selectedWords.Add(((KeyCode)keyCode).ToString());
+                                foreach (int keyCode in selected_input.KEYBOARD_code) result = ((KeyCode)keyCode).ToString();
 
                                 break;
                             case eevee.inputCL.controller: 
-                                foreach (string buttonCode in selected_input.CONTROLLER_name) selectedWords.Add(buttonCode);
+                                foreach (string buttonCode in selected_input.CONTROLLER_name) result = buttonCode;
 
                                 break;
                         }
+
+                        if (result == "") result = $"ERROR could not find {key} in inputs";
+                        selectedWords.Add(result);
                     }
                 } else {
                     selectedWords.Add(word);

@@ -23,7 +23,7 @@ namespace eevee {
         public static string name = $"eevee-{ver}";
         public static string ConfPath = Path.Combine(Application.persistentDataPath, "EeveeConfig.json");
         public static eevee.inputCL inputType;
-        public static eevee.inputCL lastUsed;
+        public static eevee.inputCL lastUsed = eevee.inputCL.keyboard;
     }
     
     // controll config
@@ -115,25 +115,23 @@ namespace eevee {
             Qlock.push();
         }
         
-        public static void Parasite() {
-            if (GameObject.Find(var.name) == null){
+        public static eev Parasite() {
+            if (eev.self == null){
                 GameObject Parasect = new GameObject();
                 Parasect.name = var.name;
-                Parasect.AddComponent<eev>();
+                
+                eev comp = Parasect.AddComponent<eev>();
+                eev.self = comp;
+
                 install(Qlock.extractr());
+                return comp;
             }
+            return eev.self;
         }
 
         public static eev retrieve() {
-            // make this make the object if null
-            GameObject eeveeOBJ = GameObject.Find(var.name);
-            if (eeveeOBJ == null){
-                inject.Parasite();
-                eeveeOBJ = GameObject.Find(var.name);
-            }
-
-            eev eevee = eeveeOBJ.GetComponent<eev>();
-            return eevee;
+            if (eev.self == null) return eevee.inject.Parasite();
+            return eev.self;
         }
     }
 
@@ -301,6 +299,7 @@ namespace eevee {
 //  and mapping that into a ~~hashtable~~ dictionary.
 // If anyone needs more help with editing this file please feel free to ask me personally through my socials, i will help out if i have the time (:
 public class eev : MonoBehaviour {
+    public static eev self = null;
     public Dictionary<string, eevee.config> FullConfig = new Dictionary<string, eevee.config>();
 
     public Dictionary<string, Dictionary<string, Coroutine>> activeCoroutines = new Dictionary<string, Dictionary<string, Coroutine>>();
@@ -313,6 +312,7 @@ public class eev : MonoBehaviour {
     public List<eevee.config> displayConf = new List<eevee.config>();
 
     void Start() {
+        self = this;
         displayConf = FullConfig.Values.ToList();
     }
 

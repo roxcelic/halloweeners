@@ -16,6 +16,7 @@ public class EN_base : MonoBehaviour {
     [Header("heath")]
     public int maxHealth = 100;
     public int currentHealth = 100;
+    public bool canBeDamaged = true;
 
     public bool dead = false;
 
@@ -31,6 +32,7 @@ public class EN_base : MonoBehaviour {
     public AT_base attack;
 
     private NEN_base movement;
+    [Range(0, 15f)] public float sight = 10f;
 
 
     /*
@@ -92,7 +94,7 @@ public class EN_base : MonoBehaviour {
     #region utils
     // DealDamage
     public virtual bool DealDamage(int damage, Transform dealer = null, bool nockback = true, float nockbackForce = 1f) {
-        if (dead) return false; // idk why i didnt do this originally
+        if (dead || !canBeDamaged) return false; // idk why i didnt do this originally
         bool killed = false;
 
         anim.Play("hurt");
