@@ -41,7 +41,7 @@ namespace sys {
     public class utils {
         public static void log(string input) {
             Debug.Log(input);
-            pauseMenuController.instance.log(input);
+            if(pauseMenuController.instance != null) pauseMenuController.instance.log(input);
         }
 
         public static void displayOnPlayer(sys.Text input) {

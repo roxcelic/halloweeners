@@ -28,6 +28,7 @@ public class AT_base : ScriptableObject {
         public float projectileForce;
 
         [Header("display")]
+        public bool flash = false;
         public bool enemyDis = true;
         new public string name = "base";
         public sys.Text displayName = new sys.Text();
@@ -91,7 +92,7 @@ public class AT_base : ScriptableObject {
 
             if (projectile) {
                 // effects
-                character.ScreenEffect.Play("flash");
+                if (flash) character.ScreenEffect.Play("flash");
                 character.AttackDisplay.Play("attack");
 
                 projectileHit(character);

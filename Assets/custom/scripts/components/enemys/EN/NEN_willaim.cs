@@ -22,13 +22,14 @@ public class NEN_willaim : NEN_base {
 
     // a whole nothing burger
     protected override void Start() {self = transform.GetComponent<EN_base>();}
-    
+
     public override void begin() {
         StartCoroutine(changeState());
     }
 
     // the movement yay
     public IEnumerator changeState() {        
+        yield return new WaitUntil(() => self != null);
         while (!self.dead) {
             yield return new WaitForSeconds(positionStateDelay);
             yield return new WaitUntil(() => canSeePlayer());

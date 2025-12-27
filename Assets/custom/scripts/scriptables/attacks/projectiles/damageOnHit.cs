@@ -80,6 +80,40 @@ public class damageOnHit : MonoBehaviour {
         if (destroyOnContact) Destroy(transform.gameObject);
     }
 
+    void OnTriggerEnter(Collider col) {
+                // player
+        if (type == attackType.both || type == attackType.player) {
+            EN_base enemy = null;
+            if ((enemy = col.transform.GetComponent<EN_base>()) != null) {
+                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) {
+                    attributeKill.attack.attackData.killCount++;
+                    attributeKill.charge++;
+                }
+
+                enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
+
+                if (destroyOnHit) Destroy(transform.gameObject);
+            }
+        }
+
+        // enemy
+        if (type == attackType.both || type == attackType.enemy) {
+            playerController player = null;
+            if ((player = col.transform.GetComponent<playerController>()) != null) {
+                player.DealDamage(damage == 0 ? 0 : 1, transform);
+                
+                if (resetPlayerToSaftey) player.resetToSaftey();
+                else player.rb.AddForce(sys.nockback.calculateNockback(transform.position, player.transform.position) * nockbackForce);
+
+                if (destroyOnHit) Destroy(transform.gameObject);
+
+            }
+        }
+
+        // kill
+        if (destroyOnContact) Destroy(transform.gameObject);
+    }
+
     public IEnumerator shot() {
         Vector3 startPos = transform.position;
 
@@ -87,5 +121,7 @@ public class damageOnHit : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, transform.position + direction, Time.deltaTime * speed);
             yield return 0;
         }
+
+        Destroy(transform.gameObject);
     }
 }

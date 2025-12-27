@@ -37,7 +37,7 @@ public class AT_twoHandedGun : AT_base {
         } // if the attack uses ammo and the user has no ammo, return
 
         // effects
-        character.ScreenEffect.Play("flash");
+        if (flash) character.ScreenEffect.Play("flash");
 
         if (useAmmo && (currentAmmo - useageAmmo <= 0)) {
             character.AttackDisplay.Play("attack");

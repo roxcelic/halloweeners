@@ -109,6 +109,10 @@ public class playerController : MonoBehaviour {
 
         [Header("extra")]
         public List<sys.Text> profanities;
+
+        [Header("iframes")]
+        public int maxIframes = 40;
+        public int liveIftames = 0;
     #endregion
 
     /// <summery> basic start </summery>
@@ -202,24 +206,26 @@ public class playerController : MonoBehaviour {
             }
 
             // camera rotation
-                HandleMouse();
-                if (eevee.input.Grab("Attack")) attack.attack(this);
-                if (eevee.input.Grab("Ability", "PC")) {
-                    StartCoroutine(whileHeld(
-                        () => {},
-                        "Ability",
-                        false,
-                        false,
-                        () => {abilityCharge.Play("Charge");},
-                        () => {abilityCharge.Play("idle");}
-                    ));
-                }
+            HandleMouse();
+            if (eevee.input.Grab("Attack")) attack.attack(this);
+            if (eevee.input.Grab("Ability", "PC")) {
+                StartCoroutine(whileHeld(
+                    () => {},
+                    "Ability",
+                    false,
+                    false,
+                    () => {abilityCharge.Play("Charge");},
+                    () => {abilityCharge.Play("idle");}
+                ));
+            }
 
-                // thoughts
-                ViewThoughts();
-                if (isGrounded() && canResetJump) {
-                    jumpCount = maxJumpCount;
-                } 
+            // thoughts
+            ViewThoughts();
+            if (isGrounded() && canResetJump) {
+                jumpCount = maxJumpCount;
+            } 
+
+            if (liveIftames > 0) liveIftames--;
         }
     #endregion
 
@@ -228,20 +234,31 @@ public class playerController : MonoBehaviour {
     #region movementUtils 
         /// <summery> This is what allows the player to look around and what not </summery>
         void HandleMouse() {
-            float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
+            // float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
             
-            // This is so fun and silly (unused)
-            float mouseY = 0f;
-            if (cameraY) mouseY = Input.GetAxis("Mouse Y") * (RT_Modifier / 2);
+            // // This is so fun and silly (unused)
+            // float mouseY = 0f;
+            // if (cameraY) mouseY = Input.GetAxis("Mouse Y") * (RT_Modifier / 2);
 
-            mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
+            // mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
+
+            // transform.Rotate(Vector3.up * mouseX);
+            // if(cameraY) {
+            //     camera.Rotate((Vector3.right * -mouseY));
+
+            //     camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, cameraClamp) : Mathf.Clamp(camera.localEulerAngles.x, 0, cameraClamp), camera.localEulerAngles.y, camera.localEulerAngles.z);
+            // }
+
+            float mouseX = Input.GetAxisRaw("Mouse X") * RT_Modifier;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * RT_Modifier / 2;
 
             transform.Rotate(Vector3.up * mouseX);
-            if(cameraY) {
-                camera.Rotate((Vector3.right * -mouseY));
 
-                camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, cameraClamp) : Mathf.Clamp(camera.localEulerAngles.x, 0, cameraClamp), camera.localEulerAngles.y, camera.localEulerAngles.z);
-            }
+            currentXRotation -= mouseY;
+            currentXRotation = Mathf.Clamp(currentXRotation, -cameraClamp, cameraClamp);
+
+            camera.localRotation = Quaternion.Euler(currentXRotation, 0f, 0f);
+
         }
 
         /// <summery> allows the player to add a set amount of velocity to the player </summery>
@@ -383,10 +400,13 @@ public class playerController : MonoBehaviour {
         /// <summery> DealDamage </summery>
         /// this would typically apply a single point of damage unless i wanted to do a silksong and be horribly evil
         public void DealDamage(int damage = 1, Transform dealer = null, bool nockback = true, float nockbackForce = 1f) {
+            if (liveIftames > 0) return;
+
             damage = loaded ? damage : 0;
             
             health -= damage;
             health = Math.Clamp(health, 0, maxHealth);
+            ScreenEffect.Play("hurt");
 
             if (health <= 0) Die();
             else {
@@ -398,6 +418,8 @@ public class playerController : MonoBehaviour {
             if (dealer != null && nockback) {
                 addVel.AddForce(-(nockbackForce));
             }
+
+            liveIftames += maxIframes;
 
             // if (damage > 0) hud.displayText(profanities.Count > 0 ? profanities[UnityEngine.Random.Range(0, profanities.Count - 1)] : "owwwww", Color.red);
         }
@@ -488,7 +510,7 @@ public class playerController : MonoBehaviour {
             CanMove = false;
             addVel.update = false;
 
-            Vector3 slideForce = rb.linearVelocity + addVel.getVelocity(this);
+            Vector3 slideForce = rb.linearVelocity;
             addVel.vel = 0;
 
             while(eevee.input.Check("Slam") && isGrounded(1, 2f) && (!eevee.input.Check("Jump") || jumpCount <= 0)) {
@@ -499,10 +521,6 @@ public class playerController : MonoBehaviour {
                 if (slideForce.x > stopSpeed) slideForce = new Vector3(slideForce.x - slideDecay, slideForce.y, slideForce.z);
                 else if (slideForce.x < -stopSpeed) slideForce = new Vector3(slideForce.x + slideDecay, slideForce.y, slideForce.z);
                 else slideForce = new Vector3(0, slideForce.y, slideForce.z);
-
-                if (addVel.vel > stopSpeed) addVel.vel -= slideDecay / 2;
-                else if (addVel.vel < -stopSpeed) addVel.vel += slideDecay / 2;
-                else addVel.vel = 0;
 
                 // y velocity clamp
                 // if (slideForce.y > stopSpeed) slideForce = new Vector3(slideForce.x, slideForce.y - slideDecay, slideForce.z);
@@ -520,14 +538,16 @@ public class playerController : MonoBehaviour {
                 yield return 0;
             }
 
+            rb.linearVelocity = new Vector3();
+
             addVel.update = true;
+            addVel.vel = slideForce.magnitude / 2;
             CanMove = true;
 
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
 
-            addVel.AddForce(Mathf.Clamp(slideForce.magnitude - 10, 0, Mathf.Infinity));
-
             if (eevee.input.Check("Jump") && jumpCount > 0) {
+                addVel.AddForce(5);
                 jump();
             }
         }
@@ -621,7 +641,7 @@ namespace movement {
             this.player = player;
         }
 
-        public Vector3 getVelocity(MonoBehaviour Mono) {return (Mono.transform.forward * this.vel).Clamp(-maxVel, maxVel);}
+        public Vector3 getVelocity(MonoBehaviour Mono, Vector3 dir = new Vector3()) {return (dir == new Vector3() ? Mono.transform.forward * this.vel : dir * this.vel).Clamp(-maxVel, maxVel);}
         public void AddForce(float force) {this.vel += force;}
 
         public IEnumerator start(Rigidbody rb) {

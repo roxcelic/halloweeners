@@ -23,6 +23,7 @@ namespace colorManager {
 public class setColor : MonoBehaviour {
     public Material M_worldMat;
     public typeOfData affect;
+    public bool active = true;
 
     public enum typeOfData {
         mat,
@@ -41,6 +42,8 @@ public class setColor : MonoBehaviour {
     }
 
     void Update(){
+        if (!active) return;
+
         switch (affect) {
             case typeOfData.mat:
                 M_worldMat.SetColor("_outlineColor", Color.Lerp(M_worldMat.GetColor("_outlineColor"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
