@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3529016a88447704a9f288ee64c3df22, type: 3}
+  m_Name: devLevel
+  m_EditorClassIdentifier: Assembly-CSharp::PM_OpenScene
+  name:
+    overrideName: <color=#fff>dev</color>
+    text: {fileID: 11400000, guid: 4c9ef1dc1db69fd44bdd8f288c9a415f, type: 2}
+  essential: 0
+  dev: 1
+  children: []
+  sceneName: custom/levels/devLevels/WFCdev/WFCdev
+  id: 
+  unlockedByDefault: 1

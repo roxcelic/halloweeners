@@ -1166,7 +1166,7 @@ MonoBehaviour:
   deathScreen: {fileID: 3881871288550348468}
   thoughtDisplay: {fileID: 4283728533423403303}
   hud: {fileID: 758181725882554607}
-  attack: {fileID: 11400000, guid: eef007f513c2fb046a5f2c8cc89cf0b9, type: 2}
+  attack: {fileID: 11400000, guid: 4e60b7fa556c44c0591304d38f701396, type: 2}
   ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}
   D_Attack: {fileID: 11400000, guid: 4e60b7fa556c44c0591304d38f701396, type: 2}
   D_AttackDisplay: {fileID: 9100000, guid: f06c2fdc5c106401f92305ed182fd12a, type: 2}
@@ -3433,14 +3433,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15b51e4daa23a4c3bb20913d0dc5a249, type: 2}
   - {fileID: 11400000, guid: 362ef11c004fc419d9d28faa14bc7bcb, type: 2}
   - {fileID: 11400000, guid: c252eb47e036d4acf859e0b6e6281427, type: 2}
+  currentItems: []
   actualInput: {fileID: 5303752253411982451}
   MainDisplay: {fileID: 4771076755843828201}
+  MainDisplayRect: {fileID: 0}
   LogDisplay: {fileID: 5175691952983576355}
   LogDisplaySR: {fileID: 6444094214515018571}
   textHeight: 41.5
   ignorance: 5
   interactable: 1
   responded: 
+  selectedIndex: 0
 --- !u!1 &4501934266522456470
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,7 +3464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3545347262492762259
 RectTransform:
   m_ObjectHideFlags: 0

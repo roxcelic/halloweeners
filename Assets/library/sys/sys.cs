@@ -60,7 +60,7 @@ namespace sys {
 
         public string localise() {
             if (this.overrideName != "") return this.overrideName;
-            if (this.text == null) return "no text object";
+            if (this.text == null) return "//////////////////////";
             
             switch (save.getData.viewSave().language) {
                 case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}";

@@ -112,12 +112,12 @@ public class playerController : MonoBehaviour {
 
         [Header("iframes")]
         public int maxIframes = 40;
-        public int liveIftames = 0;
+        public int liveIftames = 100;
     #endregion
 
     /// <summery> basic start </summery>
     #region Start
-        void Start() {
+        protected virtual void Start() {
             // set the player refrence globally
             mainPlayer = this;
             
@@ -163,7 +163,7 @@ public class playerController : MonoBehaviour {
 
     /// <summery> basic update </summery>
     #region Update
-        void Update() {
+        protected virtual void Update() {
             // attack update
             if (attack != null) attack.update(this); 
             if (ability != null) ability.update(this);
@@ -233,7 +233,7 @@ public class playerController : MonoBehaviour {
     /// just for clenliness really
     #region movementUtils 
         /// <summery> This is what allows the player to look around and what not </summery>
-        void HandleMouse() {
+        public virtual void HandleMouse() {
             // float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
             
             // // This is so fun and silly (unused)

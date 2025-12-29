@@ -19,11 +19,13 @@ namespace save {
     [System.Serializable]
     public class saveData {
         [Header("config")]
+        public string name = "";
         public bool dev = false;
         public bool instantRespawn = false;
         public string language = "English";
+        public float sense = 1;
 
-        public string ver = "dev-0.1.0-11";
+        public string ver = "dev-0.1.0-13";
 
         public bool firstTimeInPauseMenu = false;
 
@@ -34,6 +36,9 @@ namespace save {
         public string currentAbility = "";
         public attack.attackData currentAttackData = new attack.attackData();
         public List<AVdata.savedAttack> savedAttacks = new List<AVdata.savedAttack>();
+
+        [Header("levels")]
+        public List<string> unlockedLevels = new List<string>();
 
         public saveData() {
             this.ver = var.ver;
@@ -54,7 +59,7 @@ namespace save {
         a class to store the data
     */
     public class var {
-        public static string ver = "dev-0.1.0-11";
+        public static string ver = "dev-0.1.0-12";
         public static string ConfPath = Path.Combine(Application.persistentDataPath, "saveData.json");
 
         public static fullSave saves = new fullSave();
@@ -126,6 +131,16 @@ namespace save {
             }
 
             return new fullSave();
+        }
+
+        // a function to make up to an amount of saves
+        public static void makeSaves(int saveCap = 5) {
+            fullSave allSaves = getSaves();
+            while(allSaves.saves.Count < saveCap) {
+                var.saves.saves.Add(new saveData());
+                data.push();
+                allSaves = getSaves();
+            }
         }
     }
 

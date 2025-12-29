@@ -16,13 +16,13 @@ public class pauseMenuController : MonoBehaviour {
     [Header("items")]
     public List<PM_Base> baseCommands;
 
-    private List<PM_Base> currentItems;
-    private List<List<PM_Base>> previousItems = new List<List<PM_Base>>();
+    public List<PM_Base> currentItems;
+    protected List<List<PM_Base>> previousItems = new List<List<PM_Base>>();
 
     [Header("comp")]
     public TMP_InputField actualInput;
     public TMP_Text MainDisplay;
-    private RectTransform MainDisplayRect;
+    public RectTransform MainDisplayRect;
     public TMP_Text LogDisplay;
     public ScrollRect LogDisplaySR;
 
@@ -34,17 +34,17 @@ public class pauseMenuController : MonoBehaviour {
     [Header("data")]
     public bool interactable = true;
     public string responded = "";
-    private int selectedIndex = 0;
+    public int selectedIndex = 0;
 
     #region main
-    void Start() {
+    protected virtual void Start() {
         instance = this;
         currentItems = baseCommands;
         displayText();
         MainDisplayRect = MainDisplay.transform.GetComponent<RectTransform>();
     }
     
-    void Update() {
+    protected virtual void Update() {
         if (!GS.live.state.loaded) return; // if the level isnt loaded dont let the player pause
         if (GS.live.state.helped) return; // if the game is in help mode dont allow pause
         if (GS.live.state.menued) return; // if the game is in menu mode dont allow pause
@@ -71,6 +71,21 @@ public class pauseMenuController : MonoBehaviour {
     public void log(string content, string program = "user" ,string color = "red") {
         LogDisplay.text += $"\n<color={color}> {program}> {content} </color>";
         StartCoroutine(wait(() => {LogDisplaySR.ScrollToBottom();}, 0.001f));
+    }
+
+    /// <summery> resets and closes the menu </summery>
+    public virtual void reset() {
+        Start();
+        previousItems = new List<List<PM_Base>>();
+    }
+
+    /// <summery> asks yes or no </summery>
+    public void question(System.Action act) {
+        PM_yes yes = ScriptableObject.CreateInstance("PM_yes") as PM_yes;
+        yes.followUp = act;
+        PM_Base no = ScriptableObject.CreateInstance("PM_no") as PM_no;
+
+        loadMenu(new List<PM_Base>{yes, no});
     }
 
     /// <summery> change the state to paused </summery>
@@ -112,7 +127,7 @@ public class pauseMenuController : MonoBehaviour {
     }
 
     /// <summery> load the previous menu </summery>
-    public void loadPrevMenu() {
+    public virtual void loadPrevMenu() {
         if (previousItems.Count == 0) {
             changePauseState(false);
             return;
@@ -135,7 +150,9 @@ public class pauseMenuController : MonoBehaviour {
         responded = "";
         interactable = false;
 
-        while (responded == "") {await Task.Delay(50);}
+        while (responded == "") {
+            await Task.Delay(50);
+        }
 
         actualInput.transform.gameObject.SetActive(false);
         interactable = true;
@@ -147,7 +164,7 @@ public class pauseMenuController : MonoBehaviour {
     public void setTextRep() {responded = actualInput.text;}
 
     /// <summery> aligns the text box correctly </summery>
-    private void alignTextBox() {MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);}
+    public virtual void alignTextBox() {MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);}
 
     #endregion
 
