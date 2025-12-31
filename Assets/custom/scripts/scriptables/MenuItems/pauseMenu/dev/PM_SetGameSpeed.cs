@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/dev/set game speed")]
 public class PM_SetGameSpeed : PM_Base {

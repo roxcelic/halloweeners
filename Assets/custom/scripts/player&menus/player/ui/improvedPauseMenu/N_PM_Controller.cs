@@ -32,7 +32,18 @@ public class pauseMenuController : MonoBehaviour {
 
     // data
     [Header("data")]
-    public bool interactable = true;
+    public bool interactable {
+        get { return IHLD; }
+        set {
+            if (value) StartCoroutine(wait(() => {
+                displayText();
+            }, 0f)); // wait 1 frame twin
+            
+            IHLD = value;
+        }
+    }
+    private bool IHLD = true;
+    
     public string responded = "";
     public int selectedIndex = 0;
 
@@ -68,8 +79,8 @@ public class pauseMenuController : MonoBehaviour {
 
     #region utils
     /// <summery> logs info </summery>
-    public void log(string content, string program = "user" ,string color = "red") {
-        LogDisplay.text += $"\n<color={color}> {program}> {content} </color>";
+    public void log(string content, string program = "user", string color = "red", bool thing = true) {
+        LogDisplay.text += $"\n<color={color}> {program}{(thing ? ">" : "")} {content} </color>";
         StartCoroutine(wait(() => {LogDisplaySR.ScrollToBottom();}, 0.001f));
     }
 

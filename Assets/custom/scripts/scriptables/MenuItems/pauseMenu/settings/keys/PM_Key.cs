@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/hidden/Key")]
 public class PM_Key : PM_Base {

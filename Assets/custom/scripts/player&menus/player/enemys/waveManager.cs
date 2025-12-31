@@ -60,7 +60,6 @@ public class waveManager : MonoBehaviour {
     public sys.Text spawningMessage = new sys.Text();
 
     [Header("config")]
-    public string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     public int len = 5;
 
     public void Begin() {
@@ -190,7 +189,7 @@ public class waveManager : MonoBehaviour {
     private string genString() {
         System.Random random = new System.Random();
 
-        return new string(Enumerable.Repeat(chars, len)
+        return new string(Enumerable.Repeat(sys.var.keywords.characters, len)
             .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 }

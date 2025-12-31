@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/settings/dev")]
 public class PM_Dev : PM_Base {
@@ -10,9 +11,11 @@ public class PM_Dev : PM_Base {
     public sys.Text selectMessage;
     public sys.Text languageWarning;
 
-    public override void action(pauseMenuController PMC, string input = "") {
+    public async override void action(pauseMenuController PMC, string input = "") {
         // save data
         save.saveData currentSave = save.getData.viewSave();
+        
+        if (!currentSave.dev && (await PMC.getText("pass")) != sys.var.keywords.devPass) return;
 
         // save attack
             currentSave.dev = !currentSave.dev;

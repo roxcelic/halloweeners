@@ -18,6 +18,11 @@ namespace sys {
             public static LayerMask groundLayerLock = (1 << ground) | (1 << ingoreRPGround);
         }
 
+        public static class keywords {
+            public static string devPass = "fuck";
+            public static string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        }
+
     }
 
     public static class programNames {

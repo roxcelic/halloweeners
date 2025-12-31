@@ -2252,6 +2252,30 @@ MonoBehaviour:
   moveSpeed: 0
   self: {fileID: 0}
   NV_Agent: {fileID: 0}
+--- !u!1 &896015656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5643916688458997700, guid: 405ff82b7ab4f164fb0ed56097cbb8f9, type: 3}
+  m_PrefabInstance: {fileID: 284369027554668044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &896015661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896015656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060310c0b37d0423aaeacd0d31e26779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::colorRadiency
+  colors:
+  - {r: 1, g: 0, b: 0.9145675, a: 1}
+  - {r: 0.6132076, g: 0, b: 0, a: 1}
+  - {r: 0.37676433, g: 0.8301887, b: 0, a: 1}
+  - {r: 0.3773585, g: 0.030259885, b: 0.030259885, a: 1}
+  delay: 0.3
+  active: 1
 --- !u!1 &1125358407
 GameObject:
   m_ObjectHideFlags: 0
@@ -8503,7 +8527,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5643916688458997700, guid: 405ff82b7ab4f164fb0ed56097cbb8f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 896015661}
   m_SourcePrefab: {fileID: 100100000, guid: 405ff82b7ab4f164fb0ed56097cbb8f9, type: 3}
 --- !u!1001 &2607196890973180879
 PrefabInstance:
