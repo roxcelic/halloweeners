@@ -13,7 +13,14 @@ public class GameState : ScriptableObject {
 
     public float gameSpeed = 1f;
 
-    public GameObject player;
+    public GameObject player {
+        get {
+            return playerController.mainPlayer.gameObject;
+        }
+        set {
+            Debug.Log($"attempted to set player to {value}");
+        }
+    }
 
     public List<attack.attackRegistration> registeredAttacks;
     public List<ability.abilityRegistraction> registeredAbilities;
