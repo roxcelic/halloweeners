@@ -341,7 +341,7 @@ public class playerController : MonoBehaviour {
         /// functions to allow for things like stat editing when you use a weapon and switching the animators
         public void switchAttack(AT_base newAttack) {
             // Reset(); // should work fine without this
-            attack.unLoad(this);
+            if(attack != null) attack.unLoad(this);
 
             attack = Instantiate(newAttack);
             

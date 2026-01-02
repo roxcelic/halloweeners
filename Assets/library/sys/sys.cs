@@ -19,7 +19,7 @@ namespace sys {
         }
 
         public static class keywords {
-            public static string devPass = "fuck";
+            public static string devPass = "qoh1206";
             public static string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         }
 
