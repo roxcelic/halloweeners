@@ -33,8 +33,10 @@ public class NEN_base : MonoBehaviour {
         CoRoutine to keep track of the player and if the player can move
     */
     public virtual IEnumerator movement() {
-        Debug.Log("starting");
-        while (!self.dead && NV_Agent.enabled) {
+        while (
+            (self != null && !self.dead) && 
+            (NV_Agent != null && NV_Agent.enabled)) 
+        {
             NV_Agent.SetDestination(canMove ? playerController.mainPlayer.transform.position : transform.position);
             
             yield return new WaitForSeconds(pathCalculationDelay);

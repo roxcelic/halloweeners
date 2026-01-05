@@ -57,7 +57,7 @@ public class textDisplay : MonoBehaviour {
             
             if (textToDisplay.Count == 0) {
                 continueMessage.text = "";
-                background.transform.GetComponent<Animator>().Play("close");
+                if(background.activeSelf) background.transform.GetComponent<Animator>().Play("close");
                 yield return new WaitUntil(() => textToDisplay.Count != 0);
                 continueMessage.text = continueText.displayVar(new Dictionary<string, string>());
                 background.SetActive(true);

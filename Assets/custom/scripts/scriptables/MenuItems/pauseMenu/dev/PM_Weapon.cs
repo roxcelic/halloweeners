@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 public class PM_weapon : PM_Base {
     public AT_base attack;
 
-    public async override void action(pauseMenuController PMC, string input = "") {
+    public override void action(pauseMenuController PMC, string input = "") {
         playerController.mainPlayer.switchAttack(attack);
         PMC.log($"weapon switched to {attack.displayName.localise()}");
     }

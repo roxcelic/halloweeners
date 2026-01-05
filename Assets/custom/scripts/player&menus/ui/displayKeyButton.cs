@@ -14,7 +14,6 @@ using TMPro;
 public class displayKeyButton : MonoBehaviour {
     public sys.Text display = new sys.Text();
     [Range(0, 5f)] public float delay = 1.5f;
-    private float inteval = 0.5f;
     private TMP_Text textBox;
 
     void Start() {

@@ -14,7 +14,7 @@ public class displayWhilePressed : MonoBehaviour {
         CG = transform.GetComponent<CanvasGroup>();
     }
 
-    async void Update() {
+    void Update() {
         if (locked) {
             CG.alpha = Mathf.Lerp(CG.alpha, 1, Time.deltaTime * 5f);
         } else {

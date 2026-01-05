@@ -8,10 +8,12 @@ namespace musicLib {
     public static class var {
         public static bool customMusicAccess = false;
 
+        #nullable enable
         public static string? userSong;
 
         public static song? battleSong;
         public static song? biombSong;
+        #nullable disable
 
         public static Dictionary<string, song> queue = new Dictionary<string, song>();
     }
@@ -24,6 +26,7 @@ namespace musicLib {
             packaged,
             local
         }
+
         public static musicLibrary library;
     }
 
@@ -50,6 +53,7 @@ namespace musicLib {
             return (musicLib.live.audio = BG.transform.GetComponent<AudioSource>());
         }
 
+        #nullable enable
         public static song? getNextSong(bool remove = true) {
             if (var.queue.Keys.Count > 0 && var.customMusicAccess) {
                 song next = var.queue[new List<string>(var.queue.Keys)[0]];
@@ -63,6 +67,7 @@ namespace musicLib {
                 return live.library.defaultSong;
             }
         }
+        #nullable disable
 
         public static void playSong(song toPlay) {live.bg.playSong(toPlay);}
 
@@ -78,9 +83,18 @@ namespace musicLib {
         public static void loadSongs(List<song> localSongs) {
             live.library.localSongs = localSongs;
         }
+        
+        public static List<string> listSongs() {
+            return new List<string>(live.library.getLibrary().Keys);
+        }
+
+        public static void skip() {
+            live.bg.playSong(getNextSong());
+        }
     }
 
     public static class utils {
+        #nullable enable
         public static song? compareSong(string songName) {
             Dictionary<string, song> songs = live.library.getLibrary();
 
@@ -88,5 +102,6 @@ namespace musicLib {
 
             return null;
         }
+        #nullable disable
     }
 }

@@ -16,7 +16,7 @@ public class MM_Term : pauseMenuController {
         displayText();
     }
 
-    protected async override void Update() {
+    protected override void Update() {
         if (!interactable) {
             MainDisplay.text = "Start";
             return;

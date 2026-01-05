@@ -15,7 +15,7 @@ public class PM_Base : ScriptableObject {
     public bool dev = false;
     public List<PM_Base> children;
 
-    public async virtual void action(pauseMenuController PMC, string input = "") {
+    public virtual void action(pauseMenuController PMC, string input = "") {
         PMC.loadMenu(children);
     }
     
