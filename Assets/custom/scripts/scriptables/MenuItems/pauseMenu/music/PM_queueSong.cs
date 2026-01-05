@@ -15,5 +15,6 @@ public class PM_queueSong : PM_Base {
     public override void action(pauseMenuController PMC, string input = "") {
         music.addSongToQueue(selectedSong);
         PMC.log($"added {selectedSong} to queue");
+        PMC.loadPrevMenu();
     }
 }

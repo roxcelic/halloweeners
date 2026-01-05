@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1763c1b6e58e0489072cd445bb78ed, type: 3}
   m_Name: musicLibrary
   m_EditorClassIdentifier: Assembly-CSharp::musicLibrary
-  songs: []
+  songs:
+  - type: 0
+    clip: {fileID: 8300000, guid: bce55d604f87aca41b83f7a6f0d0f41b, type: 3}
+    path: 
+    name: unity
   localSongs:
   - type: 1
     clip: {fileID: 0}
-    path: "C:/Users/roxth/AppData/LocalLow/roxcelic/corrosion/Audio/\u3044\u307E\u3059\u3050\u8F2A\u5EFB 
+    path: "C:/Users/roxie.rowbotham-g/AppData/LocalLow/roxcelic/corrosion/Audio/\u3044\u307E\u3059\u3050\u8F2A\u5EFB 
       \u521D\u97F3\u30DF\u30AF.mp3"
     name: "\u3044\u307E\u3059\u3050\u8F2A\u5EFB  \u521D\u97F3\u30DF\u30AF.mp3"
   defaultSong:

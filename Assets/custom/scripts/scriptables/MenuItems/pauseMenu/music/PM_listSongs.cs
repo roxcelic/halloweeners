@@ -16,6 +16,7 @@ public class PM_listSongs : PM_Base {
         foreach (string songName in music.listSongs()) {
             PM_queueSong songToQueue = ScriptableObject.CreateInstance("PM_queueSong") as PM_queueSong;
             songToQueue.selectedSong = songName;
+            songToQueue.name.overrideName = songName;
 
             children.Add(songToQueue);
         }

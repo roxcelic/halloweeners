@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace musicLib {
     public static class var {
-        public static bool customMusicAccess = false;
+        public static bool customMusicAccess = true;
 
         #nullable enable
         public static string? userSong;
@@ -15,7 +15,7 @@ namespace musicLib {
         public static song? biombSong;
         #nullable disable
 
-        public static Dictionary<string, song> queue = new Dictionary<string, song>();
+        public static List<song> queue = new List<song>();
     }
 
     public static class live {
@@ -55,9 +55,9 @@ namespace musicLib {
 
         #nullable enable
         public static song? getNextSong(bool remove = true) {
-            if (var.queue.Keys.Count > 0 && var.customMusicAccess) {
-                song next = var.queue[new List<string>(var.queue.Keys)[0]];
-                if (remove && var.queue.Keys.Count > 1) var.queue.Remove(new List<string>(var.queue.Keys)[0]);
+            if (var.queue.Count > 0 && var.customMusicAccess) {
+                song next = var.queue[0];
+                if (remove && var.queue.Count > 1) var.queue.RemoveAt(0);
                 return next;
             } else if (var.battleSong != null) {
                 return var.battleSong;
@@ -75,7 +75,7 @@ namespace musicLib {
             song foundSong = utils.compareSong(name);
 
             if (foundSong != null) {
-                var.queue.Add(name, foundSong);
+                var.queue.Add(foundSong);
                 return true;
             } else return false;
         }

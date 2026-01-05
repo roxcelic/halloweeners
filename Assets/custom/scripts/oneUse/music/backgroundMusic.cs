@@ -72,8 +72,6 @@ public class backgroundMusic : MonoBehaviour {
             }
         }
 
-        Debug.Log($"found {localSongs.Count} songs");
         music.loadSongs(localSongs);
-        if(localSongs.Count > 0) music.playSong(localSongs[0]);
     }
 }
