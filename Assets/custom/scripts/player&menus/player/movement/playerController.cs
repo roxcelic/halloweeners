@@ -207,7 +207,7 @@ public class playerController : MonoBehaviour {
 
             // camera rotation
             HandleMouse();
-            if (eevee.input.Grab("Attack")) attack.attack(this);
+            if (eevee.input.Collect("Attack", "PC")) attack.attack(this);
             if (eevee.input.Grab("Ability", "PC")) {
                 StartCoroutine(whileHeld(
                     () => {},

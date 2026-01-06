@@ -2672,6 +2672,7 @@ MonoBehaviour:
   LogDisplaySR: {fileID: 2144066402}
   textHeight: 42
   ignorance: 3
+  IHLD: 0
   responded: 
   selectedIndex: 0
   newCamPos: {fileID: 1438323998}

@@ -42,7 +42,7 @@ public class pauseMenuController : MonoBehaviour {
             IHLD = value;
         }
     }
-    private bool IHLD = true;
+    public bool IHLD = true;
     
     public string responded = "";
     public int selectedIndex = 0;
@@ -65,10 +65,10 @@ public class pauseMenuController : MonoBehaviour {
 
         if (!interactable) return;
 
-        if (eevee.input.Collect("down", "pm")) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
-        if (eevee.input.Collect("up", "pm")) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
+        if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
+        if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
     
-        if (eevee.input.Collect("interact", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
+        if (eevee.input.Collect("interact", "pm") || eevee.input.Collect("Attack", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
 
         alignTextBox();

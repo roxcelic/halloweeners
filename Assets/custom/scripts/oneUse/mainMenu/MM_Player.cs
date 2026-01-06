@@ -38,7 +38,7 @@ public class MM_Player : playerController {
 
         // camera rotation
         HandleMouse();
-        if (eevee.input.Grab("Attack")) openMenu();
+        if (eevee.input.Grab("Attack") || eevee.input.Grab("interact")) openMenu();
     }
 
     // wonder where i stole this from.......
