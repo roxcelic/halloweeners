@@ -1143,11 +1143,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!20 &444323458 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5667619462576913791, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-  m_PrefabInstance: {fileID: 2109715001}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &457368672
 GameObject:
   m_ObjectHideFlags: 0
@@ -8369,22 +8364,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
-    - target: {fileID: 3644977141426271256, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: baseCommands.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644977141426271256, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: 'baseCommands.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 67bf66d1955a35a469c511ce775449aa, type: 2}
-    - target: {fileID: 3644977141426271256, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: 'baseCommands.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 362ef11c004fc419d9d28faa14bc7bcb, type: 2}
-    - target: {fileID: 3644977141426271256, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: 'baseCommands.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c252eb47e036d4acf859e0b6e6281427, type: 2}
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8424,22 +8403,6 @@ PrefabInstance:
     - target: {fileID: 4078005530496001587, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5990174837341754124, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 444323458}
-    - target: {fileID: 5990174837341754124, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: fovRange
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5990174837341754124, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: minSpeed
-      value: 12.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7820199691583005345, guid: df329f2581c6a0c4cb3358dafa503552, type: 3}
-      propertyPath: m_UpdateMode
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

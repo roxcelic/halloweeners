@@ -1392,11 +1392,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MS_matchSpeed
   targetUI: {fileID: 2201910340619539370}
-  minSpeed: 9
+  minSpeed: 12.5
   multiplier: 0.5
   RB: {fileID: 0}
   CG: {fileID: 0}
   Anim: {fileID: 0}
+  fovRange: 25
+  cam: {fileID: 5667619462576913791}
 --- !u!1 &1570457371090008955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,7 +1625,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a5e9690856fa1c84590a5b9f381c598f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -3542,6 +3544,7 @@ MonoBehaviour:
   baseCommands:
   - {fileID: 11400000, guid: 2a3bdd54655aa437ab2138d0a362d834, type: 2}
   - {fileID: 11400000, guid: 15b51e4daa23a4c3bb20913d0dc5a249, type: 2}
+  - {fileID: 11400000, guid: 67bf66d1955a35a469c511ce775449aa, type: 2}
   - {fileID: 11400000, guid: 362ef11c004fc419d9d28faa14bc7bcb, type: 2}
   - {fileID: 11400000, guid: c252eb47e036d4acf859e0b6e6281427, type: 2}
   currentItems: []
@@ -3552,6 +3555,7 @@ MonoBehaviour:
   LogDisplaySR: {fileID: 6444094214515018571}
   textHeight: 41.5
   ignorance: 5
+  IHLD: 1
   responded: 
   selectedIndex: 0
 --- !u!1 &4501934266522456470
@@ -5645,7 +5649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: -876546973899608171, guid: bca8cfece89e25942857285dd4748db9, type: 3}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
