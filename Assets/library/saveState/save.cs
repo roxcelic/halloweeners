@@ -25,8 +25,6 @@ namespace save {
         public string language = "English";
         public float sense = 1;
 
-        public string ver = "dev-0.1.0-13";
-
         public bool firstTimeInPauseMenu = false;
 
         public string mainColor = "#c0000D";
@@ -45,12 +43,23 @@ namespace save {
         }
     }
 
+    [System.Serializable]
+    public class fullConfig() {
+        public string ver = "dev-0.1.0-13";
+
+
+        public fullConfig() {
+
+        }
+    }
+
     /*
         a simple wrapperclass
     */
     [System.Serializable]
     public class fullSave {
         public List<saveData> saves = new List<saveData>();
+        public fullConfig config = new fullConfig();
         
         public fullSave () {this.saves = new List<saveData>(){new saveData()};}
     }
@@ -72,6 +81,13 @@ namespace save {
         static getData() {
             var.saves = data.getSaves();
         }
+
+        // a function to get the full config
+        public static fullConfig config() {
+            return var.saves.config;
+        }
+
+        // 
 
         // a function to check if youre a dev
         public static bool isDev() {

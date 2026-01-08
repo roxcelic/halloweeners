@@ -143,13 +143,9 @@ public class playerController : MonoBehaviour {
             AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack);
             AB_base savedAbility = GS.live.state.getCurrentAbility(currentSave.currentAbility);
 
-            if (savedAttack != null) {
-                attack = savedAttack;
-            }
+            if (savedAttack != null) attack = savedAttack;
 
-            if (savedAbility != null) {
-                ability = savedAbility;
-            }
+            if (savedAbility != null) ability = savedAbility;
 
             // load attack
             attack = Instantiate(attack); // clean perhaps a second time
@@ -177,7 +173,8 @@ public class playerController : MonoBehaviour {
                     // get the desired force
                     Vector3 targetVelocity = new Vector3();
 
-                    if (onSlope(2f)) {
+                    // onslope(2)
+                    if (false) {
                         targetVelocity = transform.forward * eevee.input.CheckAxis("up", "down");
                         targetVelocity += transform.right * eevee.input.CheckAxis("right", "left");
                         targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z) + addVel.getVelocity(this);

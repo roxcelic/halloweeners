@@ -12,7 +12,7 @@ public class MS_matchSpeed : MonoBehaviour {
 
     [Header("fov stuff")]
     private float baseFov;
-    [Range(0, 25f)] public float fovRange = 10f;
+    [Range(0, 50f)] public float fovRange = 10f;
     public Camera cam;
 
     void Start() {
@@ -32,9 +32,7 @@ public class MS_matchSpeed : MonoBehaviour {
 
         Anim.speed = Mathf.Clamp(mod, 0, Mathf.Infinity);
 
-        if (cam != null) {
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFov + Mathf.Clamp(mod, 0, fovRange), Time.deltaTime * 5f);
-        }
+        if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFov + Mathf.Clamp(mod, 0, fovRange), Time.deltaTime * 5f);
     }
 
 }
