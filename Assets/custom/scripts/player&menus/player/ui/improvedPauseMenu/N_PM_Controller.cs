@@ -21,6 +21,8 @@ public class pauseMenuController : MonoBehaviour {
 
     [Header("comp")]
     public TMP_InputField actualInput;
+    public Slider sliderVal;
+
     public TMP_Text MainDisplay;
     public RectTransform MainDisplayRect;
     public TMP_Text LogDisplay;
@@ -45,6 +47,7 @@ public class pauseMenuController : MonoBehaviour {
     public bool IHLD = true;
     
     public string responded = "";
+    public float? respondedSlider = -1;
     public int selectedIndex = 0;
 
     #region main
@@ -153,6 +156,8 @@ public class pauseMenuController : MonoBehaviour {
 
     /// <summery> gets a user input </summery>
     public async Task<string> getText(string placeHolder) {
+        if (actualInput == null) return "";
+
         actualInput.transform.gameObject.SetActive(true);
         actualInput.ActivateInputField();
         actualInput.Select();
@@ -171,8 +176,39 @@ public class pauseMenuController : MonoBehaviour {
         return responded;
     }
 
+    /// <summery> gets a user input slider </summery>
+    public async Task<float> getValueSlider(float start, float max, float min = 0.5f) {
+        if (sliderVal == null) return -1;
+        Cursor.lockState =  CursorLockMode.None;
+        Cursor.visible = true;
+
+        sliderVal.transform.gameObject.SetActive(true);
+        sliderVal.Select();
+
+        sliderVal.minValue = min;
+        sliderVal.maxValue = max;
+        sliderVal.value = start;
+
+        respondedSlider = -1;
+        interactable = false;
+
+        while (respondedSlider == -1) {
+            await Task.Delay(50);
+        }
+
+        sliderVal.transform.gameObject.SetActive(false);
+        interactable = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        return (float)respondedSlider;
+    }
+
     /// <summery> allows an input to be given </summery>
     public void setTextRep() {responded = actualInput.text;}
+
+    /// <summery> allows a slider input to be given </summery>
+    public void setSliderRep() {respondedSlider = sliderVal.value;}
 
     /// <summery> aligns the text box correctly </summery>
     public virtual void alignTextBox() {MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);}

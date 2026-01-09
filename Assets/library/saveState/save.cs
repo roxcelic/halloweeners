@@ -21,9 +21,6 @@ namespace save {
         [Header("config")]
         public string name = "";
         public bool dev = false;
-        public bool instantRespawn = false;
-        public string language = "English";
-        public float sense = 1;
 
         public bool firstTimeInPauseMenu = false;
 
@@ -39,14 +36,15 @@ namespace save {
         public List<string> unlockedLevels = new List<string>();
 
         public saveData() {
-            this.ver = var.ver;
         }
     }
 
     [System.Serializable]
-    public class fullConfig() {
+    public class fullConfig {
         public string ver = "dev-0.1.0-13";
-
+        public string language = "English";
+        public bool instantRespawn = false;
+        public float sense = 1;
 
         public fullConfig() {
 
@@ -87,7 +85,11 @@ namespace save {
             return var.saves.config;
         }
 
-        // 
+        // a function to save the config
+        public static void saveConfig(fullConfig newConf) {
+            var.saves.config = newConf;
+            data.push();
+        }
 
         // a function to check if youre a dev
         public static bool isDev() {

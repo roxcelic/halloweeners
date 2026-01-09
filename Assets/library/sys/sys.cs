@@ -67,7 +67,7 @@ namespace sys {
             if (this.overrideName != "") return this.overrideName;
             if (this.text == null) return "//////////////////////";
             
-            switch (save.getData.viewSave().language) {
+            switch (save.getData.config().language) {
                 case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}";
                 case "dev": return $"dev:{this.text.English}";
                 case "English":default: return this.text.English;

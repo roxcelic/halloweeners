@@ -435,7 +435,7 @@ public class playerController : MonoBehaviour {
         ///         if yes reload the scene
         ///         if no turn on the death screen and wait for an input
         public void Die() {
-            if (save.getData.viewSave().instantRespawn) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (save.getData.config().instantRespawn) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             else {
                 deathScreen.SetActive(true);
                 StartCoroutine(waitForInput(() => {
