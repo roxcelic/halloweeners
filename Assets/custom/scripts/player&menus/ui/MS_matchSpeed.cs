@@ -1,4 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
+using save;
 
 public class MS_matchSpeed : MonoBehaviour {
     public Transform targetUI;
@@ -11,16 +16,13 @@ public class MS_matchSpeed : MonoBehaviour {
     public Animator Anim;
 
     [Header("fov stuff")]
-    private float baseFov;
     [Range(0, 50f)] public float fovRange = 10f;
-    public Camera cam;
+    public List<Camera> cams;
 
     void Start() {
         RB = transform.GetComponent<Rigidbody>();
         CG = targetUI.GetComponent<CanvasGroup>();
         Anim = targetUI.GetComponent<Animator>();
-
-        if (cam != null) baseFov = cam.fieldOfView;
     }
 
     void Update() {
@@ -32,7 +34,7 @@ public class MS_matchSpeed : MonoBehaviour {
 
         Anim.speed = Mathf.Clamp(mod, 0, Mathf.Infinity);
 
-        if (cam != null) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, baseFov + Mathf.Clamp(mod, 0, fovRange), Time.deltaTime * 5f);
+        if (cams.Count > 0) foreach (Camera cam in cams) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, getData.config().fov + Mathf.Clamp(mod, 0, fovRange), Time.fixedDeltaTime * 5f);
     }
 
 }

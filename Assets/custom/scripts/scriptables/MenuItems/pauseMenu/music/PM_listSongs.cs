@@ -23,4 +23,7 @@ public class PM_listSongs : PM_Base {
 
         PMC.loadMenu(children);
     }
+
+    public override bool active() {return musicLib.var.customMusicAccess;}
+
 }

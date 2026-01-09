@@ -15,4 +15,6 @@ public class PM_listQueue : PM_Base {
             PMC.log(songName.name, "", "red", false);
         }
     }
+
+    public override bool active() {return musicLib.var.customMusicAccess;}
 }

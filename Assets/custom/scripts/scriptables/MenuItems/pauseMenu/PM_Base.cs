@@ -18,14 +18,16 @@ public class PM_Base : ScriptableObject {
     public virtual void action(pauseMenuController PMC, string input = "") {
         PMC.loadMenu(children);
     }
-    
     public virtual void onLoad(pauseMenuController PMC) {} // most will do nothing with this
+    public virtual bool active() {return true;} // checks if the thing can be ran
+    public virtual void runOnLoad() {} // run code when the thing is loaded
 
     /*
         Here i will be like doing stuff :steamhappy:
     */
     #region utils
-    public playerController findPlayer() {return GameObject.FindGameObjectsWithTag("Player")[0].transform.GetComponent<playerController>();} // a simple one liner to find the player
+    public playerController findPlayer() {return playerController.mainPlayer;} // a simple one liner to find the player
     public void updateScreen(pauseMenuController PMC) {PMC.displayText();}
+    public bool isSelected(pauseMenuController PMC) {return PMC.isSelected(this);}
     #endregion
 }

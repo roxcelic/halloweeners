@@ -19,6 +19,10 @@ namespace eeveeLive {
             // Dictionary<string, eevee.config> controls = eevee.Qlock.extractr();
             // foreach (string key in controls.Keys){Debug.Log($"pre loaded {key}");}
         }
+
+        public static void reset() {
+            eevee.inject.install(var.config);
+        }
     }   
 
     public class var {

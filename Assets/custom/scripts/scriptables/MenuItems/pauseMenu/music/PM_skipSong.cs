@@ -13,4 +13,6 @@ public class PM_skipSong : PM_Base {
     public override void action(pauseMenuController PMC, string input = "") {
         music.skip();
     }
+
+    public override bool active() {return musicLib.var.customMusicAccess;}
 }

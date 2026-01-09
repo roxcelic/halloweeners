@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using save;
+
 public class MM_Player : playerController {
     protected override void Start() {
         mainPlayer = this;
@@ -37,7 +39,7 @@ public class MM_Player : playerController {
         }
 
         // camera rotation
-        HandleMouse();
+        if(canMoveCamera) HandleMouse();
         if (eevee.input.Grab("Attack") || eevee.input.Grab("interact")) openMenu();
     }
 
@@ -53,13 +55,13 @@ public class MM_Player : playerController {
 
     public override void HandleMouse() {
         if (CanMove) {
-            float mouseX = Input.GetAxisRaw("Mouse X") * RT_Modifier;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * RT_Modifier / 2;
+            float mouseX = Input.GetAxisRaw("Mouse X") * (RT_Modifier * getData.config().sense);
+            float mouseY = Input.GetAxisRaw("Mouse Y") * (RT_Modifier * getData.config().sense) / 2;
 
             transform.Rotate(Vector3.up * mouseX);
         } else {
-            float mouseX = Input.GetAxisRaw("Mouse X") * RT_Modifier;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * RT_Modifier / 2;
+            float mouseX = Input.GetAxisRaw("Mouse X") * (RT_Modifier * getData.config().sense);
+            float mouseY = Input.GetAxisRaw("Mouse Y") * (RT_Modifier * getData.config().sense) / 2;
 
             camera.Rotate(Vector3.up * mouseX);
         }

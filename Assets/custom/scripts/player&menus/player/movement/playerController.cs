@@ -7,6 +7,8 @@ using TMPro;
 
 using ext;
 
+using save;
+
 // [RequireComponent(typeof(Rigidbody))]
 public class playerController : MonoBehaviour {
     /// <summery> variables </summery>
@@ -35,6 +37,7 @@ public class playerController : MonoBehaviour {
             private Vector3 lastSafePos;
 
             [Header("rotation")]
+            public bool canMoveCamera = true;
             public bool cameraY = false;
             public float cameraClamp = 40f;
             [Range(0f, 15f)] public float RT_Modifier = 5f;
@@ -203,7 +206,7 @@ public class playerController : MonoBehaviour {
             }
 
             // camera rotation
-            HandleMouse();
+            if(canMoveCamera) HandleMouse();
             if (eevee.input.Collect("Attack", "PC")) attack.attack(this);
             if (eevee.input.Grab("Ability", "PC")) {
                 StartCoroutine(whileHeld(
@@ -246,8 +249,8 @@ public class playerController : MonoBehaviour {
             //     camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, cameraClamp) : Mathf.Clamp(camera.localEulerAngles.x, 0, cameraClamp), camera.localEulerAngles.y, camera.localEulerAngles.z);
             // }
 
-            float mouseX = Input.GetAxisRaw("Mouse X") * RT_Modifier;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * RT_Modifier / 2;
+            float mouseX = Input.GetAxisRaw("Mouse X") * (RT_Modifier * getData.config().sense);
+            float mouseY = Input.GetAxisRaw("Mouse Y") * (RT_Modifier  * getData.config().sense) / 2;
 
             transform.Rotate(Vector3.up * mouseX);
 

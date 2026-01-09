@@ -1247,6 +1247,7 @@ MonoBehaviour:
   CanMove: 1
   loaded: 0
   targetLayer: Ground
+  canMoveCamera: 1
   cameraY: 1
   cameraClamp: 55
   RT_Modifier: 5
@@ -1398,7 +1399,9 @@ MonoBehaviour:
   CG: {fileID: 0}
   Anim: {fileID: 0}
   fovRange: 25
-  cam: {fileID: 5667619462576913791}
+  cams:
+  - {fileID: 5667619462576913791}
+  - {fileID: 5246665546769223488}
 --- !u!1 &1570457371090008955
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,6 +3552,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c252eb47e036d4acf859e0b6e6281427, type: 2}
   currentItems: []
   actualInput: {fileID: 5303752253411982451}
+  sliderVal: {fileID: 0}
   MainDisplay: {fileID: 4771076755843828201}
   MainDisplayRect: {fileID: 0}
   LogDisplay: {fileID: 5175691952983576355}
@@ -3649,7 +3653,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 94ad7e28c197945749d54de47622129e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -6695,7 +6699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7642497471729279189}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

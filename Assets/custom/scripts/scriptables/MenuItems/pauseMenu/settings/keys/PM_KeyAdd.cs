@@ -63,7 +63,7 @@ public class PM_KeyAdd : PM_Base {
         }
 
         eevee.inject.OverWrite(newInput);
-        PMC.interactable = true;
+        PMC.allowInput();
     }
 
 
@@ -87,7 +87,7 @@ public class PM_KeyAdd : PM_Base {
         }
 
         eevee.inject.OverWrite(newInput);
-        PMC.interactable = true;
+        PMC.allowInput();
     }
 
     /*

@@ -44,7 +44,9 @@ namespace save {
         public string ver = "dev-0.1.0-13";
         public string language = "English";
         public bool instantRespawn = false;
+        
         public float sense = 1;
+        public float fov = 60;
 
         public fullConfig() {
 

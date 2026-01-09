@@ -18,7 +18,9 @@ MonoBehaviour:
   essential: 0
   dev: 0
   children:
-  - {fileID: 11400000, guid: c486d4bde26b94c7a8413ec2fd02198c, type: 2}
+  - {fileID: 11400000, guid: 2c5ca811b1ede5f4cbcd6e4a59e1f707, type: 2}
+  - {fileID: 11400000, guid: e74e5328c3e533944b14adb9e6b8d617, type: 2}
   - {fileID: 11400000, guid: 3f3b49a8e74f042d28bf183c3e79b30d, type: 2}
   - {fileID: 11400000, guid: 2e358acb44e2c4536a6a9fb787b6db20, type: 2}
   - {fileID: 11400000, guid: 0c96622828b94439c98a183524da7034, type: 2}
+  - {fileID: 11400000, guid: c486d4bde26b94c7a8413ec2fd02198c, type: 2}

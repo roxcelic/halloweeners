@@ -71,7 +71,7 @@ public class pauseMenuController : MonoBehaviour {
         if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
         if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
     
-        if (eevee.input.Collect("interact", "pm") || eevee.input.Collect("Attack", "pm")) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
+        if ((eevee.input.Collect("interact", "pm") || eevee.input.Collect("Attack", "pm") && getPirvlagedOptions()[selectedIndex].active())) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
 
         alignTextBox();
@@ -115,7 +115,7 @@ public class pauseMenuController : MonoBehaviour {
         
         for (int i = 0; i < getPirvlagedOptions().Count; i++) {
             getPirvlagedOptions()[i].onLoad(this);
-            result += $"{(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} \n";
+            result += $"<color={(getPirvlagedOptions()[i].active() ? "white" : "gray" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> \n";
         }
 
         MainDisplay.text = result;
@@ -135,6 +135,8 @@ public class pauseMenuController : MonoBehaviour {
     public void loadMenu(List<PM_Base> newItems, bool hide = false) {
         if (newItems.Count == 0) return;
         if(!hide) previousItems.Add(currentItems);
+        foreach (PM_Base item in newItems) item.runOnLoad();
+
         currentItems = newItems;
         selectedIndex = 0;
         displayText();
@@ -155,53 +157,87 @@ public class pauseMenuController : MonoBehaviour {
     }
 
     /// <summery> gets a user input </summery>
-    public async Task<string> getText(string placeHolder) {
+    public async Task<string> getText(string placeHolder, string defaultAnswer = "") {
         if (actualInput == null) return "";
 
-        actualInput.transform.gameObject.SetActive(true);
-        actualInput.ActivateInputField();
-        actualInput.Select();
-        actualInput.placeholder.transform.GetComponent<TMP_Text>().text = placeHolder;
+        editInputAllowence(0, () => {
+            actualInput.transform.gameObject.SetActive(true);
+            actualInput.ActivateInputField();
+            actualInput.Select();
+            actualInput.placeholder.transform.GetComponent<TMP_Text>().text = placeHolder;
+            responded = "";
+        });
 
-        responded = "";
-        interactable = false;
+        bool regularPath = true;
+        while (responded == "" && (regularPath = !eevee.input.Check("back")) ) await Task.Delay(50);
 
-        while (responded == "") {
-            await Task.Delay(50);
-        }
+        editInputAllowence(1, () => {
+            actualInput.transform.gameObject.SetActive(false);
+        });
 
-        actualInput.transform.gameObject.SetActive(false);
-        interactable = true;
-
-        return responded;
+        return regularPath ? responded : defaultAnswer;
     }
 
     /// <summery> gets a user input slider </summery>
     public async Task<float> getValueSlider(float start, float max, float min = 0.5f) {
         if (sliderVal == null) return -1;
-        Cursor.lockState =  CursorLockMode.None;
-        Cursor.visible = true;
 
-        sliderVal.transform.gameObject.SetActive(true);
-        sliderVal.Select();
+        /*
+            Now you may ask why i made that a lambda function when i could have just ran it after,
+            'why wouldnt you?' is the real question
+        */
+        editInputAllowence(0, () => {
+            sliderVal.minValue = min;
+            sliderVal.maxValue = max;
+            sliderVal.value = start;
+            sliderVal.transform.gameObject.SetActive(true);
+            sliderVal.Select();
+        });
 
-        sliderVal.minValue = min;
-        sliderVal.maxValue = max;
-        sliderVal.value = start;
+        float slideTrack = start;
 
-        respondedSlider = -1;
-        interactable = false;
+        bool regularPath = true;
+        while (sliderVal.value == start && (regularPath = !eevee.input.Check("back"))) await Task.Delay(50);
+        
+        if (regularPath) { while (true) {
+            if (slideTrack == sliderVal.value) break;
+            
+            slideTrack = sliderVal.value;
+            await Task.Delay(250);
+        } } else slideTrack = sliderVal.value;
 
-        while (respondedSlider == -1) {
-            await Task.Delay(50);
+        editInputAllowence(1, () => {
+            sliderVal.transform.gameObject.SetActive(false);
+        });
+
+        return slideTrack;
+    }
+
+    /// <summery> a util to change the allowence of certain ui data </summery>
+    public void editInputAllowence(int mode = 0, System.Action special = null) {
+        switch (mode) {
+            case 1:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                playerController.mainPlayer.canMoveCamera = true;
+                StartCoroutine(reAllowInput());
+
+                break;
+            case 0: default:
+                Cursor.lockState =  CursorLockMode.None;
+                Cursor.visible = true;
+                playerController.mainPlayer.canMoveCamera = false;
+                interactable = false;
+        
+                break;
         }
 
-        sliderVal.transform.gameObject.SetActive(false);
-        interactable = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if(special != null) special();
+    }
 
-        return (float)respondedSlider;
+    /// <summery> check if a option is hovered </summery>
+    public bool isSelected(PM_Base target) {
+        return getPirvlagedOptions()[selectedIndex] == target;
     }
 
     /// <summery> allows an input to be given </summery>
@@ -221,5 +257,11 @@ public class pauseMenuController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(Delay);
         action();
     }
+
+    /// <summery> wait 0.35 (default) seconds to allow input again </summery>
+    public IEnumerator reAllowInput(float duration = 0.35f) {
+        yield return new WaitForSecondsRealtime(duration);
+        interactable = true;
+    } public void allowInput() {StartCoroutine(reAllowInput());} // a util to run this
     #endregion
 }

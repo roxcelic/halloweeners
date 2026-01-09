@@ -20,7 +20,7 @@ public class PM_LoadSave : PM_Base {
         if(save.data.getSaves().saves[saveNum].name != "") base.action(PMC);
         else {
             save.saveData currentSave = save.getData.viewSave();
-            currentSave.name = await PMC.getText(new sys.Text("", Resources.Load("text/MainMenu/saves/nameYourSave") as textobject).localise());
+            currentSave.name = await PMC.getText(new sys.Text("", Resources.Load("text/MainMenu/saves/nameYourSave") as textobject).localise(), sys.var.keywords.defaultCharName);
             save.getData.save(currentSave);
 
             base.action(PMC);
