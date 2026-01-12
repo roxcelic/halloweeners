@@ -109,7 +109,7 @@ namespace sys {
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static void applyFrameCap() {
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 240;
         }
     }
 

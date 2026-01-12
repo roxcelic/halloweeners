@@ -48,20 +48,6 @@ public class MM_Term : pauseMenuController {
         );
     }
 
-    /// <summery> load the previous menu </summery>
-    public override void loadPrevMenu() {
-        if (previousItems.Count == 0) {
-            close();
-            return;
-        }
-
-        loadMenu(previousItems[previousItems.Count - 1]);
-        previousItems.RemoveAt(previousItems.Count - 1);
-
-        selectedIndex = 0;
-        displayText();
-    }
-
     public void open() {
         if (opened) return;
         opened = true;

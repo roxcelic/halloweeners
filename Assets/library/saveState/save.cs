@@ -41,12 +41,19 @@ namespace save {
 
     [System.Serializable]
     public class fullConfig {
+        // basic settings stuff
         public string ver = "dev-0.1.0-13";
         public string language = "English";
         public bool instantRespawn = false;
         
+        // game
         public float sense = 1;
         public float fov = 60;
+
+        // volume
+        public float volume_master = 0f;
+        public float volume_music = 0f;
+        public float volume_sfx = 0f;
 
         public fullConfig() {
 
