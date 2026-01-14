@@ -48,6 +48,11 @@ public class MM_Term : pauseMenuController {
         );
     }
 
+    public override void loadPrevMenu() {
+        if (previousItems.Count == 1) close();
+        else base.loadPrevMenu();
+    }
+
     public void open() {
         if (opened) return;
         opened = true;
@@ -83,6 +88,7 @@ public class MM_Term : pauseMenuController {
             cam.localRotation = Quaternion.Lerp(cam.localRotation, Quaternion.identity, Time.fixedDeltaTime * 15f);
             yield return 0;
         }
+
         cam.localRotation = Quaternion.identity;
         cam.localPosition = new Vector3();
 

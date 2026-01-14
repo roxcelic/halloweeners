@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f55c6a6179c8441b040db255816029, type: 3}
+  m_Name: change language
+  m_EditorClassIdentifier: Assembly-CSharp::PM_changeLanguage
+  name:
+    overrideName: change language
+    text: {fileID: 0}
+  essential: 0
+  dev: 0
+  children: []

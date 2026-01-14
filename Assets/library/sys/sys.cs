@@ -22,6 +22,12 @@ namespace sys {
             public static string devPass = "qoh1206";
             public static string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             public static string defaultCharName = "asdawsd";
+
+            public static List<String> languages = new List<String> {
+                "English",
+                "cat",
+                "dev"
+            };
         }
 
     }
@@ -109,7 +115,7 @@ namespace sys {
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static void applyFrameCap() {
-            Application.targetFrameRate = 240;
+            Application.targetFrameRate = 60;
         }
     }
 
