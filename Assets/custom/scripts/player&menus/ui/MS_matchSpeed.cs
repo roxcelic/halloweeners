@@ -28,11 +28,11 @@ public class MS_matchSpeed : MonoBehaviour {
     void Update() {
         float mod = (RB.linearVelocity.magnitude - minSpeed) * multiplier;
 
-        CG.alpha = Mathf.Lerp(CG.alpha, (
+        CG.alpha = Mathf.Lerp(CG.alpha, Mathf.Clamp((
             RB.linearVelocity.magnitude < minSpeed
-        ) ? 0 : 1, Time.deltaTime * 15f);
+        ) ? 0 : 1, getData.viewSave().lockSpeedDisplay ? 1 : 0, 1), Time.deltaTime * 15f);
 
-        Anim.speed = Mathf.Clamp(mod, 0, Mathf.Infinity);
+        Anim.speed = Mathf.Clamp(mod, 0.25f, Mathf.Infinity);
 
         if (cams.Count > 0) foreach (Camera cam in cams) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, getData.config().fov + Mathf.Clamp(mod, 0, fovRange), Time.fixedDeltaTime * 5f);
     }

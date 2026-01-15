@@ -30,28 +30,33 @@ public class NEN_willaim : NEN_base {
     // the movement yay
     public IEnumerator changeState() {        
         yield return new WaitUntil(() => self != null);
+        stateMan();
         while (!self.dead) {
             yield return new WaitForSeconds(positionStateDelay);
             yield return new WaitUntil(() => canSeePlayer());
 
-            if (able && !self.dead){
-                switch (positionState) {
-                    case 0: default:
-                        positionState = 1; 
-                        self.canBeDamaged = true;
-                        self.anim.Play("spawn");
-                        break;
-                    case 1: 
-                        positionState = 2; 
-                        self.anim.Play("shoot");
-                        break;
-                    case 2:
-                        positionState = 0; 
-                        self.canBeDamaged = false;
-                        self.anim.Play("unSpawn");
-                        break;
-                }     
-            } 
+            stateMan();
+        }
+    }
+
+    private void stateMan() {
+        if (able && !self.dead){
+            switch (positionState) {
+                case 0: default:
+                    positionState = 1; 
+                    self.canBeDamaged = true;
+                    self.anim.Play("spawn");
+                    break;
+                case 1: 
+                    positionState = 2; 
+                    self.anim.Play("shoot");
+                    break;
+                case 2:
+                    positionState = 0; 
+                    self.canBeDamaged = false;
+                    self.anim.Play("unSpawn");
+                    break;
+            }     
         }
     }
 

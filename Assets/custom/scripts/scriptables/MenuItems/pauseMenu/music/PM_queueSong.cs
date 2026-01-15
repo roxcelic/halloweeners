@@ -17,4 +17,8 @@ public class PM_queueSong : PM_Base {
         PMC.log($"added {selectedSong} to queue");
         PMC.loadPrevMenu();
     }
+
+    public override bool active() {
+        return musicLib.var.customMusicAccess;
+    }
 }

@@ -21,6 +21,7 @@ namespace save {
         [Header("config")]
         public string name = "";
         public bool dev = false;
+        public bool lockSpeedDisplay = true;
 
         public bool firstTimeInPauseMenu = false;
 

@@ -71,7 +71,7 @@ public class pauseMenuController : MonoBehaviour {
         if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
         if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
     
-        if ((eevee.input.Collect("interact", "pm") || eevee.input.Collect("Attack", "pm") && getPirvlagedOptions()[selectedIndex].active())) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
+        if (((eevee.input.Collect("interact", "pm") || eevee.input.Collect("Attack", "pm") )&& getPirvlagedOptions()[selectedIndex].active())) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
 
         alignTextBox();
@@ -115,7 +115,7 @@ public class pauseMenuController : MonoBehaviour {
         
         for (int i = 0; i < getPirvlagedOptions().Count; i++) {
             getPirvlagedOptions()[i].onLoad(this);
-            result += $"<color={(getPirvlagedOptions()[i].active() ? "white" : "gray" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> \n";
+            result += $"<color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> \n";
         }
 
         MainDisplay.text = result;
@@ -169,7 +169,7 @@ public class pauseMenuController : MonoBehaviour {
         });
 
         bool regularPath = true;
-        while (responded == "" && (regularPath = !eevee.input.Check("back")) ) await Task.Delay(50);
+        while (responded == "" ) await Task.Delay(50);
 
         editInputAllowence(1, () => {
             actualInput.transform.gameObject.SetActive(false);
