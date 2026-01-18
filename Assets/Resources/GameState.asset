@@ -17,7 +17,6 @@ MonoBehaviour:
   menued: 0
   loaded: 1
   gameSpeed: 1
-  player: {fileID: 0}
   registeredAttacks:
   - name: dev
     attack: {fileID: 11400000, guid: eef007f513c2fb046a5f2c8cc89cf0b9, type: 2}
@@ -25,14 +24,12 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: 4e60b7fa556c44c0591304d38f701396, type: 2}
   - name: scythe
     attack: {fileID: 11400000, guid: 954f6ddd66d3945078c87229e42fd16f, type: 2}
-  - name: two handed gun
-    attack: {fileID: 11400000, guid: fb9348ec518e748758bf1eae04dc5349, type: 2}
-  - name: grapple
-    attack: {fileID: 11400000, guid: a4d933ed4d3554746a28e5c6ab2a535e, type: 2}
   - name: builds
     attack: {fileID: 11400000, guid: 21dda5d86b2b64ee9a8a9e297e5b4c81, type: 2}
   - name: creativeMode
     attack: {fileID: 11400000, guid: 464d96846c2c74a08ab82b3be5274d08, type: 2}
+  - name: scythe-RE
+    attack: {fileID: 11400000, guid: ea4c49741cd75c249ae1bd4ca78ce5f5, type: 2}
   registeredAbilities:
   - name: time travel
     ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}

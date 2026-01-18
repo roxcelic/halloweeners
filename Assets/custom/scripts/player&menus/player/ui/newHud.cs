@@ -30,10 +30,8 @@ public class newHud : MonoBehaviour {
 
     public IEnumerator CO_trackDisplays() {
         while (true) {
-            health.text = $"{player.health}";
-            maxHealth.text = $"{player.maxHealth}";
-
-            charge.text = $"{player.charge}";
+            health.text = $"hp:{player.health}/{player.maxHealth}";
+            charge.text = $"c:{player.charge}";
 
             speed.text = $"{Math.Round(rb.linearVelocity.magnitude, 2).ToString()}u/m-s";
 

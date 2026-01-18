@@ -46,10 +46,10 @@ public class MM_Player : playerController {
     // wonder where i stole this from.......
     public void openMenu() {
         RaycastHit hit;
-        MM_Term tmpBrain;
+        MM_Term tmpHld;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)) {
-            if ((tmpBrain = hit.collider.transform.GetComponent<MM_Term>()) != null) tmpBrain.open();
+            if ((tmpHld = hit.collider.transform.GetComponent<MM_Term>()) != null) tmpHld.open();
         }
     }
 

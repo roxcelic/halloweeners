@@ -101,6 +101,11 @@ public class pauseMenuController : MonoBehaviour {
 
         loadMenu(new List<PM_Base>{yes, no});
     }
+    
+    /// <summery> a util to open/close the menu </summery>
+    public void open() {
+        changePauseState(true);
+    }
 
     /// <summery> change the state to paused </summery>
     public void changePauseState(bool newVal) {

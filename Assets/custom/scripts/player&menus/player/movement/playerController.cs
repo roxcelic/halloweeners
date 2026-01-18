@@ -69,6 +69,9 @@ public class playerController : MonoBehaviour {
         public float dashDelay = 1f;
 
         [Header("componenets")]
+        // pause menu
+        public pauseMenuController pauseMenu;
+
         // this is basic unity stuff
         public Rigidbody rb;
         public Collider col;
@@ -80,7 +83,6 @@ public class playerController : MonoBehaviour {
         // attack information
         public Animator ScreenEffect;
         public Animator AttackDisplay;
-        public Animator crosshairDisplay;
 
         // ability
         public Animator abilityCharge;
@@ -99,7 +101,6 @@ public class playerController : MonoBehaviour {
         [Header("defaults")]
         public AT_base D_Attack;
         public RuntimeAnimatorController D_AttackDisplay;
-        public RuntimeAnimatorController D_crosshair;
 
         [Header("stats")]
         public int maxHealth;
@@ -324,7 +325,6 @@ public class playerController : MonoBehaviour {
         /// This is something i plan on phasing out as it adds an extra layer of complexity to the attacks which is un-needed as there will never be a point when the player doesnt have an attack loaded
         public void Reset() {
             AttackDisplay.runtimeAnimatorController = D_AttackDisplay;
-            crosshairDisplay.runtimeAnimatorController = D_crosshair;
             attack = D_Attack;
         }
 

@@ -37,7 +37,6 @@ public class AT_base : ScriptableObject {
         public Sprite sprite;
 
         public RuntimeAnimatorController AC; 
-        public RuntimeAnimatorController crosshair;
         public RuntimeAnimatorController enemyDisplay;
 
         [Header("sounds")]
@@ -64,7 +63,6 @@ public class AT_base : ScriptableObject {
         public virtual void load(playerController character, bool reload = true) {
             // animators
             character.AttackDisplay.runtimeAnimatorController = AC;
-            character.crosshairDisplay.runtimeAnimatorController = crosshair;
 
             // data
             canShoot = true;

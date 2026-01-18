@@ -26,7 +26,6 @@ public class POR_BASE : MonoBehaviour {
     }
 
     void OnTriggerEnter (Collider other) {
-        Debug.Log("overlap");
         if (other.tag == "Player") playerIsOveralpping = true;
     }
 }

@@ -19,6 +19,8 @@ public class PM_switchWrapon : PM_Base {
             weapon.name = attack.attack.displayName;
 
             children.Add(weapon);
+
+            PMC.log($"weapon has attack: {attack.attack != null}");
         
             PMC.log($"found weapon: {attack.attack.displayName.localise()}");
         }
