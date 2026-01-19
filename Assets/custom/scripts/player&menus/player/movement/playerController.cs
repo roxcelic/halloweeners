@@ -362,11 +362,11 @@ public class playerController : MonoBehaviour {
             RaycastHit hit;
             brain tmpBrain;
 
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity)) {
-                if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) thoughtDisplay.text = tmpBrain.thought;
-                else thoughtDisplay.text = "";
+            if (Physics.Raycast(transform.position, camera.forward, out hit, Mathf.Infinity)) {
+                if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) hiveMind.updateTarget(tmpBrain);
+                else hiveMind.updateTarget(null);
             } else {
-                thoughtDisplay.text = "";
+                hiveMind.updateTarget(null);
             }
         }
 
