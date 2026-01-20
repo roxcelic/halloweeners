@@ -9,29 +9,6 @@ using ext;
 
 using TMPro;
 
-namespace AVdata {
-
-    // a class to save an attack
-    [System.Serializable]
-    public class savedAttack {
-        public string attackName = "";
-        public attack.attackData attackData;
-
-        public savedAttack(AT_base attack = null) {
-            if (attack == null) {
-                this.attackName = "";
-                this.attackData = new attack.attackData();
-
-                return;
-            } // bleh
-
-            this.attackName = attack.name;
-            this.attackData = attack.attackData;
-        }
-    }
-
-}
-
 public class AV_MenuController : MonoBehaviour {
     [Header("prefabs")]
     public GameObject P_itemDisplay;
