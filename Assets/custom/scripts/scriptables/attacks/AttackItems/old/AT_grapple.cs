@@ -21,8 +21,6 @@ public class AT_grapple : AT_base {
         oldPlayerSpeed = character.moveSpeed;
         character.moveSpeed = newPlayerSpeed;
 
-        oldAttackDamage = character.D_Attack.damage;
-        character.D_Attack.damage = attackDamage;
     }
 
     public override void attack(playerController character) {
@@ -46,7 +44,6 @@ public class AT_grapple : AT_base {
 
     public override void unLoad(playerController character) {
         character.moveSpeed = oldPlayerSpeed;
-        character.D_Attack.damage = oldAttackDamage;
     }
 
     public IEnumerator moveToPoint(Vector3 target, playerController character){

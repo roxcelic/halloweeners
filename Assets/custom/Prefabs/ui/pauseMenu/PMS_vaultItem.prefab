@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1316909955, guid: 313f5f59325fa924d93626b6d5beb3b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e80d8b81c3009de43b58e19073b5b909, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -222,4 +222,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PMS_vaultItem
   position: 0
-  iconDisplay: {fileID: 8593079315447569793}
+  iconDisplay: {fileID: 7346898473075186077}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 using System;
 using System.Collections;
@@ -18,12 +19,15 @@ public class PMS_vaultSpawner : displayVarItems {
     [Header("comp")]
     public GameObject selectionMenu;
     public TMP_Text selectionDisplay;
+    public TMP_Text selectionDisplayDescription;
+    public Image selectionDisplayIcon;
 
     [Header("text")]
     public sys.Text message = new sys.Text();
 
     [Header("data")]
     public int selectedItem;
+    private AT_base currentSelectedAttack => GS.live.state.getCurrentAttack(getData.viewSave().savedAttacks[selectedItem].attackName);
 
     void Start() {
         instance = this;
@@ -72,10 +76,13 @@ public class PMS_vaultSpawner : displayVarItems {
         if (spawning) return;
 
         saveData currentSave = getData.viewSave();
-        currentSave.savedAttacks.Add(new AVdata.savedAttack(playerController.mainPlayer.attack));
-        getData.save(currentSave);
+        AT_base attack = playerController.mainPlayer.Reset();
+        if (attack != null) {
+            currentSave.savedAttacks.Add(new AVdata.savedAttack(attack));
+            getData.save(currentSave);
 
-        reset();
+            reset();
+        }
     }
 
 
@@ -88,13 +95,43 @@ public class PMS_vaultSpawner : displayVarItems {
 
     /// <summery> opens or closes the child menu </summery>
     public void openChildMenu(bool state = true) {
+        selectionMenu.SetActive(!state);
+        saveData currentSave = getData.viewSave();
+
+        if(selectedItem >= currentSave.savedAttacks.Count) return;
+
         selectionMenu.SetActive(state);
         if (state) {
-            saveData currentSave = getData.viewSave();
+
+            AT_base selectedAttack = currentSelectedAttack;
 
             selectionDisplay.text = message.displayVar(new Dictionary<string, string> {
-                {"item", currentSave.savedAttacks[selectedItem].attackName}
+                {"item", selectedAttack.name}
             });
+
+            selectionDisplayIcon.sprite = selectedAttack.sprite;
+            selectionDisplayDescription.text = selectedAttack.description.localise();
         }
     }
+
+    /// <summery> equips the selected weapon </summery>
+    public void equipSelectedWeapon() {
+        if (spawning) return;
+
+        saveData currentSave = getData.viewSave();
+
+        if(selectedItem >= currentSave.savedAttacks.Count) return;
+        AT_base attack = playerController.mainPlayer.Reset();
+
+        Debug.Log($"setting attack to {currentSelectedAttack.displayName.localise()} and storing {attack.displayName.localise()}");
+        playerController.mainPlayer.switchAttack(currentSelectedAttack);
+
+        if (attack != null) {
+            currentSave.savedAttacks.Add(new AVdata.savedAttack(attack));
+            getData.save(currentSave);
+        }
+
+        reset();
+    }
+
 }

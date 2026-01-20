@@ -32,6 +32,7 @@ public class AT_base : ScriptableObject {
         public bool enemyDis = true;
         new public string name = "base";
         public sys.Text displayName = new sys.Text();
+        public sys.Text description = new sys.Text();
         public bool attackWithAnimation = false;
 
         public Sprite sprite;

@@ -103,29 +103,7 @@ public class PM_SaveAttribute : PM_Base {
 
                 break;
             case searchType.baseAttack:
-                AT_base attack = GS.live.state.player.transform.GetComponent<playerController>().D_Attack;
-
-                switch (commandData[0]) {
-                    case "view":
-                        PMC.log("available choices are:", "dev", "green");
-                        loopThroughFeilds(attack, PMC);
-
-                        break;
-                    case "get":
-                        PMC.log($"{attack.GetFieldValue(commandData[1])}", "dev", "green");
-
-                        break;
-                    case "set":
-                        PMC.log($"{attack.SetFieldValue(commandData[1], commandData[2])}", "dev", "green");
-
-                        break;
-                    default:
-                        PMC.log($"currect use for this command is '[name] [view/get/set] [property name] [new value]'", "system", "blue");
-
-                        break;
-                }
-                
-                // save.getData.save(currentSave);
+                PMC.log("This is an outdated command, my apolocheese", "dev", "green");
 
                 break;
         }

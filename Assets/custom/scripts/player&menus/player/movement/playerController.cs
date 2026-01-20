@@ -99,7 +99,6 @@ public class playerController : MonoBehaviour {
         public AB_base ability;
 
         [Header("defaults")]
-        public AT_base D_Attack;
         public RuntimeAnimatorController D_AttackDisplay;
 
         [Header("stats")]
@@ -208,7 +207,7 @@ public class playerController : MonoBehaviour {
 
             // camera rotation
             if(canMoveCamera) HandleMouse();
-            if (eevee.input.Collect("Attack", "PC")) attack.attack(this);
+            if (eevee.input.Collect("Attack", "PC") && attack != null) attack.attack(this);
             if (eevee.input.Grab("Ability", "PC")) {
                 StartCoroutine(whileHeld(
                     () => {},
@@ -323,9 +322,16 @@ public class playerController : MonoBehaviour {
     #region utils
         /// <summery> resets the players animators </summery>
         /// This is something i plan on phasing out as it adds an extra layer of complexity to the attacks which is un-needed as there will never be a point when the player doesnt have an attack loaded
-        public void Reset() {
+        public AT_base Reset() {
+            if (attack == null) return null;
+            
+            attack.unLoad(this);
+            AT_base hldatk = attack;
+            
             AttackDisplay.runtimeAnimatorController = D_AttackDisplay;
-            attack = D_Attack;
+            attack = null;
+
+            return hldatk;
         }
 
         /// <summery> a util to allow an animation to ran the ability on the player </summery>

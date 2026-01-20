@@ -18,4 +18,7 @@ public class PMS_vaultControls : MonoBehaviour {
 
     /// <summery> closes the sub menu </summery>
     public void closeSubMenu() {PMS_vaultSpawner.instance.openChildMenu(false);}
+
+    /// <summery> equip the selected attack </summery>
+    public void equip() {PMS_vaultSpawner.instance.equipSelectedWeapon();}
 }

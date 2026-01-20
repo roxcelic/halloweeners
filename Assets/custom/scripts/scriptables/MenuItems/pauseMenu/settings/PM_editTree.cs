@@ -16,7 +16,7 @@ public class PM_editTree : PM_Base {
         // save data
         string[] commandData = (await PMC.getText("")).Split(" ");
 
-        AT_base attack = GS.live.state.player.transform.GetComponent<playerController>().D_Attack;
+        // AT_base attack = GS.live.state.player.transform.GetComponent<playerController>().D_Attack
 
         switch (commandData[0]) {
             case "list": // lists the available objects
@@ -109,7 +109,7 @@ public class PM_editTree : PM_Base {
             if (obj == null) return; 
             PMC.log($"{seperator.Multiply(loop)}{sourceProperty.Name} : {sourceProperty.GetValue(obj)}", "dev", "green");
 
-            List<string> allowedTypes = new List<string>{nameof(attack.attackData), nameof(Vector2), nameof(List<String>)};
+            List<string> allowedTypes = new List<string>{ nameof(Vector2), nameof(List<String>)};
             string typeName = sourceProperty.GetValue(obj).GetType().Name;
             if (typeName == null) typeName = "";
 

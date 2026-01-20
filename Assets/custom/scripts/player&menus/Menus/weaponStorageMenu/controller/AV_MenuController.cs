@@ -305,7 +305,7 @@ public class AV_MenuController : MonoBehaviour {
 
         // if a default attack dont continue
         if (barredAttackNames.Contains(cachedAttack.name)) return;
-        player.switchAttack(player.D_Attack); // set the players current attack to the base attack
+        // player.switchAttack(player.D_Attack); // set the players current attack to the base attack
         
         // save it
         save.saveData currentSave = save.getData.viewSave();
