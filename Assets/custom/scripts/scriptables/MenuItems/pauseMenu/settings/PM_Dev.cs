@@ -25,5 +25,7 @@ public class PM_Dev : PM_Base {
             if(currentSave.dev) PMC.log(languageWarning.localise(), sys.programNames.dev.localise(), "green");
 
         save.getData.save(currentSave);
+
+        PMC.selectedIndex = 0;
     }
 }

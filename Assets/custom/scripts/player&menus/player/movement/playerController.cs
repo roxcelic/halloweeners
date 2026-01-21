@@ -116,6 +116,20 @@ public class playerController : MonoBehaviour {
         [Header("iframes")]
         public int maxIframes = 40;
         public int liveIftames = 100;
+
+        /// <summery> no clip </summery>
+        public bool noclip {
+            get {return M_noclip;}
+            set {
+                if(rb == null || col == null) return;
+
+                rb.useGravity = !value;
+                col.isTrigger = value;
+                M_noclip = value;
+            }
+        }
+
+        private bool M_noclip = false;
     #endregion
 
     /// <summery> basic start </summery>
@@ -128,6 +142,9 @@ public class playerController : MonoBehaviour {
             rb = GetComponent<Rigidbody>();
             col = GetComponent<Collider>();
             AS = GetComponent<AudioSource>();
+
+            // set defaults
+            noclip = true;
 
             // velocity
             addVel = new movement.additionalVelocity(0, updateSpeed, true);
@@ -163,6 +180,17 @@ public class playerController : MonoBehaviour {
     /// <summery> basic update </summery>
     #region Update
         protected virtual void Update() {
+            // noclip
+            if (noclip) {
+                HandleMouse();
+                 if (eevee.input.Collect("Attack", "PC") && attack != null) attack.attack(this);
+
+                transform.noClip(camera);
+                rb.linearVelocity = new Vector3();
+
+                return;
+            }
+
             // attack update
             if (attack != null) attack.update(this); 
             if (ability != null) ability.update(this);
@@ -234,21 +262,6 @@ public class playerController : MonoBehaviour {
     #region movementUtils 
         /// <summery> This is what allows the player to look around and what not </summery>
         public virtual void HandleMouse() {
-            // float mouseX = Input.GetAxis("Mouse X") * RT_Modifier;
-            
-            // // This is so fun and silly (unused)
-            // float mouseY = 0f;
-            // if (cameraY) mouseY = Input.GetAxis("Mouse Y") * (RT_Modifier / 2);
-
-            // mouseX = eevee.input.CheckAxis("cameraRight", "cameraLeft") == 0 ? mouseX : eevee.input.CheckAxis("cameraRight", "cameraLeft") * RT_Modifier;
-
-            // transform.Rotate(Vector3.up * mouseX);
-            // if(cameraY) {
-            //     camera.Rotate((Vector3.right * -mouseY));
-
-            //     camera.localEulerAngles = new Vector3(camera.localEulerAngles.x > 180 ? 360 - Mathf.Clamp(360 - camera.localEulerAngles.x, 0, cameraClamp) : Mathf.Clamp(camera.localEulerAngles.x, 0, cameraClamp), camera.localEulerAngles.y, camera.localEulerAngles.z);
-            // }
-
             float mouseX = Input.GetAxisRaw("Mouse X") * (RT_Modifier * getData.config().sense);
             float mouseY = Input.GetAxisRaw("Mouse Y") * (RT_Modifier  * getData.config().sense) / 2;
 

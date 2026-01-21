@@ -1160,7 +1160,6 @@ MonoBehaviour:
   hud: {fileID: 2038153889}
   attack: {fileID: 0}
   ability: {fileID: 0}
-  D_Attack: {fileID: 0}
   D_AttackDisplay: {fileID: 0}
   maxHealth: 10
   health: 10
@@ -1254,6 +1253,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2215840243871189744, guid: 034f6da45b48d55428694e63630594ed, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1268,6 +1291,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5684490548863623764, guid: 034f6da45b48d55428694e63630594ed, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999137850731818243, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7838553208067468285, guid: 034f6da45b48d55428694e63630594ed, type: 3}

@@ -14,6 +14,33 @@ namespace ext {
     }
     #endregion
 
+    #region  transform
+    public static class transform {
+        public static void noClip(this Transform transform, Transform camera = null) {
+            float speed = Input.GetKey(KeyCode.LeftShift) ? 3 : 1;
+
+            float hz = 0;
+            float vz = 0;
+            float uz = 0;
+
+            if(Input.GetKey(KeyCode.A)) hz -= speed;
+            if(Input.GetKey(KeyCode.D)) hz += speed;
+            if(Input.GetKey(KeyCode.W)) vz += speed;
+            if(Input.GetKey(KeyCode.S)) vz -= speed;
+            if(Input.GetKey(KeyCode.LeftControl)) uz -= speed;
+            if(Input.GetKey(KeyCode.Space)) uz += speed;
+            
+
+
+            Vector3 forward = camera == null ? transform.forward : camera.forward;
+            Vector3 right = camera == null ? transform.right : camera.right;
+
+            Vector3 movement = new Vector3(0, uz, 0) + forward * vz +  right * hz;
+            transform.position = Vector3.Lerp(transform.position, transform.position + movement, Time.fixedDeltaTime * 15f);
+        }
+    }
+    #endregion
+
     #region array
     public static class array {
         public static T[] removeAtIndex<T>(this T[] array, int index) {
