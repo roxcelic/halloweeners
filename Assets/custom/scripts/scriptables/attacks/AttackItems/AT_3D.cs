@@ -37,7 +37,7 @@ public class AT_3D : AT_base {
     public override void unLoad(playerController character) {Destroy(inst);}
     public override void load(playerController character, bool reload = true) {
         // animators
-        character.AttackDisplay.runtimeAnimatorController = null;
+        character.AttackDisplay.runtimeAnimatorController = character.D_AttackDisplay;
 
         // data
         canShoot = true;

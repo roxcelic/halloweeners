@@ -20,7 +20,6 @@ public class PMS_vaultSpawner : displayVarItems {
     public GameObject selectionMenu;
     public TMP_Text selectionDisplay;
     public TMP_Text selectionDisplayDescription;
-    public Image selectionDisplayIcon;
 
     [Header("text")]
     public sys.Text message = new sys.Text();
@@ -109,7 +108,6 @@ public class PMS_vaultSpawner : displayVarItems {
                 {"item", selectedAttack.name}
             });
 
-            selectionDisplayIcon.sprite = selectedAttack.sprite;
             selectionDisplayDescription.text = selectedAttack.description.localise();
         }
     }
@@ -123,13 +121,12 @@ public class PMS_vaultSpawner : displayVarItems {
         if(selectedItem >= currentSave.savedAttacks.Count) return;
         AT_base attack = playerController.mainPlayer.Reset();
 
-        Debug.Log($"setting attack to {currentSelectedAttack.displayName.localise()} and storing {attack.displayName.localise()}");
         playerController.mainPlayer.switchAttack(currentSelectedAttack);
 
-        if (attack != null) {
-            currentSave.savedAttacks.Add(new AVdata.savedAttack(attack));
-            getData.save(currentSave);
-        }
+        if (attack != null) currentSave.savedAttacks[selectedItem] = new AVdata.savedAttack(attack);
+        else currentSave.savedAttacks.RemoveAt(selectedItem);
+
+        getData.save(currentSave);
 
         reset();
     }

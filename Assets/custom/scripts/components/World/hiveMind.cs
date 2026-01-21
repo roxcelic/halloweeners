@@ -28,7 +28,6 @@ public class hiveMind : MonoBehaviour {
 
     /// <summery> the code to be ran when a new target is set </summery>
     public void open() {
-        Debug.Log("im lwk the runner");
         mainText.text = $"{target.thought}\n{target.brainT.ToString()}";
     }
 
