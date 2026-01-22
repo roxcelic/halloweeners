@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using player.utils;
+
 [CreateAssetMenu(fileName = "menu item", menuName = "menu items/pause menu/dev/weapon")]
 public class PM_weapon : PM_Base {
     public AT_base attack;

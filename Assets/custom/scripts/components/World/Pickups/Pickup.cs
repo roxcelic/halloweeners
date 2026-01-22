@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using player.utils;
+
 public class Pickup : MonoBehaviour {
     [Header("config")]
     public string playerTag = "Player";

@@ -1432,6 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &125834551
 MonoBehaviour:
@@ -2363,6 +2364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &511467028
 MonoBehaviour:
@@ -3163,6 +3165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &852508289
 MonoBehaviour:
@@ -8607,6 +8610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &1441610245
 MonoBehaviour:
@@ -8889,6 +8893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &1459856536
 MonoBehaviour:
@@ -9241,6 +9246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &1870320801
 MonoBehaviour:
@@ -9629,6 +9635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ba48fad5286654d8b54865ad2526c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brainT: 0
   thought: 
 --- !u!114 &1977117885
 MonoBehaviour:
@@ -9792,6 +9799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
+  customMusic: 1
 --- !u!1001 &2109715001
 PrefabInstance:
   m_ObjectHideFlags: 0

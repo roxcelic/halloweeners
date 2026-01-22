@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using player.health;
+
 [CreateAssetMenu(fileName = "new attack", menuName = "attacks/base")]
 public class AT_base : ScriptableObject {
         /// <summery> variables </summery>

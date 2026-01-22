@@ -26,6 +26,6 @@ public class POR_BASE : MonoBehaviour {
     }
 
     void OnTriggerEnter (Collider other) {
-        if (other.tag == "Player") playerIsOveralpping = true;
+        if (other.tag == "Player" || other.tag == "PlayerB") playerIsOveralpping = true;
     }
 }

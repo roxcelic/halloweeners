@@ -63,6 +63,11 @@ namespace sys {
         public static void playScreenEffect(string name) {
             playerController.mainPlayer.ScreenEffect.Play(name);
         }
+
+        public static IEnumerator wait(System.Action run, float delay = 1f) {
+            yield return new WaitForSeconds(delay);
+            run();
+        }
     }
     
     [System.Serializable]

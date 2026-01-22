@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using player.utils;
+
 public class attackUtilsForAnim : MonoBehaviour {
     public playerController player;
 

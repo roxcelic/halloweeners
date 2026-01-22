@@ -9,6 +9,8 @@ using TMPro;
 
 using save;
 
+using player.utils;
+
 public class PMS_vaultSpawner : displayVarItems {
     public static PMS_vaultSpawner instance;
 

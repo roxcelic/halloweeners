@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 using save;
 
+using player.move;
+
 public class MM_Player : playerController {
     protected override void Start() {
         mainPlayer = this;
@@ -53,7 +55,7 @@ public class MM_Player : playerController {
         }
     }
 
-    public override void HandleMouse() {
+    public void HandleMouse() {
         if (CanMove) {
             float mouseX = Input.GetAxisRaw("Mouse X") * (RT_Modifier * getData.config().sense);
             float mouseY = Input.GetAxisRaw("Mouse Y") * (RT_Modifier * getData.config().sense) / 2;

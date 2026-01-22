@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using sys;
+
 /**
 * The animtions required for the base
 *   Idle
@@ -36,20 +38,29 @@ public class AT_3D : AT_base {
     /// <summery> basic functions to spawn in the weapon <summery>
     public override void unLoad(playerController character) {Destroy(inst);}
     public override void load(playerController character, bool reload = true) {
-        // animators
-        character.AttackDisplay.runtimeAnimatorController = character.D_AttackDisplay;
+        canShoot = false;
+        character.StartCoroutine(utils.wait(() => {
+            // animators
+            character.AttackDisplay.runtimeAnimatorController = character.D_AttackDisplay;
 
-        // data
-        canShoot = true;
-        currentCount = 1;
+            // data
+            canShoot = true;
+            currentCount = 1;
 
-        // spawn in weapon
-        inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.transform);
-        anim = inst.transform.GetComponent<Animator>();
+            // spawn in weapon
+            inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.transform);
+            inst.transform.localPosition = new Vector3();
+            inst.transform.localRotation = Quaternion.identity;
+            
+            anim = inst.transform.GetComponent<Animator>();
+            canShoot = true;
+        }, 0.1f));
     }
 
     /// <summery> the attack, this assumes your weapon will use animations </summery>
     public override void attack(playerController character) {
+        if (!canShoot) return;
+
         if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != safeAnimName) return;
         anim.Play(currentAttackAnimName());
 

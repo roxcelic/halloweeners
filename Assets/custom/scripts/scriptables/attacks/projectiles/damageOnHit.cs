@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 using ext;
 
+using player.health;
+
 public class damageOnHit : MonoBehaviour {
     public bool destroyOnHit = true;
     public bool destroyOnContact = false;
