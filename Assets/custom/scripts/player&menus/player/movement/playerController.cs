@@ -165,10 +165,9 @@ public class playerController : MonoBehaviour {
             // get the saved data
             save.saveData currentSave = save.getData.viewSave();
             AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack);
-            AB_base savedAbility = GS.live.state.getCurrentAbility(currentSave.currentAbility);
+            AB_base savedAbility = GS.live.state.getCurrentAbility(savedAttack.ability);
 
             if (savedAttack != null) attack = savedAttack;
-
             if (savedAbility != null) ability = savedAbility;
 
             // load attack
@@ -239,6 +238,7 @@ public class playerController : MonoBehaviour {
 
             // camera rotation
             if(canMoveCamera) this.HandleMouse();
+
             if (eevee.input.Collect("Attack", "PC") && attack != null) attack.attack(this);
             if (eevee.input.Grab("Ability", "PC")) {
                 StartCoroutine(this.whileHeld(
@@ -253,7 +253,8 @@ public class playerController : MonoBehaviour {
 
             // thoughts
             this.ViewThoughts();
-            if (this.isGrounded() && canResetJump) {
+
+            if (this.isGrounded() && canResetJump && CanMove) {
                 jumpCount = maxJumpCount;
             } 
 

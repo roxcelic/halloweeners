@@ -30,11 +30,13 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: 464d96846c2c74a08ab82b3be5274d08, type: 2}
   - name: scythe-RE
     attack: {fileID: 11400000, guid: ea4c49741cd75c249ae1bd4ca78ce5f5, type: 2}
-  - name: kuni
+  - name: kunai
     attack: {fileID: 11400000, guid: 717c0973456fe35408c9dae1bee8f4a5, type: 2}
   registeredAbilities:
   - name: time travel
     ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}
+  - name: kunai
+    ability: {fileID: 11400000, guid: 4321ff34aad742c4a8af796a705cf7cf, type: 2}
   map:
     width: 50
     height: 50

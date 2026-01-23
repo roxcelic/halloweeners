@@ -1353,10 +1353,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5999137850731818243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 73.2508, y: -2.995}
-  m_SizeDelta: {x: 146.5016, y: 5.99}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8719332409086330768
 CanvasRenderer:
@@ -2952,6 +2952,7 @@ MonoBehaviour:
   CanMove: 1
   loaded: 0
   targetLayer: Ground
+  lastSafePos: {x: 0, y: 0, z: 0}
   canMoveCamera: 1
   cameraY: 1
   cameraClamp: 55
@@ -2964,6 +2965,8 @@ MonoBehaviour:
   maxJumpCount: 2
   maxSlopAngle: 360
   rampTag: Ramp
+  sliding: 0
+  crouchDistance: 0.5
   slideDecay: 0.025
   stopSpeed: 0.1
   maxForceForSlideAddition: 40
@@ -6045,7 +6048,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.9993319, y: 0.9990237}
-  m_SizeDelta: {x: -1.4984, y: 5.99}
+  m_SizeDelta: {x: -1.4984, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7021674679976855533
 MonoBehaviour:
@@ -6171,7 +6174,7 @@ GameObject:
   - component: {fileID: 3984623849916593146}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: PlayerB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6381,7 +6384,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
-  m_Color: {r: 1, g: 0.42001867, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 500
   m_Range: 25
   m_SpotAngle: 30
@@ -7540,8 +7543,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -19.9921}
-  m_SizeDelta: {x: 50, y: 20}
+  m_AnchoredPosition: {x: 0, y: -2.499998}
+  m_SizeDelta: {x: 25, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &887866045931669852
 CanvasRenderer:

@@ -32,6 +32,7 @@ public class damageOnHit : MonoBehaviour {
 
     [Header("bullet settings")]
     public bool bullet = false;
+    public bool playerDirection = false;
     public float distance = 50f;
     public Vector3 direction;
     public float speed = 1f;
@@ -60,6 +61,7 @@ public class damageOnHit : MonoBehaviour {
 
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
 
+                onEnemyHit(enemy.transform);
                 if (destroyOnHit) Destroy(transform.gameObject);
             }
         }
@@ -93,7 +95,8 @@ public class damageOnHit : MonoBehaviour {
                 }
 
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
-
+                
+                onEnemyHit(enemy.transform);
                 if (destroyOnHit) Destroy(transform.gameObject);
             }
         }
@@ -118,12 +121,18 @@ public class damageOnHit : MonoBehaviour {
 
     public IEnumerator shot() {
         Vector3 startPos = transform.position;
+        if (playerDirection) direction = playerController.mainPlayer.camera.forward;
 
-        while(Vector3.Distance(startPos, transform.position) < distance) {
+        while(Vector3.Distance(startPos, transform.position) < distance && bullet) {
             transform.position = Vector3.Lerp(transform.position, transform.position + direction, Time.deltaTime * speed);
             yield return 0;
         }
 
-        Destroy(transform.gameObject);
+        if (Vector3.Distance(startPos, transform.position) > distance) Destroy(transform.gameObject);
+    }
+
+    /// <summery> an overrideable function for enemy hit </summery>
+    public virtual void onEnemyHit(Transform hit) {
+        
     }
 }

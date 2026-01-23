@@ -15,6 +15,7 @@ namespace player.utils {
             if (pc.attack == null) return null;
             
             pc.attack.unLoad(pc);
+            pc.ability.end(pc);
             AT_base hldatk = pc.attack;
             
             pc.AttackDisplay.runtimeAnimatorController = pc.D_AttackDisplay;
@@ -39,8 +40,10 @@ namespace player.utils {
             if(pc.attack != null) pc.attack.unLoad(pc);
 
             pc.attack = GameObject.Instantiate(newAttack);
-            
             pc.attack.load(pc);
+
+            pc.ability = GameObject.Instantiate(GS.live.state.getCurrentAbility(newAttack.ability));
+            pc.ability.start(pc);
 
             save.saveData currentSave = save.getData.viewSave();
 

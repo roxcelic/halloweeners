@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class uiuitels : MonoBehaviour {
+    [Header("dynamic")]
     public System.Action dynamicCode;
 
     public void kill(bool kill = true) {transform.gameObject.SetActive(kill);}
@@ -10,4 +11,6 @@ public class uiuitels : MonoBehaviour {
     public void disable() {transform.gameObject.SetActive(false);}
     public void enable() {transform.gameObject.SetActive(true);}
     public void runDynamic() {dynamicCode();}
+    public void spawn() {}
+    public void playSound() {transform.GetComponent<AudioSource>().Play();}
 }

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520b3d0df81af244e81f7ba537817a7c, type: 3}
+  m_Name: kunai
+  m_EditorClassIdentifier: Assembly-CSharp::AB_kunai
+  cost: 5
+  kunaiPrefab: {fileID: 7534142341357768762, guid: ca4db451841b6d14d8fb772de3559f77, type: 3}

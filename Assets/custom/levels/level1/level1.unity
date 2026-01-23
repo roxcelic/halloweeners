@@ -859,6 +859,7 @@ MonoBehaviour:
   useCharacterDirection: 0
   force: {x: 0, y: 0, z: 0}
   bullet: 0
+  playerDirection: 0
   distance: 50
   direction: {x: 0, y: 0, z: 0}
   speed: 1
@@ -1126,6 +1127,7 @@ MonoBehaviour:
   useCharacterDirection: 0
   force: {x: 0, y: 0, z: 0}
   bullet: 0
+  playerDirection: 0
   distance: 50
   direction: {x: 0, y: 0, z: 0}
   speed: 1
@@ -1351,6 +1353,7 @@ MonoBehaviour:
   useCharacterDirection: 0
   force: {x: 0, y: 0, z: 0}
   bullet: 0
+  playerDirection: 0
   distance: 50
   direction: {x: 0, y: 0, z: 0}
   speed: 1
@@ -1958,41 +1961,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638910160639544267, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2356692275936567343, guid: 034f6da45b48d55428694e63630594ed, type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5998657075325814402, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_TagString
-      value: PlayerB
-      objectReference: {fileID: 0}
-    - target: {fileID: 5999137850731818243, guid: 034f6da45b48d55428694e63630594ed, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2218,6 +2189,7 @@ MonoBehaviour:
   useCharacterDirection: 0
   force: {x: 0, y: 0, z: 0}
   bullet: 0
+  playerDirection: 0
   distance: 50
   direction: {x: 0, y: 0, z: 0}
   speed: 1

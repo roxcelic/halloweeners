@@ -61,7 +61,7 @@ public class AT_3D : AT_base {
     public override void attack(playerController character) {
         if (!canShoot) return;
 
-        if (anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != safeAnimName) return;
+        if (!anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.StartsWith(safeAnimName)) return;
         anim.Play(currentAttackAnimName());
 
         // incriment anim count
@@ -70,6 +70,7 @@ public class AT_3D : AT_base {
 
     /// <summery> a util to get the current attack name </summery>
     private string currentAttackAnimName() {
+        Debug.Log($"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}");
         return $"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}";
     }
 }

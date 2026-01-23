@@ -68,6 +68,12 @@ namespace sys {
             yield return new WaitForSeconds(delay);
             run();
         }
+
+        public static IEnumerator relayActive(System.Action start, System.Action end, Transform target) {
+            start();
+            yield return new WaitUntil(() => target == null);
+            end();
+        }
     }
     
     [System.Serializable]

@@ -11,6 +11,9 @@ using player.health;
 public class AT_base : ScriptableObject {
         /// <summery> variables </summery>
     #region variables
+        [Header("ability")]
+        public string ability = "";
+
         [Header("basic values")]
         [Range(0f, 100f)] public float range = 25f;
         [Range(0f, 25f)] public float shootDelay = 1f;
