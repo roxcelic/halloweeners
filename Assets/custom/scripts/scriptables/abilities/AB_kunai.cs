@@ -71,7 +71,7 @@ public class AB_kunai : AB_base {
         // Vector3 direction = (hit.position - player.transform.position).normalized;
         Vector3 direction = (hit.position - player.transform.position).normalized;
 
-        while (Vector3.Distance(player.transform.position, hit.position) > 1f && hit != null && breakHook) {
+        while (hit != null && Vector3.Distance(player.transform.position, hit.position) > 1f && breakHook) {
             // player.addVel.AddForce(15f);
             // player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, player.addVel.getVelocity(player, direction), ref player.Velocity, player.MovementSmoothing);
 

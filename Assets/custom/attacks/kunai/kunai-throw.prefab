@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -964047683284219181}
   - component: {fileID: 6877620195235005461}
   - component: {fileID: 5561814642031402877}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: kunai-throw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   playerDirection: 1
   distance: 50
   direction: {x: 0, y: 0, z: 0}
-  speed: 40
+  speed: 50
 --- !u!120 &6877620195235005461
 LineRenderer:
   serializedVersion: 3
@@ -169,7 +169,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e7f5325b696d9a64495d9de84b72216c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -202,8 +202,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.027778625
-        value: 0.19375038
+        time: 0.011779785
+        value: 0.037225723
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   start: {fileID: 0}
   startAtPlayer: 1
   startAtSelf: 0
-  startOffset: {x: 0, y: -0.4, z: 0}
+  startOffset: {x: -0.4, y: -0.4, z: 0}
   end: {fileID: 0}
   endAtPlayer: 0
   endAtSelf: 1
