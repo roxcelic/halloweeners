@@ -62,6 +62,10 @@ public class waveManager : MonoBehaviour {
     [Header("config")]
     public int len = 5;
 
+    [Header("rogueLike")]
+    public float difficulty = 1;
+
+
     public void Begin() {
         if (generateWaves) StartCoroutine(startWaves());
         else StartCoroutine(trackEnemyCount());

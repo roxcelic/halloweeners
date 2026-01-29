@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 using ext;
 
+using save;
+
 namespace sys {
 
     public static class var {
@@ -21,13 +23,20 @@ namespace sys {
         public static class keywords {
             public static string devPass = "qoh1206";
             public static string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            public static string defaultCharName = "asdawsd";
+            public static string defaultCharName = "";
 
             public static List<String> languages = new List<String> {
                 "English",
                 "cat",
                 "dev"
             };
+        }
+
+        public static class components {
+            public static LoadingScreen loadingScreen() {return LoadingScreen.mainScreen;}
+            public static playerController player() {return playerController.mainPlayer;}
+            public static saveData save() {return getData.viewSave();}
+            public static fullConfig config() {return getData.config();}
         }
 
     }
