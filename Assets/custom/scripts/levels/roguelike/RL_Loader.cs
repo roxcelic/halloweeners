@@ -31,6 +31,7 @@ public class RL_Loader : MonoBehaviour {
 
     /// <summery> begins the loading </summery>
     public IEnumerator load() {
+        yield return new WaitUntil(() => sys.var.components.loadingScreen() != null);
         sys.var.components.loadingScreen().spawnCondition("RL_Loader_1", false); // add the spawn condition
 
         string levelType = PlayerPrefs.GetString("levelType", "basic");
@@ -39,6 +40,7 @@ public class RL_Loader : MonoBehaviour {
         levelToLoad selectedLevel = null;
         foreach(levelToLoad item in levels) if (item.name == levelType) selectedLevel = item;
         if (selectedLevel == null) foreach(levelToLoad item in levels) if (item.defaultLevel) selectedLevel = item;
+
 
         // set it as active
         selectedLevel.refrence.SetActive(true);

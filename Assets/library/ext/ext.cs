@@ -121,6 +121,14 @@ namespace ext {
                 vector3.z * res.z
             );
 	    }
+
+    public static bool checkPosition(this Vector3 position, int groundLayer = 3, float groundCheckDistance = 1f) {
+        if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, groundCheckDistance)) {
+            return hit.collider.gameObject.layer == groundLayer;
+        }
+
+        return false;
+    }
     }
     #endregion
 

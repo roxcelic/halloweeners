@@ -14,7 +14,6 @@ public class LoadingScreen : MonoBehaviour {
     [Header("comp")]
     public TMP_Text text;
     public Animator anim;
-    private playerController PC;
 
     [Header("data")]
     public float completion;
@@ -30,7 +29,10 @@ public class LoadingScreen : MonoBehaviour {
     public sys.Text generationMessage = new sys.Text();
 
     /// <summery> starts the loading </summery>
-    void Start() {StartCoroutine(load());}
+    void Start() {
+        StartCoroutine(load());
+        mainScreen = this;
+    }
     
     /// <summery> allows you to add / edit a spawn condition  </summery>
     public void spawnCondition(string name, bool condition) {loadingItems[name] = condition;}
@@ -43,12 +45,27 @@ public class LoadingScreen : MonoBehaviour {
         yield return new WaitForSeconds(startDelay); // wait before starting
 
         // wait for all tasks to be completed
-        while (true) foreach(bool item in loadingItems.Values.ToList()) if (item) break;
+        string firstItemToBeNo = "";
+        while (true) {
+            firstItemToBeNo = "";
+            
+            foreach(string item in loadingItems.Keys.ToList()) {
+                if (firstItemToBeNo == "" && !loadingItems[item]) firstItemToBeNo = item;
+            }
+
+            if (firstItemToBeNo == "") break;
+            else text.text = firstItemToBeNo;
+            Debug.Log($"loading {firstItemToBeNo}");
+
+            yield return 0;
+        }
 
         // display an appropriate message on the players screen
         while (completion <= 99.99f) {
             if (completion == 0) text.text = generationMessage.localise();
             else text.text = $"{(100 - Math.Round(completion, 2)).ToString()}";
+            yield return 0;
+
         }
 
         // move to animating the opening sequence
@@ -75,6 +92,6 @@ public class LoadingScreen : MonoBehaviour {
         if (playerWave != null) playerWave.Begin();
         
         GS.live.state.loaded = true; // load the game
-        PC.loaded = true; // load the player
+        playerController.mainPlayer.loaded = true; // load the player
     }
 }

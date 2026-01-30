@@ -199,7 +199,10 @@ public class playerController : MonoBehaviour {
             if (ability != null) ability.update(this);
 
             if (health <= 0) return;
-            if (!loaded) return;
+            if (!loaded) {
+                rb.linearVelocity = new Vector3();
+                return;
+            }
             if (GS.live.state.paused || GS.live.state.helped || GS.live.state.menued) return;
 
             if (CanMove) {

@@ -7,8 +7,10 @@ using System.Collections.Generic;
 
 using TMPro;
 
-namespace waveManagerTypes {
+using ext;
 
+/// <summery> initialise a class to track the enemys </summery>
+namespace waveManagerTypes {
     [System.Serializable]
     public class enemyTracker {
         public GameObject enemey;
@@ -24,30 +26,27 @@ namespace waveManagerTypes {
 }
 
 public class waveManager : MonoBehaviour {
-    [Header("components")]
-    public List<GameObject> enemys;
-    public playerController player;
-
     [Header("spawn conditions")]
     [Range(0, 25f)] public float spawnRadius;
     [Range(0, 5f)] public float groundCheckDistance;
     [Range(0, 5f)] public float trackingUpdate;
-    
     [Range(0f, 2.5f)] public float spawnRate = 1.5f;
-    public int spawnAmount = 5;
-
     [Range(1f, 15f)] public float waveDelay = 15f;
     [Range(1f, 15f)] public float spawnDelay = 1f;
 
-    public string groundLayer;
+    public int spawnAmount = 5;
+
+    public LayerMask groundLayer;
+
+    [Header("components")]
+    public List<GameObject> enemys;
+    private playerController player;
+    public TMP_Text T_display;
 
     [Header("data")]
-    public List<GameObject> currentEnemys;
-    public List<GameObject> spawnedEnemys;
+    private List<GameObject> currentEnemys = new List<GameObject>();
+    private List<GameObject> spawnedEnemys = new List<GameObject>();
     [Min(1)]public int wave;
-
-    [Header("tracker display")]
-    public TMP_Text T_display;
 
     [Header("display")]
     public float timeUntilNextWave;
@@ -61,57 +60,44 @@ public class waveManager : MonoBehaviour {
 
     [Header("config")]
     public int len = 5;
+    public float difficulty = 1; // the amount of waves
 
-    [Header("rogueLike")]
-    public float difficulty = 1;
-
-
+    /// <summery> this is called when the waves begin spawning </summery>
+    ///  -- this is called in LoadingScreen
     public void Begin() {
         if (generateWaves) StartCoroutine(startWaves());
         else StartCoroutine(trackEnemyCount());
     }
 
-    public bool checkPosition(Vector3 position) {
-        RaycastHit hit;
-        Vector3 targetDirection = Vector3.down;
-
-        if (Physics.Raycast(position, transform.TransformDirection(targetDirection), out hit, groundCheckDistance)) {
-            if (hit.collider.gameObject.layer != LayerMask.NameToLayer(groundLayer)) {
-                return false; 
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-
-    public IEnumerator startWaves() {
+    /// <summery> the main function to start the waves </summery>
+     public IEnumerator startWaves() {
         // track the enemys
         spawning = true;
-        StartCoroutine(trackEnemies());
+        Coroutine enemyTracker = StartCoroutine(trackEnemies());
 
+        // wait until the name wave begins
         timeUntilNextWave = waveDelay;
         while (timeUntilNextWave > 0) {
             timeUntilNextWave -= Time.deltaTime;
-            T_display.text = $"{timeUntilNextWave}";
+            T_display.text = $"|{timeUntilNextWave}|";
 
             yield return 0;
         }
                 
-        T_display.text = spawningMessage.localise();
+        // display the message for the enemys spawning
+        T_display.text = $"|{spawningMessage.localise()}|";
         for (int i = 0; i < (spawnAmount * Mathf.Round(spawnRate * wave)); i++) {
-            /*
-                This was a function but its better to just put it here
-            */
+            // chose a random enemy from the list, i will have the change where this is held at some point
             GameObject chosenEnemy = enemys[UnityEngine.Random.Range(0, enemys.Count)];
             Vector3 chosenLocation = new Vector3();
 
-            while (!checkPosition(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius)))) {
+            // spawn an enemy by attempting to find a position and if its invalid wait a second before attempting again
+            while (!(chosenLocation = transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius))).checkPosition(3, groundCheckDistance)) {
+                Debug.Log($"position is invalid {chosenLocation}");
                 yield return new WaitForSeconds(1f);
             }
 
+            // spawn the enemy and add it to the lists
             GameObject enemy = Instantiate(chosenEnemy, chosenLocation, Quaternion.identity);
             currentEnemys.Add(enemy);
             spawnedEnemys.Add(enemy);
@@ -120,27 +106,26 @@ public class waveManager : MonoBehaviour {
             yield return new WaitForSeconds(spawnDelay);
         }
 
+        // spawning over
         spawning = false;
-        Debug.Log("finished spawning");
 
+        // wait until the next wave then inciment
         yield return new WaitUntil(() => currentEnemys.Count == 0 && !spawning);
-
-        Debug.Log("all enemys are dead");
-        
         wave++;
         
+        // destroy all currently spawned enemys (this is for if they are stuck on their death animation on the wave transition)
         foreach (GameObject obj in spawnedEnemys) Destroy(obj);
         spawnedEnemys = new List<GameObject>();
 
+        StopCoroutine(enemyTracker); // stop the enemys from being tracked and  creating a memory leak
         Begin(); // start the next wave
     }
 
-    /*
-        Basic track
-    */
+    /// <summery>  track the amount of enemys spawned </summery>
     public IEnumerator trackEnemies() {
         while (true) {
-            // get positions
+
+            // update the currently alive enemys list
             if (currentEnemys.Count != 0) {
                 List<GameObject> newlist = new List<GameObject>();
 
@@ -153,37 +138,43 @@ public class waveManager : MonoBehaviour {
                 currentEnemys = newlist;
             }
 
+            // wait for the tracking update
             yield return new WaitForSeconds(trackingUpdate);
 
-            if (!spawning) T_display.text = $"{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}";
+            // display the results
+            if (!spawning) T_display.text = $"|{currentEnemys.Count}/{spawnAmount * Mathf.Round(spawnRate * wave)}|";
         }
     }
 
-    /*
-        Just enemy count
-    */
+    /// <summery> track enemys without spawning waves </summery>
     public IEnumerator trackEnemyCount() {
         while (true) {
+            // find all enemys
             GameObject[] Tenemys = GameObject.FindGameObjectsWithTag("Enemy");
             List<EN_base> enemys = new List<EN_base>();
 
+            // for each enemy found, check if its an enemy, if it is add it to the list
             foreach (GameObject enemy in Tenemys) {
                 EN_base TEMPenemy = enemy.transform.GetComponent<EN_base>();
                 if (TEMPenemy != null) enemys.Add(TEMPenemy);
             }
 
+            // count the amount of alive enemys and start a coroutine to destroy the enemy if it isnt
             int aliveEnemys = 0;
             foreach (EN_base enemy in enemys) {
                 if (!enemy.dead) aliveEnemys++;
-                else StartCoroutine(killAfter(enemy.transform.gameObject));
+                else StartCoroutine(killAfter(enemy.transform.gameObject)); // this will make a bunch of coroutines for one enemy, this needs fixing
             }
             
+            // display the text result
             T_display.text = $"{(aliveEnemys > 0 ? $"|-{String.Format("{0:00000}", aliveEnemys)}-|" : $"|-{genString()}-|")}";
 
+            // loop
             yield return new WaitForSeconds(trackingUpdate);
         }
     }
 
+    /// <summery> destroys the enemy after a given period of time </summery>
     public IEnumerator killAfter(GameObject target, float duration = 5f) {
         yield return new WaitForSeconds(duration);
         Destroy(target);

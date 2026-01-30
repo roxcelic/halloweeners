@@ -24,6 +24,7 @@ public class NEN_willaim : NEN_base {
     protected override void Start() {self = transform.GetComponent<EN_base>();}
 
     public override void begin() {
+        placeOnGround();
         StartCoroutine(changeState());
     }
 
