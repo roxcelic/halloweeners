@@ -24,6 +24,7 @@ MonoBehaviour:
   playOption:
   - {fileID: 11400000, guid: cf1b9e02fedf6c44dbd07ad49b7515ca, type: 2}
   - {fileID: 11400000, guid: 2a3bdd54655aa437ab2138d0a362d834, type: 2}
+  - {fileID: 11400000, guid: ecc9a5e3a5de0f549beaf7d774cb82db, type: 2}
   - {fileID: 11400000, guid: 362ef11c004fc419d9d28faa14bc7bcb, type: 2}
   - {fileID: 11400000, guid: 1e03a5f6da1bd1b4ea4a235e672c560d, type: 2}
   - {fileID: 11400000, guid: d0593e990fba84b5991142fce036e0c4, type: 2}
