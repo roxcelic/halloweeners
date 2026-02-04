@@ -59,6 +59,10 @@ Material:
     m_Colors:
     - _Base: {r: 0.5566038, g: 0, b: 0, a: 1}
     - _Shadow: {r: 0.1509434, g: 0, b: 0.08714712, a: 1}
+<<<<<<< HEAD
     - _playerPos: {r: 41.290554, g: 1.0000001, b: 16.97032, a: 0}
+=======
+    - _playerPos: {r: 18.60762, g: 1.0000001, b: 34.556004, a: 0}
+>>>>>>> ef4d5167b779355e618064264d95ef64d57c8bc7
   m_BuildTextureStacks: []
   m_AllowLocking: 1
