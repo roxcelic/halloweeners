@@ -88,6 +88,7 @@ namespace musicLib {
             return new List<string>(live.library.getLibrary().Keys);
         }
 
+
         public static void skip() {
             live.bg.playSong(getNextSong());
         }
