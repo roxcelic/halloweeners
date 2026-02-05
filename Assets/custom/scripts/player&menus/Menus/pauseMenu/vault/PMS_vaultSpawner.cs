@@ -43,7 +43,7 @@ public class PMS_vaultSpawner : displayVarItems {
     }
 
     protected override void OnDisable() {
-        openChildMenu(false);
+        openChildMenu(true);
         base.OnDisable();
     }
 
