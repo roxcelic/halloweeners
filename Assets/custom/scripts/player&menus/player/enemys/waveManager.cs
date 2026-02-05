@@ -54,13 +54,14 @@ public class waveManager : MonoBehaviour {
 
     [Header("override")]
     public bool generateWaves = true;
+    public bool useDifficultyLength = true;
 
     [Header("text")]
     public sys.Text spawningMessage = new sys.Text();
 
     [Header("config")]
     public int len = 5;
-    public float difficulty = 1; // the amount of waves
+    public int baseWaves = 3;
 
     /// <summery> this is called when the waves begin spawning </summery>
     ///  -- this is called in LoadingScreen
@@ -118,7 +119,11 @@ public class waveManager : MonoBehaviour {
         spawnedEnemys = new List<GameObject>();
 
         StopCoroutine(enemyTracker); // stop the enemys from being tracked and  creating a memory leak
-        Begin(); // start the next wave
+        if(wave <= PlayerPrefs.GetInt("difficulty", 1) + baseWaves || !useDifficultyLength) Begin(); // start the next wave
+        else {
+            T_display.text = $"|0/{spawnAmount * Mathf.Round(spawnRate * wave)}|";
+            Debug.Log("you win lwk");
+        }
     }
 
     /// <summery>  track the amount of enemys spawned </summery>

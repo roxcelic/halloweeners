@@ -18,6 +18,6 @@ MonoBehaviour:
   essential: 0
   dev: 1
   children: []
-  sceneName: custom/levels/devLevels/WFCdev/WFCdev
+  sceneName: custom/levels/tutorial/tutorial
   id: 
   unlockedByDefault: 1

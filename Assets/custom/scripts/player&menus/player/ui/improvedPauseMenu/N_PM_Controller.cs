@@ -219,18 +219,23 @@ public class pauseMenuController : MonoBehaviour {
     }
 
     /// <summery> a util to change the allowence of certain ui data </summery>
-    public void editInputAllowence(int mode = 0, System.Action special = null) {
+    public void editInputAllowence(int mode = 0, System.Action special = null, bool curserLock = false) {
         switch (mode) {
             case 1:
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (curserLock) {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+
                 playerController.mainPlayer.canMoveCamera = true;
                 StartCoroutine(reAllowInput());
 
                 break;
             case 0: default:
-                Cursor.lockState =  CursorLockMode.None;
-                Cursor.visible = true;
+                if (curserLock) {
+                    Cursor.lockState =  CursorLockMode.None;
+                    Cursor.visible = true;
+                }
                 playerController.mainPlayer.canMoveCamera = false;
                 interactable = false;
         

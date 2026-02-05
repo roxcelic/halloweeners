@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/custom/levels/mainMenu/mainMenu.unity
     guid: 4998d3156699d3a458f104d850cd8c40
-  - enabled: 1
+  - enabled: 0
     path: Assets/custom/levels/devLevels/SamepleScene/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/custom/levels/tutorial/tutorial.unity
+    guid: b08db755848419344979f6268853c3b3
   - enabled: 1
     path: Assets/custom/levels/devLevels/WFCdev/WFCdev.unity
     guid: 2f379f6f059af4fa5b22734124584a4c

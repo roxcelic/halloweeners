@@ -42,7 +42,7 @@ namespace player.utils {
             pc.attack = GameObject.Instantiate(newAttack);
             pc.attack.load(pc);
 
-            pc.ability = GameObject.Instantiate(GS.live.state.getCurrentAbility(newAttack.ability));
+            if(newAttack.ability != "") pc.ability = GameObject.Instantiate(GS.live.state.getCurrentAbility(newAttack.ability));
             pc.ability.start(pc);
 
             save.saveData currentSave = save.getData.viewSave();
