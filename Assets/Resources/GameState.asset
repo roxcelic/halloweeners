@@ -32,6 +32,8 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: ea4c49741cd75c249ae1bd4ca78ce5f5, type: 2}
   - name: kunai
     attack: {fileID: 11400000, guid: 717c0973456fe35408c9dae1bee8f4a5, type: 2}
+  - name: kunaiRE
+    attack: {fileID: 11400000, guid: 09f13b580004af2428730e5c69357edf, type: 2}
   registeredAbilities:
   - name: time travel
     ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}
