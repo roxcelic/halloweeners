@@ -48,12 +48,7 @@ public class AT_3D : AT_base {
             currentCount = 1;
 
             // spawn in weapon
-            inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.transform);
-            inst.transform.localPosition = new Vector3();
-            inst.transform.localRotation = Quaternion.identity;
-            
-            anim = inst.transform.GetComponent<Animator>();
-            canShoot = true;
+            character.StartCoroutine(spawnDelay(character));
         }, 0.1f));
     }
 
@@ -72,5 +67,17 @@ public class AT_3D : AT_base {
     private string currentAttackAnimName() {
         Debug.Log($"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}");
         return $"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}";
+    }
+
+    /// <summery> a spawn delay </summery>
+    private IEnumerator spawnDelay(playerController character) {
+        yield return new WaitForSeconds(0.4f);
+
+        inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.transform);
+        inst.transform.localPosition = new Vector3();
+        inst.transform.localRotation = Quaternion.identity;
+        
+        anim = inst.transform.GetComponent<Animator>();
+        canShoot = true;
     }
 }
