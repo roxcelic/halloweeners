@@ -29,16 +29,19 @@ public class setColor : MonoBehaviour {
         mat,
         image,
         text,
-        baseMat
+        baseMat,
+        spriteRenderer
     }
 
     // comp
     private Image image;
+    private SpriteRenderer Sr;
     private TMP_Text text;
 
     void Start(){
         image = transform.GetComponent<Image>();
         text = transform.GetComponent<TMP_Text>();
+        Sr = transform.GetComponent<SpriteRenderer>();
     }
 
     void Update(){
@@ -56,6 +59,9 @@ public class setColor : MonoBehaviour {
                 break;
             case typeOfData.text:
                 text.color = Color.Lerp(text.color , colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
+                break;
+            case typeOfData.spriteRenderer:
+                Sr.color =  Color.Lerp(Sr.color , colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
                 break;
         }
     }
