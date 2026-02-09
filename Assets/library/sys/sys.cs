@@ -11,6 +11,10 @@ using save;
 namespace sys {
 
     public static class var {
+        public static class config {
+            public static bool flatDash = true;
+        }
+
         public static class layers {
             public static int ground = LayerMask.NameToLayer("Ground");
             public static int enemys = LayerMask.NameToLayer("enemys");

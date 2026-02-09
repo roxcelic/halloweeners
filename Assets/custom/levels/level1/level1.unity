@@ -3231,6 +3231,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 2862598560422416547, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: dashSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862598560422416547, guid: 034f6da45b48d55428694e63630594ed, type: 3}
+      propertyPath: dashDistance
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
