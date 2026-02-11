@@ -895,6 +895,7 @@ GameObject:
   - component: {fileID: 1064344013099362978}
   - component: {fileID: 6714865680812387578}
   - component: {fileID: 2832947823986644411}
+  - component: {fileID: 4802664011027025436}
   m_Layer: 0
   m_Name: display
   m_TagString: Untagged
@@ -1021,6 +1022,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4802664011027025436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030779900434192621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef243a3ea12f5594098ed313bf9f0e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::N_PM_clickable
+  textComponent: {fileID: 2832947823986644411}
 --- !u!1 &1114096181972837633
 GameObject:
   m_ObjectHideFlags: 0
@@ -2525,6 +2539,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67bf66d1955a35a469c511ce775449aa, type: 2}
   - {fileID: 11400000, guid: 362ef11c004fc419d9d28faa14bc7bcb, type: 2}
   - {fileID: 11400000, guid: c252eb47e036d4acf859e0b6e6281427, type: 2}
+  permaCommands:
+  - {fileID: 11400000, guid: 0f40c82233e5bdf4f89f80ad39694a24, type: 2}
   currentItems: []
   actualInput: {fileID: 1253800269112935264}
   sliderVal: {fileID: 5855811969453986940}
@@ -2976,9 +2992,9 @@ MonoBehaviour:
   stopSpeed: 0.1
   maxForceForSlideAddition: 40
   canDash: 1
-  dashDistance: 10
+  dashDistance: 15
   outDashForce: 15
-  dashSpeed: 5
+  dashSpeed: 2
   dashDelay: 1
   pauseMenu: {fileID: 0}
   rb: {fileID: 963667506593853857}
@@ -5692,6 +5708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3654422135877541459}
   - component: {fileID: 4608602719170706891}
+  - component: {fileID: 3838265763000447208}
   m_Layer: 0
   m_Name: Global Volume
   m_TagString: Untagged
@@ -5731,6 +5748,18 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 0250a4da5699e144bafd716d06e82c5b, type: 2}
+--- !u!114 &3838265763000447208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236674388436677101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b68ef65b00c0ea4ebf6219d9a503e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::gamaController
 --- !u!1 &5436533448344332097
 GameObject:
   m_ObjectHideFlags: 0

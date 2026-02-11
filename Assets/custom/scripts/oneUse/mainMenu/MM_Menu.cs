@@ -16,4 +16,15 @@ public class MM_Menu : pauseMenuController {
 
         alignTextBox();
     }
+
+    /// <summery> load the previous menu </summery>
+    public override void loadPrevMenu() {
+        if (previousItems.Count == 0) return;
+
+        currentItems = previousItems[previousItems.Count - 1];
+        previousItems.RemoveAt(previousItems.Count - 1);
+
+        selectedIndex = 0;
+        displayText();
+    }
 }

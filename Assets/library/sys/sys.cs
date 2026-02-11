@@ -41,6 +41,7 @@ namespace sys {
             public static playerController player() {return playerController.mainPlayer;}
             public static saveData save() {return getData.viewSave();}
             public static fullConfig config() {return getData.config();}
+            public static pauseMenuController pauseMenu() {return pauseMenuController.instance;}
         }
 
     }

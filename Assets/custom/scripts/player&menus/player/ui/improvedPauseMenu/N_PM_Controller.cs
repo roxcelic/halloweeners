@@ -15,6 +15,7 @@ public class pauseMenuController : MonoBehaviour {
 
     [Header("items")]
     public List<PM_Base> baseCommands;
+    public List<PM_Base> permaCommands;
 
     public List<PM_Base> currentItems;
     protected List<List<PM_Base>> previousItems = new List<List<PM_Base>>();
@@ -81,6 +82,16 @@ public class pauseMenuController : MonoBehaviour {
     #endregion
 
     #region utils
+    /// <summery> runs a click </summery>
+    public void runOption(int option) {
+        if (getPirvlagedOptions().Count <= option) return;
+
+        if (getPirvlagedOptions()[option].active()) {
+            getPirvlagedOptions()[option].action(this, "");
+            displayText();
+        }
+    }
+
     /// <summery> logs info </summery>
     public void log(string content, string program = "user", string color = "red", bool thing = true) {
         LogDisplay.text += $"\n<color={color}> {program}{(thing ? ">" : "")} {content} </color>";
@@ -120,7 +131,7 @@ public class pauseMenuController : MonoBehaviour {
         
         for (int i = 0; i < getPirvlagedOptions().Count; i++) {
             getPirvlagedOptions()[i].onLoad(this);
-            result += $"<color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> \n";
+            result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
         }
 
         MainDisplay.text = result;
@@ -132,6 +143,7 @@ public class pauseMenuController : MonoBehaviour {
         List<PM_Base> finalList = new List<PM_Base>();
 
         foreach (PM_Base item in currentItems) if (!item.dev || save.getData.isDev()) finalList.Add(item);
+        if(previousItems.Count > 0) foreach (PM_Base item in permaCommands) finalList.Add(item);
 
         return finalList;
     }
@@ -174,7 +186,7 @@ public class pauseMenuController : MonoBehaviour {
         });
 
         bool regularPath = true;
-        while (responded == "" ) await Task.Delay(50);
+        while (responded == "" && GS.live.state.paused) await Task.Delay(50);
 
         editInputAllowence(1, () => {
             actualInput.transform.gameObject.SetActive(false);
@@ -202,7 +214,7 @@ public class pauseMenuController : MonoBehaviour {
         float slideTrack = start;
 
         bool regularPath = true;
-        while (sliderVal.value == start && (regularPath = !eevee.input.Check("back"))) await Task.Delay(50);
+        while ((sliderVal.value == start && (regularPath = !eevee.input.Check("back"))) && GS.live.state.paused) await Task.Delay(50);
         
         if (regularPath) { while (true) {
             if (slideTrack == sliderVal.value) break;

@@ -43,7 +43,7 @@ public class PMS_vaultSpawner : displayVarItems {
     }
 
     protected override void OnDisable() {
-        openChildMenu(true);
+        openChildMenu(false);
         base.OnDisable();
     }
 
@@ -96,6 +96,7 @@ public class PMS_vaultSpawner : displayVarItems {
 
     /// <summery> opens or closes the child menu </summery>
     public void openChildMenu(bool state = true) {
+        Debug.Log($"open: {state}");
         selectionMenu.SetActive(!state);
         saveData currentSave = getData.viewSave();
 

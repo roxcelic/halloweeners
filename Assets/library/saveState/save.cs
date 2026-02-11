@@ -56,6 +56,9 @@ namespace save {
         public float volume_music = 0f;
         public float volume_sfx = 0f;
 
+        // gama
+        public float gama = 0f;
+
         public fullConfig() {
 
         }
