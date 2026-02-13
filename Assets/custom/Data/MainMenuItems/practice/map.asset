@@ -28,6 +28,26 @@ MonoBehaviour:
       overrideName: basic
       text: {fileID: 0}
     refrenceName: basic
+  - refrence: 2
+    name:
+      overrideName: endless suffering
+      text: {fileID: 0}
+    refrenceName: endless suffering
+  - refrence: 3
+    name:
+      overrideName: void
+      text: {fileID: 0}
+    refrenceName: void
+  - refrence: 4
+    name:
+      overrideName: straight
+      text: {fileID: 0}
+    refrenceName: straight
+  - refrence: 5
+    name:
+      overrideName: oposite of straight
+      text: {fileID: 0}
+    refrenceName: oposite of straight
   selected:
     refrence: 1
     name:

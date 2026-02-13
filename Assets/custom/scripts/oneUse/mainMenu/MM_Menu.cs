@@ -5,6 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MM_Menu : pauseMenuController {
+    protected override void Start() {
+        base.Start();
+        GS.live.state.paused = true;
+    }
+
     protected override void Update() {
         if (!interactable) return;
 

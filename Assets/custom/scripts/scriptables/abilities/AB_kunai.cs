@@ -68,17 +68,33 @@ public class AB_kunai : AB_base {
     /// <summery> move the player </summery>
     public IEnumerator throwPlayer(playerController player, GameObject kunai) {
         player.CanMove = false;
-        // Vector3 direction = (hit.position - player.transform.position).normalized;
-        Vector3 direction = (hit.position - player.transform.position).normalized;
+        
+        // store some stuff
+        float ogVel = player.addVel.vel;
+        Vector3 ogLVel = player.rb.linearVelocity;
 
-        while (hit != null && Vector3.Distance(player.transform.position, hit.position) > 1f && breakHook) {
+        // reset this shit
+        player.addVel.vel = 0;
+        player.rb.linearVelocity = new Vector3();
+
+        // Vector3 direction = (hit.position - player.transform.position).normalized;
+        Vector3 direction = new Vector3();
+
+        while (hit != null && Vector3.Distance(player.transform.position, hit.position) > 1f && breakHook && canSeeTarget(player.transform, hit.transform)) {
             // player.addVel.AddForce(15f);
             // player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, player.addVel.getVelocity(player, direction), ref player.Velocity, player.MovementSmoothing);
+
+            // Vector3 direction = (hit.position - player.transform.position).normalized;
+            direction = (hit.transform.position - player.transform.position).normalized;
 
             player.transform.position = Vector3.Lerp(player.transform.position, player.transform.position + direction * speed, Time.deltaTime * 5);
 
             yield return 0;
         }
+
+        // reset this shit
+        player.addVel.vel = ogVel;
+        player.rb.linearVelocity = ogLVel;
 
         if (!breakHook) player.addVel.AddForce(15f);
         Destroy(kunai);
@@ -86,6 +102,22 @@ public class AB_kunai : AB_base {
         player.CanMove = true;
 
         hit = null;
+    }
+
+
+    /// <summery> check to see if its in distance </summery>
+    public bool canSeeTarget(Transform self, Transform target) {
+        float maxRange = 100;
+
+        if(Vector3.Distance(self.position, target.position) < maxRange ){
+            if(Physics.Raycast(self.position, (target.position - self.position), out RaycastHit hit, maxRange)) {
+                if(hit.transform == target) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
     #endregion
 }

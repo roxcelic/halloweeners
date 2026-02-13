@@ -1180,7 +1180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: -210, y: 0}
   m_SizeDelta: {x: 300, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1357467432082476812
@@ -2229,7 +2229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.9993319, y: 0.9990237}
+  m_AnchoredPosition: {x: -0.9990368, y: 0.9990237}
   m_SizeDelta: {x: -1.4984, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!95 &6091740041830765202
@@ -2242,7 +2242,7 @@ Animator:
   m_GameObject: {fileID: 8963843086926248544}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5cc7e7164f95c8345859383ad7713a5c, type: 2}
+  m_Controller: {fileID: 9100000, guid: e799d58a04aaa844db84302e4a8b2a54, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -3037,6 +3037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2758443398515972741}
   - component: {fileID: 6091740041830765202}
+  - component: {fileID: 8963843086926248545}
   m_Layer: 0
   m_Name: PMHLD
   m_TagString: Untagged
@@ -3044,6 +3045,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8963843086926248545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963843086926248544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dffe413bde3a504c9e4a97dc39a52e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuIntro
+  welcomeMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: 504da2afbfd0e0948b96d011217aa0d8, type: 2}
+  versionMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: d7702551cb04b9a4582a5d5d1f826bb6, type: 2}
+  devBuildMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: ec4fe0fc968124a4e8eff4a2079059cf, type: 2}
+  saveVersion:
+    overrideName: 
+    text: {fileID: 11400000, guid: db17bb3b9d4bade489c7d8f54349f314, type: 2}
+  dashVersion:
+    overrideName: 
+    text: {fileID: 11400000, guid: 843b889567194d84d8e7d18ad0f6528b, type: 2}
+  languageMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: b061d82317ddfad48ae5712ecf7252b6, type: 2}
+  instantRespawnMessage:
+    overrideName: 
+    text: {fileID: 11400000, guid: e17509b2de83bba448be11aa809c523f, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

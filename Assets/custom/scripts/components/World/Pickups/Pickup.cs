@@ -55,8 +55,8 @@ public class Pickup : MonoBehaviour {
 
     // update current collisions
 	void OnTriggerEnter (Collider col) {
-        if (col.gameObject.tag == playerTag) {
-            player = col.transform.GetComponent<playerController>();
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "PlayerB") {
+            player = playerController.mainPlayer;
 
             // player.interactables.Add(this);
             brain.thought = thought;
@@ -64,7 +64,7 @@ public class Pickup : MonoBehaviour {
 	}
 
     void OnTriggerExit (Collider col) {
-        if (col.gameObject.tag == playerTag) {
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "PlayerB") {
             player = null;
 
             // player.interactables.Remove(this);

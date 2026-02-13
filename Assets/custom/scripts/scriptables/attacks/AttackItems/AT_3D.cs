@@ -59,6 +59,8 @@ public class AT_3D : AT_base {
         if (!anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.StartsWith(safeAnimName)) return;
         anim.Play(currentAttackAnimName());
 
+        Debug.Log(currentAttackAnimName());
+
         // incriment anim count
         currentCount++;
     }

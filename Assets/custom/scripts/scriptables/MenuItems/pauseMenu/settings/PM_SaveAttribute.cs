@@ -117,11 +117,12 @@ public class PM_SaveAttribute : PM_Base {
             if (obj == null) return; 
             PMC.log($"{seperator.Multiply(loop)}{sourceProperty.Name} : {sourceProperty.GetValue(obj)}", "dev", "green");
 
-            List<string> allowedTypes = new List<string>{nameof(attack.attackData), nameof(Vector2), nameof(List<String>)};
+            List<string> allowedTypes = new List<string>{nameof(attack.attackData), nameof(stats.statDataObject), nameof(Vector2), nameof(List<String>)};
             string typeName = sourceProperty.GetValue(obj).GetType().Name;
+            Debug.Log(typeName);
             if (typeName == null) typeName = "";
 
-            if (loop <= 3 && allowedTypes.Contains(typeName)) {
+            if (loop <= 5 && allowedTypes.Contains(typeName)) {
                 loopThroughFeilds(sourceProperty.GetValue(obj), PMC, loop + 1);
             }
         }

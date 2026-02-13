@@ -79,7 +79,7 @@ namespace save {
         a class to store the data
     */
     public class var {
-        public static string ver = "dev-0.1.0-12";
+        public static string ver = "dev-0.1.0-13";
         public static string ConfPath = Path.Combine(Application.persistentDataPath, "saveData.json");
 
         public static fullSave saves = new fullSave();
@@ -126,6 +126,10 @@ namespace save {
         // a function to edit the save
         public static void save(saveData newSave) {
             int currentSave = clampSave(PlayerPrefs.GetInt("saveSlot", 0));
+
+            // some verifaction
+            //  -- specifically for weapons
+            foreach(AVdata.savedAttack attack in newSave.savedAttacks) if(attack.attackName == "") newSave.savedAttacks.Remove(attack);
 
             if (var.saves.saves.Count == 0) {
                 var.saves.saves.Add(newSave);

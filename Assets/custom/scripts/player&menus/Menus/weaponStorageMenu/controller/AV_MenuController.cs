@@ -153,8 +153,6 @@ public class AV_MenuController : MonoBehaviour {
             {"type", attack.attackName},
             {"name", attack.attackData.name},
             {"killCount", attack.attackData.killCount.ToString()},
-            {"damageModifier", attack.attackData.damageModifier.ToString()},
-            {"lifeStealModifer", attack.attackData.lifeStealModifer.ToString()},
         });
     }
 
@@ -196,8 +194,6 @@ public class AV_MenuController : MonoBehaviour {
         if (!selectedAnAttack || selectedAttack == null) return;
         if (open) {
             UG_weaponName.text = $"\"{selectedAttack.attackName} :: {selectedAttack.attackData.name} :: {selectedAttack.attackData.killCount}\"";
-            UG_weaponDamage.text = $"{T_damage.localise()}: {selectedAttack.attackData.damageModifier} :: {costOfUpgrade()}";
-            UG_weaponLifeSteal.text = $"{T_lifeSteal.localise()}: {selectedAttack.attackData.lifeStealModifer} :: {costOfUpgrade()}";
         }
 
         upgradeMenu.SetActive(open);
@@ -229,7 +225,6 @@ public class AV_MenuController : MonoBehaviour {
     public void upgradeLifeSteal() {
         if (selectedAttack.attackData.killCount < costOfUpgrade()) return;
         selectedAttack.attackData.killCount -= costOfUpgrade();
-        selectedAttack.attackData.lifeStealModifer += upgradeAmount;
 
         save.saveData currentSave = save.getData.viewSave();
         currentSave.savedAttacks[selectedIndex] = selectedAttack;
@@ -243,7 +238,6 @@ public class AV_MenuController : MonoBehaviour {
     public void upgradeDamage() {
         if (selectedAttack.attackData.killCount < costOfUpgrade()) return;
         selectedAttack.attackData.killCount -= costOfUpgrade();
-        selectedAttack.attackData.damageModifier += upgradeAmount;
 
         save.saveData currentSave = save.getData.viewSave();
         currentSave.savedAttacks[selectedIndex] = selectedAttack;
@@ -255,8 +249,8 @@ public class AV_MenuController : MonoBehaviour {
 
     /// <summery> a function to calculate the cost of an upgrade </summery>
     public int costOfUpgrade() {
-        float lifeSteal = selectedAttack.attackData.lifeStealModifer;
-        float damage = selectedAttack.attackData.damageModifier - 1;
+        float lifeSteal = 0f;
+        float damage = 0f;
 
         float totalUpgrades = (Mathf.Round(lifeSteal / upgradeAmount)) + (Mathf.Round(damage / upgradeAmount));
 

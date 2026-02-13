@@ -57,8 +57,8 @@ public class PM_practiceOptions : PM_Base {
             if (foundIndex >= values.Count) foundIndex = 0;
 
             selected = values[foundIndex];
-            Debug.Log($"found index: {foundIndex} which is {values[foundIndex]}");
-            Debug.Log(selected);
+            Debug.Log($"found index: {foundIndex} which is {values[foundIndex].name.localise()}");
+            Debug.Log(selected.refrenceName);
         }
 
         updateName();

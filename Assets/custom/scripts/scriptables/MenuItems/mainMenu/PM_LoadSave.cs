@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 public class PM_LoadSave : PM_Base {
     [Header("load save")]
     public int saveNum = 0;
+    public string tutorialScene = "";
 
     public override void onLoad(pauseMenuController PMC) {
         name.overrideName = $"{saveNum}: {(save.data.getSaves().saves[saveNum].name == "" ? "//" : save.data.getSaves().saves[saveNum].name)}";
@@ -23,7 +24,19 @@ public class PM_LoadSave : PM_Base {
             currentSave.name = await PMC.getText(new sys.Text("", Resources.Load("text/MainMenu/saves/nameYourSave") as textobject).localise(), sys.var.keywords.defaultCharName);
             save.getData.save(currentSave);
 
-            base.action(PMC);
+            if(tutorialScene == "") base.action(PMC);
+            else {
+                Time.timeScale = 1f;
+                playerController.mainPlayer.ScreenEffect.Play("fadeOut");
+
+                PMC.StartCoroutine(wait());
+                PMC.interactable = false;
+            }
+        }
+
+        public IEnumerator wait() {
+            yield return new WaitForSecondsRealtime(1f);
+            SceneManager.LoadScene(tutorialScene);
         }
     }
 }

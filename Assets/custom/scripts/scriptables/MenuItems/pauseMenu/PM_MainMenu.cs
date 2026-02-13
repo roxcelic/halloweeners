@@ -13,6 +13,7 @@ public class PM_MainMenu : PM_Base {
         playerController.mainPlayer.ScreenEffect.Play("fadeOut");
 
         PMC.StartCoroutine(wait());
+        PMC.interactable = false;
     }
 
     public IEnumerator wait() {

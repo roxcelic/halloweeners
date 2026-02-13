@@ -13,6 +13,7 @@ namespace sys {
     public static class var {
         public static class config {
             public static bool flatDash = true;
+            public static bool devBuild = true;
         }
 
         public static class layers {
@@ -102,7 +103,8 @@ namespace sys {
             switch (save.getData.config().language) {
                 case "cat": return $"meo{"w".Multiply(this.text.English.Length - 3)}";
                 case "dev": return $"dev:{this.text.English}";
-                case "English":default: return this.text.English;
+
+                case "English":default: return sys.text.displayKeyButton(this.text.English);
             }
         }
 

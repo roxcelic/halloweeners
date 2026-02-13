@@ -11,6 +11,8 @@ using save;
 
 using player.utils;
 
+using ext;
+
 public class PMS_vaultSpawner : displayVarItems {
     public static PMS_vaultSpawner instance;
 
@@ -20,6 +22,7 @@ public class PMS_vaultSpawner : displayVarItems {
 
     [Header("comp")]
     public GameObject selectionMenu;
+    public Sprite defaultSprite;
     public TMP_Text selectionDisplay;
     public TMP_Text selectionDisplayDescription;
 
@@ -81,6 +84,7 @@ public class PMS_vaultSpawner : displayVarItems {
         if (attack != null) {
             currentSave.savedAttacks.Add(new AVdata.savedAttack(attack));
             getData.save(currentSave);
+            playerController.mainPlayer.quicksave();
 
             reset();
         }
@@ -90,8 +94,18 @@ public class PMS_vaultSpawner : displayVarItems {
     /// <summery> a util to get the sprite of an attack </summery>
     public static Sprite? findAttackSprite(int index) {
         saveData currentSave = getData.viewSave();
-        if (index >= currentSave.savedAttacks.Count) return null;
-        else return GS.live.state.getCurrentAttack(currentSave.savedAttacks[index].attackName).sprite;
+        if (index >= currentSave.savedAttacks.Count ) return PMS_vaultSpawner.instance.defaultSprite;
+        else {
+            AT_base foundAttack = GS.live.state.getCurrentAttack(currentSave.savedAttacks[index].attackName);
+            if(foundAttack != null) return foundAttack.sprite;
+            else {
+                saveData data = getData.viewSave();
+                data.savedAttacks = data.savedAttacks.removeAllNull<AVdata.savedAttack>();
+                getData.save(data);
+                
+                return PMS_vaultSpawner.instance.defaultSprite;
+            }
+        }
     }
 
     /// <summery> opens or closes the child menu </summery>

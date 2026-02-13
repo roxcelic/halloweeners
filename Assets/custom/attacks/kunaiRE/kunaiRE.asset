@@ -13,18 +13,24 @@ MonoBehaviour:
   m_Name: kunaiRE
   m_EditorClassIdentifier: Assembly-CSharp::AT_3D
   ability: kunai
-  range: 25
   shootDelay: 1
   enemyShootDelay: 1
   nockbackForce: 10
   canShoot: 1
-  lifeSteal: 0
   pierce: 1
   infinatePierce: 0
   wallLayerIndex: 0
   projectile: 0
   projectilePrefab: {fileID: 0}
   projectileForce: 0
+  stat:
+    baseDamage: 35
+    baseRange: 25
+    baseSpeed: 1
+    lifeSteal: 0
+    luck: 0
+    healthBoost: 0
+    upgradeAbilities: 00000000
   flash: 0
   enemyDis: 1
   name: kunaiRE
@@ -35,7 +41,7 @@ MonoBehaviour:
     overrideName: another kuni
     text: {fileID: 0}
   attackWithAnimation: 0
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 14b993a08f7982a46bcfaaa29980e5c6, type: 3}
   AC: {fileID: 0}
   enemyDisplay: {fileID: 0}
   SF_fire: {fileID: 0}
@@ -43,13 +49,17 @@ MonoBehaviour:
   useageAmmo: 1
   maxAmmo: 6
   currentAmmo: 6
-  damage: 10
   attackData:
     killCount: 0
     name: 
-    damageModifier: 1
-    lifeStealModifer: 1
+    statData:
+      healthBonus: 0
+      luckBonus: 0
+      lifeBonus: 0
+      speedBonus: 0
+      damageBonus: 0
+      rangeBonus: 0
   weapon: {fileID: 3029658741471186435, guid: 265889792bd9b124388a04f567046f53, type: 3}
-  animVariation: 1
+  animVariation: 2
   safeAnimName: idle
   m_currentCount: 0

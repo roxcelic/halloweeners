@@ -123,6 +123,7 @@ public class waveManager : MonoBehaviour {
         else {
             T_display.text = $"|0/{spawnAmount * Mathf.Round(spawnRate * wave)}|";
             Debug.Log("you win lwk");
+            upgradeScreen.instance.findPossibleUpgrades();
         }
     }
 

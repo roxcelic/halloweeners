@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 using System;
@@ -13,7 +14,9 @@ public class damageOnHit : MonoBehaviour {
     public bool destroyOnContact = false;
     public bool resetPlayerToSaftey = false;
     public bool parryable = false;
+
     public playerController attributeKill = null;
+    public bool syncToPlayer = false;
 
     public attackType type = attackType.both;
     [Range(0f, 25f)] public float damage = 10f;
@@ -37,6 +40,13 @@ public class damageOnHit : MonoBehaviour {
     public Vector3 direction;
     public float speed = 1f;
 
+    /// <summery> a quick util to get damage </summery>
+    public float getDamage() {
+        if (syncToPlayer) {
+            return playerController.mainPlayer.attack.stat.getDamage(playerController.mainPlayer.attack);
+        } else return damage;
+    }
+
 
     void Start() {
         if (bullet) StartCoroutine(shot());
@@ -54,9 +64,14 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
             if ((enemy = collision.transform.GetComponent<EN_base>()) != null) {
-                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) {
-                    attributeKill.attack.attackData.killCount++;
-                    attributeKill.charge++;
+                if (enemy.DealDamage((int)getDamage(), transform)) if (attributeKill != null || syncToPlayer) {
+                    if (syncToPlayer) {
+                        playerController.mainPlayer.attack.attackData.killCount++;
+                        playerController.mainPlayer.charge++;
+                    } else {
+                        attributeKill.attack.attackData.killCount++;
+                        attributeKill.charge++;
+                    }
                 }
 
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
@@ -70,7 +85,7 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.enemy) {
             playerController player = null;
             if ((player = collision.transform.GetComponent<playerController>()) != null) {
-                player.DealDamage(damage == 0 ? 0 : 1, transform);
+                player.DealDamage(getDamage() == 0 ? 0 : 1, transform);
                 
                 if (resetPlayerToSaftey) player.resetToSaftey();
                 else player.rb.AddForce(sys.nockback.calculateNockback(transform.position, player.transform.position) * nockbackForce);
@@ -89,9 +104,14 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
             if ((enemy = col.transform.GetComponent<EN_base>()) != null) {
-                if (enemy.DealDamage((int)damage, transform)) if (attributeKill != null) {
-                    attributeKill.attack.attackData.killCount++;
-                    attributeKill.charge++;
+                if (enemy.DealDamage((int)getDamage(), transform)) if (attributeKill != null || syncToPlayer) {
+                    if (syncToPlayer) {
+                        playerController.mainPlayer.attack.attackData.killCount++;
+                        playerController.mainPlayer.charge++;
+                    } else {
+                        attributeKill.attack.attackData.killCount++;
+                        attributeKill.charge++;
+                    }
                 }
 
                 enemy.rb.AddForce(sys.nockback.calculateNockback(transform.position, enemy.transform.position) * nockbackForce);
@@ -105,7 +125,7 @@ public class damageOnHit : MonoBehaviour {
         if (type == attackType.both || type == attackType.enemy) {
             playerController player = null;
             if ((player = col.transform.GetComponent<playerController>()) != null) {
-                player.DealDamage(damage == 0 ? 0 : 1, transform);
+                player.DealDamage(getDamage() == 0 ? 0 : 1, transform);
                 
                 if (resetPlayerToSaftey) player.resetToSaftey();
                 else player.rb.AddForce(sys.nockback.calculateNockback(transform.position, player.transform.position) * nockbackForce);

@@ -51,7 +51,7 @@ public class playerController : MonoBehaviour {
 
         
         [Header("Jump")]
-        [Range(0, 400f)] public float jumpForce;
+        [Range(0, 1000f)] public float jumpForce;
         public bool canResetJump = true;
         public bool canJump = true;
         public int jumpCount = 1;
@@ -264,6 +264,19 @@ public class playerController : MonoBehaviour {
             if (liveIftames > 0) liveIftames--;
         }
     #endregion
+
+    /// <summery> a quicksave for the characters weapon </summery>
+    public void quicksave() {
+        saveData CS = getData.viewSave();
+        if(attack != null) {
+            CS.currentAttackData = attack.attackData;
+            CS.currentAttack = attack.name;
+        } else { 
+            CS.currentAttackData = new attack.attackData();
+            CS.currentAttack = "";
+        }
+        getData.save(CS);
+    }
 
     /// <summery> some basic dev functions, like OnDrawGizmos </summery>
     #region dev

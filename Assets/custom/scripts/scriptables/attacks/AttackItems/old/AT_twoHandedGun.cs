@@ -88,10 +88,10 @@ public class AT_twoHandedGun : AT_base {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform)) {
+                    if (enemey.DealDamage((int)(stat.getDamage(this)), character.transform)) {
                         attackData.killCount++;
                         character.charge++;
-                        character.heal((int)(1 * attackData.lifeStealModifer));
+                        character.heal((int)(stat.getLife(this)));
                     }
                 }
             }

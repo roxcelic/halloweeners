@@ -50,7 +50,7 @@ public class EN_base : MonoBehaviour {
 
         // vel
         addVel = new movement.additionalVelocity(0, 1);
-        StartCoroutine(addVel.start(rb));
+        if(rb != null) StartCoroutine(addVel.start(rb));
 
         // load my attack
         if (attack != null) {
@@ -73,12 +73,12 @@ public class EN_base : MonoBehaviour {
     */
     protected virtual void Update() {
         if (dead) return;
-        rb.AddForce(addVel.getVelocity(this));
+        if (rb != null) rb.AddForce(addVel.getVelocity(this));
 
         // movement
         if (movement != null) {
             if (attack != null) {
-                if (Vector3.Distance(transform.position, playerController.mainPlayer.transform.position) > attack.range * 0.9) {
+                if (Vector3.Distance(transform.position, playerController.mainPlayer.transform.position) > attack.stat.getRange(attack) * 0.9) {
                     if (anim.GetCurrentAnimatorClipInfo(0).Length > 0 && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "idle") anim.Play("walking");
                     movement.canMove = true;
                 } else {

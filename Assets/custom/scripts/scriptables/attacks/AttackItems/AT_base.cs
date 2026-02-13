@@ -15,12 +15,10 @@ public class AT_base : ScriptableObject {
         public string ability = "";
 
         [Header("basic values")]
-        [Range(0f, 100f)] public float range = 25f;
         [Range(0f, 25f)] public float shootDelay = 1f;
         [Range(0f, 25f)] public float enemyShootDelay = 1f;
         [Range(0f, 25f)] public float nockbackForce = 10f;
         public bool canShoot = true;
-        public bool lifeSteal = false;
         
         [Header("pierce")]
         public int pierce = 1;
@@ -31,6 +29,9 @@ public class AT_base : ScriptableObject {
         public bool projectile = false;
         public GameObject projectilePrefab;
         public float projectileForce;
+
+        [Header("stats")]
+        public stats.statObject stat = new stats.statObject();
 
         [Header("display")]
         public bool flash = false;
@@ -53,9 +54,6 @@ public class AT_base : ScriptableObject {
         public int useageAmmo = 1;
         public int maxAmmo = 6;
         public int currentAmmo = 6;
-
-        [Header("damage")]
-        public float damage = 10f;
 
         [Header("save data")]
         public attack.attackData attackData = new attack.attackData();
@@ -165,7 +163,7 @@ public class AT_base : ScriptableObject {
     #region  utils
         public List<Collider> runHit(Transform character, float offset = 0, playerController PC = null) {
             Vector3 targetDirection = Vector3.forward + new Vector3(offset, 0, 0);
-            RaycastHit[] hits = PC == null ? Physics.RaycastAll(character.transform.position, character.TransformDirection(targetDirection), range) : Physics.RaycastAll(character.transform.position, PC.camera.TransformDirection(targetDirection), range);
+            RaycastHit[] hits = PC == null ? Physics.RaycastAll(character.transform.position, character.TransformDirection(targetDirection), stat.getRange(this)) : Physics.RaycastAll(character.transform.position, PC.camera.TransformDirection(targetDirection), stat.getRange(this));
 
             if (hits.Length > 0) { 
                 List<Collider> cols = new List<Collider>();
@@ -193,17 +191,17 @@ public class AT_base : ScriptableObject {
 
             if (PC == null) {
                 r = new Ray(character.transform.position, character.TransformDirection(targetDirection));
-                if (Physics.Raycast(character.transform.position, character.TransformDirection(targetDirection), out hit, range, sys.var.layers.groundLayerLock)) {
+                if (Physics.Raycast(character.transform.position, character.TransformDirection(targetDirection), out hit, stat.getRange(this), sys.var.layers.groundLayerLock)) {
                     return hit.point;
                 }
             } else {
                 r = new Ray(character.transform.position, PC.camera.TransformDirection(targetDirection));
-                if (Physics.Raycast(character.transform.position, PC.camera.TransformDirection(targetDirection), out hit, range, sys.var.layers.groundLayerLock)) {
+                if (Physics.Raycast(character.transform.position, PC.camera.TransformDirection(targetDirection), out hit, stat.getRange(this), sys.var.layers.groundLayerLock)) {
                     return hit.point;
                 }
             }
 
-            return r.GetPoint(range);
+            return r.GetPoint(stat.getRange(this));
         }
 
         public void hit(playerController character) {
@@ -219,9 +217,9 @@ public class AT_base : ScriptableObject {
 
                 if ((enemey = hit.transform.GetComponent<EN_base>()) != null) {
                     // sound
-                    if (enemey.DealDamage((int)(damage * attackData.damageModifier), character.transform, true, nockbackForce)) {
+                    if (enemey.DealDamage((int)(stat.getDamage(this)), character.transform, true, nockbackForce)) {
                         attackData.killCount++;
-                        character.heal((int)(1 * attackData.lifeStealModifer));
+                        character.heal((int)(stat.getLife(this)));
                     }
 
                 } else if (hit.transform.gameObject.tag == AT_fortniteBuild.fortniteTag || hit.transform.gameObject.tag == AT_minecraftCreativeMode.minecraftTag) {
@@ -272,8 +270,8 @@ namespace attack {
     public class attackData {
         public int killCount = 0;
         public string name = "";
-        public float damageModifier = 1;
-        public float lifeStealModifer = 1;
+
+        public stats.statDataObject statData = new stats.statDataObject();
 
         public attackData() {}
     }

@@ -175,6 +175,7 @@ public class pauseMenuController : MonoBehaviour {
 
     /// <summery> gets a user input </summery>
     public async Task<string> getText(string placeHolder, string defaultAnswer = "") {
+        Debug.Log($"attempting to get text, actualInput: {actualInput == null}");
         if (actualInput == null) return "";
 
         editInputAllowence(0, () => {
@@ -186,7 +187,9 @@ public class pauseMenuController : MonoBehaviour {
         });
 
         bool regularPath = true;
+        Debug.Log("waiting for result");
         while (responded == "" && GS.live.state.paused) await Task.Delay(50);
+        Debug.Log("got result");
 
         editInputAllowence(1, () => {
             actualInput.transform.gameObject.SetActive(false);

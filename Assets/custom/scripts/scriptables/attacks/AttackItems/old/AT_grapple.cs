@@ -26,7 +26,7 @@ public class AT_grapple : AT_base {
     public override void attack(playerController character) {
         if (canShoot) {
             Vector3 targetDirection = Vector3.forward;
-            RaycastHit[] hits = Physics.RaycastAll(character.transform.position, character.transform.TransformDirection(targetDirection), range);
+            RaycastHit[] hits = Physics.RaycastAll(character.transform.position, character.transform.TransformDirection(targetDirection), stat.getRange(this));
 
             if (hits.Length > 0) {
                 foreach (RaycastHit hit in hits) {

@@ -26,7 +26,8 @@ public class PM_practice : PM_Base {
             PMC.log("/////////////////// PM_practiceOptions refrence exception", sys.programNames.system.localise(), "red");
             return;
         }
-        PlayerPrefs.SetString("levelType", difficultyHolder.selected.refrenceName);
+
+        PlayerPrefs.SetString("levelType", mapHolder.selected.refrenceName);
 
         // load the first level
         Time.timeScale = 1f; // reset time

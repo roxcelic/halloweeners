@@ -20,8 +20,7 @@ public sealed class N_PM_clickable : MonoBehaviour, ISerializationCallbackReceiv
     public void OnPointerClick(PointerEventData eventData) {
         int linkIndex = TMP_TextUtilities.FindIntersectingLink(textComponent, eventData.position, null);
 
-        if (linkIndex == -1)
-        {
+        if (linkIndex == -1) {
             return;
         }
 
@@ -34,8 +33,7 @@ public sealed class N_PM_clickable : MonoBehaviour, ISerializationCallbackReceiv
     public void OnPointerMove(PointerEventData eventData){
         int linkIndex = TMP_TextUtilities.FindIntersectingLink(textComponent, eventData.position, null);
 
-        if (linkIndex == -1)
-        {
+        if (linkIndex == -1) {
             return;
         }
 
