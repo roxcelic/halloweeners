@@ -1357,7 +1357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &248599132
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5528,7 +5528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc51e2ec7bd5b5444ab603b9820cd1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::sceneLoader
-  toLoad: custom/levels/mainMenu/mainMenu.unity
+  toLoad: custom/levels/mainMenu/mainMenu
 --- !u!114 &1451192787
 MonoBehaviour:
   m_ObjectHideFlags: 0

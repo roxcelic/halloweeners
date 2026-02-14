@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 public class PM_LoadSave : PM_Base {
     [Header("load save")]
     public int saveNum = 0;
-    public string tutorialScene = "";
+    string tutorialScene = "custom/levels/tutorial/tutorial";
 
     public override void onLoad(pauseMenuController PMC) {
         name.overrideName = $"{saveNum}: {(save.data.getSaves().saves[saveNum].name == "" ? "//" : save.data.getSaves().saves[saveNum].name)}";
@@ -33,10 +34,10 @@ public class PM_LoadSave : PM_Base {
                 PMC.interactable = false;
             }
         }
+    }
 
         public IEnumerator wait() {
             yield return new WaitForSecondsRealtime(1f);
             SceneManager.LoadScene(tutorialScene);
         }
-    }
 }
