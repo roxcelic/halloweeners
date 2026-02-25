@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PMS_vaultItem : MonoBehaviour {
     public int position;
     public Image iconDisplay;
+    public PMS_vaultSpawner parent;
 
     public void run() {
         PMS_vaultSpawner.instance.selectedItem = position;
@@ -11,6 +12,8 @@ public class PMS_vaultItem : MonoBehaviour {
     }
 
     public void display() {
-        iconDisplay.sprite = PMS_vaultSpawner.findAttackSprite(position);
+        Debug.Log(parent);
+        Debug.Log(parent.findAttackSprite(position));
+        iconDisplay.sprite = parent.findAttackSprite(position);
     }
 }

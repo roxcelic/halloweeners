@@ -15,6 +15,7 @@ using player.utils;
 using player.move;
 using player.health;
 using player.abil;
+using player.abil.dash;
 
 public class playerController : MonoBehaviour {
     /// <summery> variables </summery>
@@ -71,6 +72,7 @@ public class playerController : MonoBehaviour {
 
         [Header("dash")]
         public bool canDash = true;
+        public bool isDashing = false;
         [Range(0, 25f)] public float dashDistance = 5f;
         [Range(0, 25f)] public float outDashForce = 5f;
         [Range(0, 25f)] public float dashSpeed = 5f;
@@ -138,6 +140,16 @@ public class playerController : MonoBehaviour {
         }
 
         private bool M_noclip = false;
+
+        /// <summery> something to restrict all movement but also say why </summery>
+        public enum movementRestriction {
+            none,
+            dashBlock
+        }
+        public movementRestriction restrictions = movementRestriction.none;
+
+        /// <summery> a little variable to store the velocity during stop and start </summery>
+        private Vector3 metaControllerVelocity = new Vector3();
     #endregion
 
     /// <summery> basic start </summery>
@@ -183,6 +195,9 @@ public class playerController : MonoBehaviour {
     /// <summery> basic update </summery>
     #region Update
         protected virtual void Update() {
+            // absolute movement restriction
+            if(restrictions != movementRestriction.none) return;
+
             // noclip
             if (noclip) {
                 this.HandleMouse();
@@ -277,6 +292,24 @@ public class playerController : MonoBehaviour {
         }
         getData.save(CS);
     }
+
+    #region play&sotp
+    public void play() {
+        CanMove = true;
+        rb.useGravity = true;
+        rb.linearVelocity = metaControllerVelocity;
+        col.isTrigger = false;
+        restrictions = movementRestriction.none;
+    }
+    public void stop(movementRestriction cause) {
+        CanMove = false;
+        rb.useGravity = false;
+        metaControllerVelocity = rb.linearVelocity;
+        rb.linearVelocity = new Vector3();
+        col.isTrigger = true;
+        restrictions = cause;
+    }
+    #endregion
 
     /// <summery> some basic dev functions, like OnDrawGizmos </summery>
     #region dev

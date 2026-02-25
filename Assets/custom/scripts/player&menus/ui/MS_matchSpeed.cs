@@ -6,6 +6,8 @@ using UnityEngine;
 using save;
 
 public class MS_matchSpeed : MonoBehaviour {
+    public static MS_matchSpeed instance;
+
     public Transform targetUI;
     public float minSpeed = 20f;
     [Range(0, 2f)] public float multiplier = 0.5f;
@@ -20,9 +22,13 @@ public class MS_matchSpeed : MonoBehaviour {
     public List<Camera> cams;
 
     void Start() {
+        instance = this;
+
         RB = transform.GetComponent<Rigidbody>();
         CG = targetUI.GetComponent<CanvasGroup>();
         Anim = targetUI.GetComponent<Animator>();
+
+        UpdateSpeed();
     }
 
     void Update() {
@@ -35,6 +41,12 @@ public class MS_matchSpeed : MonoBehaviour {
         Anim.speed = Mathf.Clamp(mod, 0.25f, Mathf.Infinity);
 
         if (cams.Count > 0) foreach (Camera cam in cams) cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, getData.config().fov + Mathf.Clamp(mod, 0, fovRange), Time.fixedDeltaTime * 5f);
+    }
+
+    public void UpdateSpeed() {
+        saveData currentSave = getData.viewSave();
+        Anim.Play($"speed{currentSave.speedAnimation}");
+        Debug.Log($"playing: speed{currentSave.speedAnimation}");
     }
 
 }

@@ -29,6 +29,8 @@ public class pauseMenuController : MonoBehaviour {
     public TMP_Text LogDisplay;
     public ScrollRect LogDisplaySR;
 
+    public Animator anim;
+
     [Header("config")]
     public float textHeight = 15f; // this is for the offset when selecting options
     public int ignorance = 5;
@@ -54,6 +56,7 @@ public class pauseMenuController : MonoBehaviour {
     #region main
     protected virtual void Start() {
         instance = this;
+        anim = transform.GetComponent<Animator>();
         currentItems = baseCommands;
         displayText();
         MainDisplayRect = MainDisplay.transform.GetComponent<RectTransform>();

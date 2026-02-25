@@ -40,6 +40,7 @@ public class PMS_vaultSpawner : displayVarItems {
     public override GameObject editSpawn(GameObject spawned, Vector2 set) {
         PMS_vaultItem item = spawned.transform.GetComponent<PMS_vaultItem>();
         item.position = (int)(((set.x + 1) + set.y * horizontal) + (itemsPerPage * page)) - 1;
+        item.parent = this; // set the parent so it can display icons etc etc etc
         item.display();
 
         return spawned;
@@ -92,9 +93,11 @@ public class PMS_vaultSpawner : displayVarItems {
 
 
     /// <summery> a util to get the sprite of an attack </summery>
-    public static Sprite? findAttackSprite(int index) {
+    public Sprite? findAttackSprite(int index) {
         saveData currentSave = getData.viewSave();
-        if (index >= currentSave.savedAttacks.Count ) return PMS_vaultSpawner.instance.defaultSprite;
+        
+        Debug.Log(currentSave.savedAttacks.Count);
+        if (index >= currentSave.savedAttacks.Count ) return defaultSprite;
         else {
             AT_base foundAttack = GS.live.state.getCurrentAttack(currentSave.savedAttacks[index].attackName);
             if(foundAttack != null) return foundAttack.sprite;
@@ -103,20 +106,19 @@ public class PMS_vaultSpawner : displayVarItems {
                 data.savedAttacks = data.savedAttacks.removeAllNull<AVdata.savedAttack>();
                 getData.save(data);
                 
-                return PMS_vaultSpawner.instance.defaultSprite;
+                return defaultSprite;
             }
         }
     }
 
     /// <summery> opens or closes the child menu </summery>
     public void openChildMenu(bool state = true) {
-        Debug.Log($"open: {state}");
-        selectionMenu.SetActive(!state);
         saveData currentSave = getData.viewSave();
+        if(state && selectedItem >= currentSave.savedAttacks.Count) return;
 
-        if(selectedItem >= currentSave.savedAttacks.Count) return;
-
+        Debug.Log($"setting child menu to: {state}");
         selectionMenu.SetActive(state);
+
         if (state) {
 
             AT_base selectedAttack = currentSelectedAttack;

@@ -25,7 +25,9 @@ namespace save {
 
         public bool firstTimeInPauseMenu = false;
 
+        [Header("config")]
         public string mainColor = "#c0000D";
+        public int speedAnimation = 0;
 
         [Header("inventory")]
         public string currentAttack = "";
@@ -36,8 +38,7 @@ namespace save {
         [Header("levels")]
         public List<string> unlockedLevels = new List<string>();
 
-        public saveData() {
-        }
+        public saveData() {}
     }
 
     [System.Serializable]
@@ -59,9 +60,7 @@ namespace save {
         // gama
         public float gama = 0f;
 
-        public fullConfig() {
-
-        }
+        public fullConfig() {}
     }
 
     /*

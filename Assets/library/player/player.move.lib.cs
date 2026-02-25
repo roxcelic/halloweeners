@@ -41,35 +41,6 @@ namespace player.move {
             ));
         }
 
-        /// <summery> This function basically checks if the player can dash and then starts the `dasher` coroutine </summery>
-        public static void dash(this playerController pc) {
-            if (!pc.canDash) return;
-
-            Vector3 targetVelocity = new Vector3();
-            if (sys.var.config.flatDash) {
-                targetVelocity = pc.transform.forward * eevee.input.CheckAxis("up", "down");
-                targetVelocity += pc.transform.right * eevee.input.CheckAxis("right", "left");
-
-                if (targetVelocity == new Vector3()) targetVelocity = pc.transform.forward;
-            } else targetVelocity = pc.transform.forward;
-            
-            RaycastHit[] hits = Physics.RaycastAll(pc.transform.position, pc.transform.TransformDirection(Vector3.forward), pc.dashDistance);
-            Vector3 dashForce = new Vector3();
-
-            if (hits.Length > 0) {
-                foreach (RaycastHit hit in hits) {
-                    if(hit.collider.gameObject.layer == LayerMask.NameToLayer(pc.targetLayer)) {
-                        dashForce =targetVelocity * (hit.distance - 0.5f);
-                        break;
-                    }
-                }
-            } else {
-                dashForce = targetVelocity * pc.dashDistance;
-            }
-
-            pc.StartCoroutine(pc.dasher(pc.transform.position + new Vector3(dashForce.x, 0, dashForce.z), targetVelocity));
-        }
-
         /// <summery> a check to see if the player is on a slop </summery>
         public static bool onSlope(this playerController pc, float multiplier = 1.1f, float distance = 0f) {
             if (Physics.Raycast(pc.transform.position, Vector3.down, out pc.slopeHit, distance == 0f ? Vector3.Distance(pc.transform.position, pc.groundCheck.position) * multiplier : distance)) {

@@ -9,6 +9,7 @@ TagManager:
   - Fortnite
   - Minecraft
   - PlayerB
+  - dashable Block
   layers:
   - Default
   - TransparentFX

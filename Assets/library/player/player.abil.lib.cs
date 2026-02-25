@@ -134,36 +134,6 @@ namespace player.abil {
             }
         }
 
-        /// <summery> similar to slide, yet this freezes the player in air and stops time <summery>
-        public static IEnumerator dasher(this playerController pc, Vector3 target, Vector3 dir = new Vector3()) {
-            Time.timeScale = 0f;
-            pc.CanMove = false;
-            pc.canDash = false;
-
-            float moveTime = 0f;
-            Vector3 forward = new Vector3();
-
-            while (Vector3.Distance(pc.transform.position, target) > 1f) {
-                Vector3 difference = target - pc.transform.position;
-                difference = new Vector3(difference.x, 0, difference.z) * 0.5f;
-
-                moveTime += Time.fixedDeltaTime * pc.dashSpeed;
-
-                pc.transform.position = Vector3.Lerp(pc.transform.position, target + difference, moveTime);
-
-                yield return 0;
-            }
-
-            Time.timeScale = GS.live.state.gameSpeed;
-            pc.CanMove = true;
-
-            if(sys.var.config.flatDash) pc.addVel.AddForce(Vector3.Dot( pc.transform.forward, dir) > 0 ? pc.outDashForce : - pc.outDashForce);
-            else pc.addVel.AddForce(pc.outDashForce);
-
-            yield return new WaitForSeconds(pc.dashDelay);
-            pc.canDash = true;
-        }
-
         /// <summery> a very basic jump delay </summery>
         /// might be better to make this use a `waitForTime` function to assist in readability while this method makes it easier for me to seperate and keep track of
         public static IEnumerator allowNextJump(this playerController pc) {

@@ -11,12 +11,18 @@ using ext;
 
 namespace colorManager {
     public static class data{
-        public static Color targetColor;
+        public static bool useChosenColor = true;
+        public static Color worldColor;
 
-        static data() {targetColor = save.utils.getColor();}
+        public static Color targetColor => useChosenColor ? save.utils.getColor() : worldColor;
 
-        public static void forceColor(Color forcedColor) {targetColor = forcedColor;}
-        public static void freeColor() {targetColor = save.utils.getColor();}
+        public static void forceColor(Color forcedColor) {
+            useChosenColor = false;
+            worldColor = forcedColor;
+        }
+        public static void freeColor() {
+            useChosenColor = true;
+        }
     }
 }
 

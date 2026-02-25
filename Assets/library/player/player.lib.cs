@@ -14,7 +14,7 @@ namespace movement {
     [System.Serializable]
     public class additionalVelocity {
         public float vel = 0;
-        public float maxVel = 25f;
+        public float maxVel = 40f;
         public float updateSpeed = 1f;
         public bool update = true;
         public bool player = false;
