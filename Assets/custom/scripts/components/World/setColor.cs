@@ -30,6 +30,7 @@ public class setColor : MonoBehaviour {
     public Material M_worldMat;
     public typeOfData affect;
     public bool active = true;
+    public bool allowCutsomColor = false;
 
     public enum typeOfData {
         mat,
@@ -51,6 +52,8 @@ public class setColor : MonoBehaviour {
     }
 
     void Update(){
+        allowCutsomColor = !colorManager.data.useChosenColor;
+
         if (!active) return;
 
         switch (affect) {

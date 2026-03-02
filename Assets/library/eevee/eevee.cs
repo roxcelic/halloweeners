@@ -412,7 +412,7 @@ public class eev : MonoBehaviour {
             // my new wait for seconds :relaxed:
             float elapsedTime = 0f;
             while (elapsedTime < delay) {
-                elapsedTime += Time.fixedDeltaTime;
+                elapsedTime += Time.unscaledDeltaTime;
                 float opacityMod = 1f * (elapsedTime / delay);
 
                 if (!Check(keyName)) {

@@ -11,6 +11,15 @@ using save;
 namespace sys {
 
     public static class var {
+        public static class levels {
+            public static string tutorial = "custom/levels/level1/level1";
+        }
+        
+        public static class screen {
+            public static int height = 256;
+            public static int width = 512;
+        }
+        
         public static class config {
             public static bool flatDash = true;
             public static bool devBuild = true;
@@ -44,6 +53,7 @@ namespace sys {
             public static saveData save() {return getData.viewSave();}
             public static fullConfig config() {return getData.config();}
             public static pauseMenuController pauseMenu() {return pauseMenuController.instance;}
+            public static roomLoader roomloader() {return roomLoader.instance;}
         }
 
     }
@@ -143,7 +153,7 @@ namespace sys {
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         public static void applyFrameCap() {
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 1231233;
         }
     }
 

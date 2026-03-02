@@ -34,7 +34,7 @@ public class NEN_willaim : NEN_base {
         stateMan();
         while (!self.dead) {
             yield return new WaitForSeconds(positionStateDelay);
-            yield return new WaitUntil(() => canSeePlayer());
+            yield return new WaitUntil(() => canSeePlayer() || positionState == 2);
 
             stateMan();
         }

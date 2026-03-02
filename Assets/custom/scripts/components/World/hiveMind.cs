@@ -40,7 +40,11 @@ public class hiveMind : MonoBehaviour {
     public static void updateTarget(brain newTarget = null) {
         if (newTarget != null) {
             target = newTarget;
+            crosshair.target = target.brainT;
             instance.open();
-        } else instance.close();
+        } else {
+            crosshair.target = brain.brainTypes.empty;
+            instance.close();
+        }
     }
 }

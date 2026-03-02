@@ -57,7 +57,7 @@ namespace player.abil.dash {
             dashData += $"\n the final dash out: playerpos: {pc.transform.position}; dashOutPos: {dashOutPosition }";
             pc.StartCoroutine(pc.dasher(dashOutPosition, dashDirection));
 
-            Debug.Log(dashData); // DEV :: this is what logs the dash data, delete these lines later twin
+            // Debug.Log(dashData); // DEV :: this is what logs the dash data, delete these lines later twin
         }
 
         /// <summery> this is a small co-routine which will move the player kinda slowly </smmery>

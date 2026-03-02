@@ -6,7 +6,7 @@ public class POR_BASE : MonoBehaviour {
 
     private bool playerIsOveralpping = false;
 
-    void Update() {
+    protected virtual void Update() {
         if (playerIsOveralpping) {
             Vector3 portalToPlayer = player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
@@ -20,10 +20,14 @@ public class POR_BASE : MonoBehaviour {
                 player.position = reciever.position + positionOffset;
                 playerIsOveralpping = false;
 
+                OnTp();
+
                 Debug.Log($"moved player");
             }
         }
     }
+
+    protected virtual void OnTp() {}
 
     void OnTriggerEnter (Collider other) {
         if (other.tag == "Player" || other.tag == "PlayerB") playerIsOveralpping = true;

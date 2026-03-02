@@ -60,12 +60,21 @@ namespace player.utils {
             RaycastHit hit;
             brain tmpBrain;
 
-            if (Physics.Raycast(pc.transform.position, pc.camera.forward, out hit, Mathf.Infinity)) {
+            if (Physics.Raycast(pc.transform.position, pc.camera.forward, out hit, pc.range)) {
                 if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) hiveMind.updateTarget(tmpBrain);
                 else hiveMind.updateTarget(null);
             } else {
                 hiveMind.updateTarget(null);
             }
+        }
+
+        /// <summery> attempts to interact with the interactable brain </summery>
+        public static void impThoughts(this playerController pc) {
+            RaycastHit hit;
+            brain tmpBrain;
+
+            if (Physics.Raycast(pc.transform.position, pc.camera.forward, out hit, pc.range)) if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) 
+                if(tmpBrain.onInteract != null) tmpBrain.onInteract(pc);
         }
 
         /// <summery> a basic is grounded check </summery>

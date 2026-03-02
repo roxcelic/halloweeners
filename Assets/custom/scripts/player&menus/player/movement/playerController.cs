@@ -107,6 +107,7 @@ public class playerController : MonoBehaviour {
         [Header("data -- custom")]
         public AT_base attack;
         public AB_base ability;
+        [Range(1f, 15f)] public float range = 5f;
 
         [Header("defaults")]
         public RuntimeAnimatorController D_AttackDisplay;
@@ -257,7 +258,11 @@ public class playerController : MonoBehaviour {
             // camera rotation
             if(canMoveCamera) this.HandleMouse();
 
-            if (eevee.input.Collect("Attack", "PC") && attack != null) attack.attack(this);
+            if (eevee.input.Collect("Attack", "PC") && attack != null) {
+                this.impThoughts();
+                attack.attack(this);
+            }
+            if (eevee.input.Grab("interact", "PC")) this.impThoughts();
             if (eevee.input.Grab("Ability", "PC")) {
                 StartCoroutine(this.whileHeld(
                     () => {},
