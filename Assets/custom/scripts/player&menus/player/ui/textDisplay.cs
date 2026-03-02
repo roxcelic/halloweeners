@@ -31,7 +31,7 @@ public class textDisplay : MonoBehaviour {
             if (textToDisplay.Count > 0) {
                 screen.text = "";
                 continueMessage.text = continueText.displayVar(new Dictionary<string, string>());
-                background.SetActive(true);
+                if(background != null) background.SetActive(true);
 
                 while (screen.text != textToDisplay[0].localise()) {
                     
@@ -57,10 +57,10 @@ public class textDisplay : MonoBehaviour {
             
             if (textToDisplay.Count == 0) {
                 continueMessage.text = "";
-                if(background.activeSelf) background.transform.GetComponent<Animator>().Play("close");
+                if(background != null &&background.activeSelf) background.transform.GetComponent<Animator>().Play("close");
                 yield return new WaitUntil(() => textToDisplay.Count != 0);
                 continueMessage.text = continueText.displayVar(new Dictionary<string, string>());
-                background.SetActive(true);
+                if(background != null) background.SetActive(true);
             }
         }
     }

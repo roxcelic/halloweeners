@@ -7,22 +7,23 @@ using System.Collections.Generic;
 public class displayPlayerText : MonoBehaviour {
     [Header("config")]
     public string playerTag = "Player";
-    public List<sys.Text> textToDisplay = new List<sys.Text>();
+    public sys.Text textToDisplay = new sys.Text();
     
     
     public bool exit = false;
     public bool destroy = true;
 
     void OnTriggerEnter(Collider other){
-        if (other.gameObject.tag == playerTag && !exit) {
-            other.transform.GetComponent<textDisplay>().addText(textToDisplay); 
+        Debug.Log($"tag: {other.gameObject.tag}");
+        if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && !exit) {
+            sys.utils.displayOnPlayer(textToDisplay);
             if (destroy) Destroy(transform.gameObject);
         }
     }
 
     void OnTriggerExit(Collider other){
-        if (other.gameObject.tag == playerTag && exit) {
-            other.transform.GetComponent<textDisplay>().addText(textToDisplay); 
+        if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && exit) {
+            sys.utils.displayOnPlayer(textToDisplay);
             if (destroy) Destroy(transform.gameObject);
         }
     }

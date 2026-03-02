@@ -24,6 +24,7 @@ namespace sys {
             public static bool flatDash = true;
             public static bool devBuild = true;
             public static string playerTag = "Player";
+            public static string otherPlayerTag = "PlayerB";
         }
 
         public static class layers {
