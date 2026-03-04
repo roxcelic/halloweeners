@@ -79,13 +79,14 @@ public class AB_kunai : AB_base {
 
         // Vector3 direction = (hit.position - player.transform.position).normalized;
         Vector3 direction = new Vector3();
+        Vector3 hitPoint = hit.position + new Vector3(0, 2, 0);
 
-        while (hit != null && Vector3.Distance(player.transform.position, hit.position) > 1f && breakHook && canSeeTarget(player.transform, hit.transform)) {
+        while (hit != null && Vector3.Distance(player.transform.position, hitPoint) > 1f && breakHook && canSeeTarget(player.transform, hit.transform)) {
             // player.addVel.AddForce(15f);
             // player.rb.linearVelocity = Vector3.SmoothDamp(player.rb.linearVelocity, player.addVel.getVelocity(player, direction), ref player.Velocity, player.MovementSmoothing);
 
             // Vector3 direction = (hit.position - player.transform.position).normalized;
-            direction = (hit.transform.position - player.transform.position).normalized;
+            direction = (hitPoint  - player.transform.position).normalized;
 
             player.transform.position = Vector3.Lerp(player.transform.position, player.transform.position + direction * speed, Time.deltaTime * 5);
 
@@ -107,7 +108,8 @@ public class AB_kunai : AB_base {
 
     /// <summery> check to see if its in distance </summery>
     public bool canSeeTarget(Transform self, Transform target) {
-        float maxRange = 100;
+        return true;
+        float maxRange = 150;
 
         if(Vector3.Distance(self.position, target.position) < maxRange ){
             if(Physics.Raycast(self.position, (target.position - self.position), out RaycastHit hit, maxRange)) {
@@ -116,6 +118,8 @@ public class AB_kunai : AB_base {
                 }
             }
         }
+
+        Debug.Log("cant see");
 
         return false;
     }

@@ -8,6 +8,8 @@ using ext;
 
 using save;
 
+public class basic : MonoBehaviour {}
+
 namespace sys {
 
     public static class var {
@@ -78,6 +80,48 @@ namespace sys {
     }
 
     public class utils {
+        public static class waiting {
+            public static void waitForSeconds(System.Action act, float time) {
+                GameObject self = new GameObject();
+                basic MB_self = self.AddComponent<basic>();
+                self.name = "waitForSeconds";
+                MB_self.StartCoroutine(CO_waitForSeconds(act, time, self));
+            }
+            
+            public static void waitForSecondsRealtime(System.Action act, float time) {
+                GameObject self = new GameObject();
+                basic MB_self = self.AddComponent<basic>();
+                self.name = "waitForSecondsRealtime";
+                MB_self.StartCoroutine(CO_waitForSecondsRealtime(act, time, self));
+            }
+
+            public static void waitUntil(System.Action act, Func<bool> predicate) {
+                GameObject self = new GameObject();
+                basic MB_self = self.AddComponent<basic>();
+                self.name = "waitForSecondsRealtime";
+                MB_self.StartCoroutine(CO_waitUntil(act, predicate, self));
+            }
+
+            // waits for seconds
+            private static IEnumerator CO_waitForSeconds(System.Action act, float time, GameObject self) {
+                yield return new WaitForSeconds(time);
+                act();
+                GameObject.Destroy(self);
+            }
+
+            private static IEnumerator CO_waitForSecondsRealtime(System.Action act, float time, GameObject self) {
+                yield return new WaitForSecondsRealtime(time);
+                act();
+                GameObject.Destroy(self);
+            }
+
+            public static IEnumerator CO_waitUntil(System.Action act, Func<bool> predicate, GameObject self) {
+                yield return new WaitUntil(predicate);
+                act();
+                GameObject.Destroy(self);
+            }
+        }
+        
         public static void log(string input) {
             Debug.Log(input);
             if(pauseMenuController.instance != null) pauseMenuController.instance.log(input);

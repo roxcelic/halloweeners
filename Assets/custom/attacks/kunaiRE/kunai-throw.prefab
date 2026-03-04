@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -964047683284219181}
   - component: {fileID: 6877620195235005461}
   - component: {fileID: 5561814642031402877}
+  - component: {fileID: 6905242384528738459}
   m_Layer: 7
   m_Name: kunai-throw
   m_TagString: Untagged
@@ -132,6 +133,7 @@ MonoBehaviour:
   resetPlayerToSaftey: 0
   parryable: 0
   attributeKill: {fileID: 0}
+  syncToPlayer: 0
   type: 1
   damage: 10
   nockbackForce: 400
@@ -140,7 +142,7 @@ MonoBehaviour:
   force: {x: 0, y: 0, z: 0}
   bullet: 1
   playerDirection: 1
-  distance: 50
+  distance: 100
   direction: {x: 0, y: 0, z: 0}
   speed: 50
 --- !u!120 &6877620195235005461
@@ -273,3 +275,16 @@ MonoBehaviour:
   endAtPlayer: 0
   endAtSelf: 1
   endOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &6905242384528738459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534142341357768762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a98424dfbb3254eaf4943ee4a01e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::growColliderWhileOut
+  growthRate: 1

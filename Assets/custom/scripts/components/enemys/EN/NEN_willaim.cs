@@ -6,6 +6,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class NEN_willaim : NEN_base {
+    [Header("dev settings")]
+    public bool DEV_Freeze = false;
+    public string DEV_LockAnim = "shoot";
+
     [Header("willaim settings")]
     [Range(0, 10f)] public float positionStateDelay = 3.5f;
     [Range(0, 25f)] public float spawnRadius = 10f;
@@ -21,11 +25,21 @@ public class NEN_willaim : NEN_base {
     public Transform spawnLoc;
 
     // a whole nothing burger
-    protected override void Start() {self = transform.GetComponent<EN_base>();}
+    protected override void Start() {
+        self = transform.GetComponent<EN_base>();
+    }
 
     public override void begin() {
         placeOnGround();
-        StartCoroutine(changeState());
+        Debug.Log("began");
+
+        if (DEV_Freeze) {
+            sys.utils.waiting.waitUntil(() => {
+                self.anim.Play(DEV_LockAnim);
+            }, () => self != null);
+        } else {
+            StartCoroutine(changeState());
+        }
     }
 
     // the movement yay

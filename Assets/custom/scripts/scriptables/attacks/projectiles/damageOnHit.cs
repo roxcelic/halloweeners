@@ -60,6 +60,7 @@ public class damageOnHit : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
+        onHit(collision.transform);
         // player
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
@@ -100,7 +101,9 @@ public class damageOnHit : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
-                // player
+        onHit(col.transform);
+
+        // player
         if (type == attackType.both || type == attackType.player) {
             EN_base enemy = null;
             if ((enemy = col.transform.GetComponent<EN_base>()) != null) {
@@ -152,7 +155,8 @@ public class damageOnHit : MonoBehaviour {
     }
 
     /// <summery> an overrideable function for enemy hit </summery>
-    public virtual void onEnemyHit(Transform hit) {
-        
+    public virtual void onEnemyHit(Transform hit) {}
+    public virtual void onHit(Transform hit) {
+        Debug.Log($"kunai hit {hit.gameObject.name}");
     }
 }
