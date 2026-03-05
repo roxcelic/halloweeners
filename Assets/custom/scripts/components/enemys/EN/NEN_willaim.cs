@@ -29,6 +29,14 @@ public class NEN_willaim : NEN_base {
         self = transform.GetComponent<EN_base>();
     }
 
+    void OnEnable() {
+        if (DEV_Freeze) {
+            sys.utils.waiting.waitUntil(() => {
+                self.anim.Play(DEV_LockAnim);
+            }, () => self != null);
+        }        
+    }
+
     public override void begin() {
         placeOnGround();
         Debug.Log("began");
