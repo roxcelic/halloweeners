@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6877620195235005461}
   - component: {fileID: 5561814642031402877}
   - component: {fileID: 613567678767850883}
+  - component: {fileID: 2236876687028339526}
   m_Layer: 7
   m_Name: kunai-throw
   m_TagString: Untagged
@@ -288,3 +289,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::growColliderWhileOut
   growthRate: 3
+--- !u!114 &2236876687028339526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534142341357768762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4aee51471f4d047aa333416cf3de1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AB_E_K_Disabler
+  input: Ability
+  destroyOnDisable: 1
+  disableDelay: 0.25

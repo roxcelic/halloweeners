@@ -79,7 +79,7 @@ public class AB_kunai : AB_base {
 
         // Vector3 direction = (hit.position - player.transform.position).normalized;
         Vector3 direction = new Vector3();
-        Vector3 hitPoint = hit.position + new Vector3(0, 2, 0);
+        Vector3 hitPoint = hit.position + new Vector3(0, 0.25f, 0);
 
         while (hit != null && Vector3.Distance(player.transform.position, hitPoint) > 1f && breakHook && canSeeTarget(player.transform, hit.transform)) {
             // player.addVel.AddForce(15f);
