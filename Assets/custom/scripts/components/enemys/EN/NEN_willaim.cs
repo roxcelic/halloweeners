@@ -39,7 +39,6 @@ public class NEN_willaim : NEN_base {
 
     public override void begin() {
         placeOnGround();
-        Debug.Log("began");
 
         if (DEV_Freeze) {
             sys.utils.waiting.waitUntil(() => {

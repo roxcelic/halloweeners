@@ -258,9 +258,9 @@ public class playerController : MonoBehaviour {
             // camera rotation
             if(canMoveCamera) this.HandleMouse();
 
-            if (eevee.input.Collect("Attack", "PC") && attack != null) {
+            if (eevee.input.Collect("Attack", "PC")) {
                 this.impThoughts();
-                attack.attack(this);
+                if(attack != null) attack.attack(this);
             }
             if (eevee.input.Grab("interact", "PC")) this.impThoughts();
             if (eevee.input.Grab("Ability", "PC")) {

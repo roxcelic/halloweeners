@@ -4,10 +4,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using ext;
+
 public class MM_Menu : pauseMenuController {
+    public static MM_Menu instance;
+    public Transform subMenu;
+
+    [Header("Main menu")]
+    public Transform camera;
+
     protected override void Start() {
         base.Start();
         GS.live.state.paused = true;
+        instance = this;
     }
 
     protected override void Update() {
@@ -32,4 +41,17 @@ public class MM_Menu : pauseMenuController {
         selectedIndex = 0;
         displayText();
     }
+
+    /// <summery> opens a sub menu </summery>
+    public static void openSubMenu(Transform menu) {
+        if (instance == null || instance.camera == null) return;
+        instance.interactable = false;
+    
+        // instance.StartCoroutine(instance.shrink());
+    }
+
+    // /// <summery> decrease scale </summery>
+    // public IEnumerator shrink(float scale = 0.6f, float speed = 5f) {
+        
+    // }
 }
