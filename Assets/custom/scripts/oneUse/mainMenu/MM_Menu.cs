@@ -41,17 +41,4 @@ public class MM_Menu : pauseMenuController {
         selectedIndex = 0;
         displayText();
     }
-
-    /// <summery> opens a sub menu </summery>
-    public static void openSubMenu(Transform menu) {
-        if (instance == null || instance.camera == null) return;
-        instance.interactable = false;
-    
-        // instance.StartCoroutine(instance.shrink());
-    }
-
-    // /// <summery> decrease scale </summery>
-    // public IEnumerator shrink(float scale = 0.6f, float speed = 5f) {
-        
-    // }
 }

@@ -376,6 +376,7 @@ MonoBehaviour:
   stopSpeed: 0
   maxForceForSlideAddition: 40
   canDash: 1
+  isDashing: 0
   dashDistance: 5
   outDashForce: 5
   dashSpeed: 5
@@ -393,6 +394,7 @@ MonoBehaviour:
   hud: {fileID: 0}
   attack: {fileID: 0}
   ability: {fileID: 0}
+  range: 5
   D_AttackDisplay: {fileID: 0}
   maxHealth: 0
   health: 0
@@ -402,6 +404,7 @@ MonoBehaviour:
   profanities: []
   maxIframes: 40
   liveIftames: 100
+  restrictions: 0
 --- !u!114 &982869791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2229,7 +2232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.9990368, y: 0.9990237}
+  m_AnchoredPosition: {x: -0.9995888, y: 0.9991089}
   m_SizeDelta: {x: -1.4984, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!95 &6091740041830765202
@@ -2350,6 +2353,7 @@ MonoBehaviour:
   M_worldMat: {fileID: 0}
   affect: 2
   active: 1
+  allowCutsomColor: 0
 --- !u!114 &6468869311131090225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2511,7 +2515,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2758443398515972741}
   m_Father: {fileID: 4282360589774780474}
@@ -2544,11 +2548,14 @@ MonoBehaviour:
   MainDisplayRect: {fileID: 0}
   LogDisplay: {fileID: 7518782131232304523}
   LogDisplaySR: {fileID: 659467648893290543}
+  anim: {fileID: 0}
   textHeight: 13
   ignorance: 5
   IHLD: 1
   responded: 
   selectedIndex: 0
+  subMenu: {fileID: 0}
+  camera: {fileID: 1382430328}
 --- !u!222 &6948461791552197636
 CanvasRenderer:
   m_ObjectHideFlags: 0

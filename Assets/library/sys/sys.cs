@@ -152,7 +152,7 @@ namespace sys {
         public string overrideName = "";
         public textobject text = null;
 
-        public string localise() {
+        public virtual string localise() {
             if (this.overrideName != "") return this.overrideName;
             if (this.text == null) return "//////////////////////";
             
@@ -164,7 +164,7 @@ namespace sys {
             }
         }
 
-        public string displayVar(Dictionary<string, string> data) {
+        public virtual string displayVar(Dictionary<string, string> data) {
             string[] words = this.localise().Split(" ");
             List<string> selectedWords = new List<string>();
 
@@ -184,6 +184,35 @@ namespace sys {
         public Text(string name = "", textobject text = null) {
             this.overrideName = name;
             if (text != null) this.text = text;
+        }
+    }
+
+    /// <summery> an "inline" text object </summery>
+    [System.Serializable]
+    public class inlineText : Text {
+        [Header("inline")]
+        [TextArea] public string English;
+
+        public override string localise() {
+            if (this.overrideName != "") return this.overrideName;
+            string final = "";
+
+            switch (save.getData.config().language) {
+                case "cat": final = $"meo{"w".Multiply(this.English.Length - 3)}"; break;
+                case "dev": final = $"dev:{this.English}"; break; 
+
+                case "English":default: final = sys.text.displayKeyButton(this.English); break;
+            }
+
+            if (final == "") return "//////////////////////";
+            else return final;
+        }
+
+        public inlineText(string name = "", textobject text = null){
+            this.overrideName = name;
+            if (text != null) {
+                this.English = text.English;
+            }
         }
     }
 
