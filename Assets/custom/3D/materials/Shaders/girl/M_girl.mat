@@ -37,6 +37,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Map:
         m_Texture: {fileID: 2800000, guid: 7b05bee854b71384d926a4eb5a37ebd8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -66,7 +70,11 @@ Material:
     - _Float: 16
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _height: 256
     - _scale: 100
+    - _spriteCount: 8
+    - _spriteHW: 16
+    - _width: 512
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
