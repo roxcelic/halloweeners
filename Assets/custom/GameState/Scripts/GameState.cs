@@ -10,6 +10,7 @@ public class GameState : ScriptableObject {
     public bool helped = false;
     public bool menued = false;
     public bool loaded = false;
+    public bool moved = false;
 
     public float gameSpeed = 1f;
 

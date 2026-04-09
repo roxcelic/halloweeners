@@ -151,6 +151,9 @@ public class playerController : MonoBehaviour {
 
         /// <summery> a little variable to store the velocity during stop and start </summery>
         private Vector3 metaControllerVelocity = new Vector3();
+
+        // tracks if the player has moved or not
+        private bool moved = false;
     #endregion
 
     /// <summery> basic start </summery>
@@ -243,6 +246,16 @@ public class playerController : MonoBehaviour {
                         rb.linearVelocity = Vector3.SmoothDamp(rb.linearVelocity, targetVelocity, ref Velocity, MovementSmoothing);
                     } else { // apply it forcefully
                         rb.AddForce(targetVelocity);
+                    }
+
+                    if (!moved && (
+                        eevee.input.Check("up") ||
+                        eevee.input.Check("down") ||
+                        eevee.input.Check("left") ||
+                        eevee.input.Check("right")
+                    )) {
+                        moved = true;
+                        GS.live.state.moved = true;
                     }
                     
 

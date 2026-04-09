@@ -8,6 +8,7 @@ public class GS_Manager : MonoBehaviour {
         GS.live.state.helped = false;
         GS.live.state.menued = false;
         GS.live.state.loaded = false;
+        GS.live.state.moved = false;
         GS.live.state.player = player;
 
         // time stuff

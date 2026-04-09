@@ -24,6 +24,7 @@ namespace eevee {
         public static string ConfPath = Path.Combine(Application.persistentDataPath, "EeveeConfig.json");
         public static eevee.inputCL inputType;
         public static eevee.inputCL lastUsed = eevee.inputCL.keyboard;
+        public static eev parasite = null;
     }
     
     // controll config
@@ -116,22 +117,22 @@ namespace eevee {
         }
         
         public static eev Parasite() {
-            if (eev.self == null){
+            if (eevee.var.parasite == null){
                 GameObject Parasect = new GameObject();
                 Parasect.name = var.name;
                 
                 eev comp = Parasect.AddComponent<eev>();
-                eev.self = comp;
+                eevee.var.parasite = comp;
 
                 install(Qlock.extractr());
                 return comp;
             }
-            return eev.self;
+            return eevee.var.parasite;
         }
 
         public static eev retrieve() {
-            if (eev.self == null) return eevee.inject.Parasite();
-            return eev.self;
+            if (eevee.var.parasite == null) return eevee.inject.Parasite();
+            return eevee.var.parasite;
         }
     }
 
@@ -299,7 +300,6 @@ namespace eevee {
 //  and mapping that into a ~~hashtable~~ dictionary.
 // If anyone needs more help with editing this file please feel free to ask me personally through my socials, i will help out if i have the time (:
 public class eev : MonoBehaviour {
-    public static eev self = null;
     public Dictionary<string, eevee.config> FullConfig = new Dictionary<string, eevee.config>();
 
     public Dictionary<string, Dictionary<string, Coroutine>> activeCoroutines = new Dictionary<string, Dictionary<string, Coroutine>>();
@@ -312,7 +312,6 @@ public class eev : MonoBehaviour {
     public List<eevee.config> displayConf = new List<eevee.config>();
 
     void Start() {
-        self = this;
         displayConf = FullConfig.Values.ToList();
     }
 

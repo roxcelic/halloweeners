@@ -9,7 +9,6 @@ public class displayPlayerText : MonoBehaviour {
     public string playerTag = "Player";
     public sys.Text textToDisplay = new sys.Text();
     
-    
     public bool exit = false;
     public bool destroy = true;
 

@@ -51,7 +51,13 @@ public class pauseMenuController : MonoBehaviour {
     
     public string responded = "";
     public float? respondedSlider = -1;
+
     public int selectedIndex = 0;
+    public int hoveredIndex = 0;
+
+    [Header("sub menus")]
+    public GameObject colorPicker;
+    public GameObject vault;
 
     #region main
     protected virtual void Start() {
@@ -71,9 +77,32 @@ public class pauseMenuController : MonoBehaviour {
         if (!GS.live.state.paused) return;
 
         if (!interactable) return;
+        if (colorPicker.activeSelf || vault.activeSelf) return;
 
-        if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
-        if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
+        if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {
+            if (hoveredIndex == -1) selectedIndex++;
+            else {
+                selectedIndex = hoveredIndex + 1;
+                hoveredIndex = -1;
+            }
+
+            if (selectedIndex > getPirvlagedOptions().Count - 1) 
+                selectedIndex = 0;
+            
+            displayText();
+        }
+        if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {
+            if (hoveredIndex == -1) selectedIndex--;
+            else {
+                selectedIndex = hoveredIndex - 1;
+                hoveredIndex = -1;
+            }
+
+            if (selectedIndex < 0) 
+                selectedIndex = getPirvlagedOptions().Count - 1;
+        
+            displayText();
+        }
     
         if (((eevee.input.Collect("interact", "pm"))&& getPirvlagedOptions()[selectedIndex].active())) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
@@ -132,9 +161,16 @@ public class pauseMenuController : MonoBehaviour {
     public string displayText() {
         string result = "";
         
-        for (int i = 0; i < getPirvlagedOptions().Count; i++) {
-            getPirvlagedOptions()[i].onLoad(this);
-            result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
+        if (hoveredIndex == -1) {
+            for (int i = 0; i < getPirvlagedOptions().Count; i++) {
+                getPirvlagedOptions()[i].onLoad(this);
+                result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
+            }
+        } else {
+            for (int i = 0; i < getPirvlagedOptions().Count; i++) {
+                getPirvlagedOptions()[i].onLoad(this);
+                result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(hoveredIndex == i ? ">" : (i < hoveredIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
+            }
         }
 
         MainDisplay.text = result;
@@ -159,6 +195,7 @@ public class pauseMenuController : MonoBehaviour {
 
         currentItems = newItems;
         selectedIndex = 0;
+        hoveredIndex = 0;
         displayText();
     }
 
@@ -173,6 +210,7 @@ public class pauseMenuController : MonoBehaviour {
         previousItems.RemoveAt(previousItems.Count - 1);
 
         selectedIndex = 0;
+        hoveredIndex = 0;
         displayText();
     }
 
@@ -275,7 +313,9 @@ public class pauseMenuController : MonoBehaviour {
     public void setSliderRep() {respondedSlider = sliderVal.value;}
 
     /// <summery> aligns the text box correctly </summery>
-    public virtual void alignTextBox() {MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);}
+    public virtual void alignTextBox() {
+        MainDisplayRect.localPosition = Vector3.Lerp(MainDisplayRect.localPosition, new Vector3(MainDisplayRect.localPosition.x, Mathf.Clamp(selectedIndex - ignorance, 0, Mathf.Infinity) * textHeight, MainDisplayRect.localPosition.z), Time.fixedDeltaTime * 5);
+    }
 
     #endregion
 

@@ -11,11 +11,14 @@ public class textDisplay : MonoBehaviour {
 
     [Header("components")]
     public TMP_Text screen;
+    public TMP_Text screenDisplay;
+
     public TMP_Text continueMessage;
     public GameObject background;
 
     [Header("config")]
     [Range(0, 1f)] public float keyDelay = 0.05f;
+    public bool waitUntilPlayerMovement = true;
 
     [Header("data")]
     public List<sys.Text> textToDisplay = new List<sys.Text>();
@@ -26,6 +29,7 @@ public class textDisplay : MonoBehaviour {
 
     public IEnumerator type() {
         yield return new WaitUntil(() => GS.live.state.loaded);
+        if (waitUntilPlayerMovement) yield return new WaitUntil(() => GS.live.state.moved);
 
         while (true) {
             if (textToDisplay.Count > 0) {
@@ -33,26 +37,40 @@ public class textDisplay : MonoBehaviour {
                 continueMessage.text = continueText.displayVar(new Dictionary<string, string>());
                 if(background != null) background.SetActive(true);
 
-                while (screen.text != textToDisplay[0].localise()) {
+                string displayText = "";
+                while (displayText != $"{textToDisplay[0].localise()}") {
                     
-                    if (screen.text.Length == textToDisplay[0].localise().Length - 1) screen.text = textToDisplay[0].localise();
-                    else screen.text = textToDisplay[0].localise().Substring(0, screen.text.Length + 1);
+                    if (displayText.Length == textToDisplay[0].localise().Length - 1) displayText = textToDisplay[0].localise();
+                    else displayText = textToDisplay[0].localise().Substring(0, displayText.Length + 1);
                     
-                    if (eevee.input.Collect("interact", "TD1")) screen.text = textToDisplay[0].localise();
+                    if (eevee.input.Collect("interact", "TD1")) displayText = textToDisplay[0].localise();
+
+                    screen.text = $"<i>[</i>{displayText}<i>]</i>";
+                    screenDisplay.text = screen.text;
 
                     yield return new WaitForSecondsRealtime(keyDelay);
                 }
 
                 textToDisplay.RemoveAt(0);
 
-                yield return new WaitForSecondsRealtime(0.15f);
+                float passedTime = 0;
+                while (passedTime < 4 && !eevee.input.Collect("interact", "TD1")) {
+                    passedTime += Time.deltaTime;
+                    yield return 0;
+                }
 
-                while (screen.text.Length > 0) {
-                    screen.text = screen.text.Substring(0, screen.text.Length - 1);
-                    if (eevee.input.Collect("interact", "TD1")) screen.text = "";
+                while (displayText.Length > 0) {
+                    displayText = displayText.Substring(0, displayText.Length - 1);
+                    if (eevee.input.Collect("interact", "TD1")) displayText = "";
+
+                    screen.text = $"<i>[</i>{displayText}<i>]</i>";
+                    screenDisplay.text = screen.text;
 
                     yield return new WaitForSecondsRealtime(keyDelay);
                 }
+
+                screen.text = "";
+                screenDisplay.text = screen.text;
             }
             
             if (textToDisplay.Count == 0) {

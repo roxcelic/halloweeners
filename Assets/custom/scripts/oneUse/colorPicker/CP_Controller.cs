@@ -34,12 +34,12 @@ public class CP_Controller : MonoBehaviour {
     /// <summery> generate the image used for the Hue control </summery>
     private void CreateHueImage() {
         // generate the hue texture (it feels like i keep writing hue texture omfg)
-        hueTexture = new Texture2D(16, 1);
+        hueTexture = new Texture2D(1, 16);
         hueTexture.wrapMode = TextureWrapMode.Clamp;
         hueTexture.name = "hueTexture";
 
         // loop through all pixels in the texture then set each pixel based on its height
-        for (int i = 0; i < hueTexture.width; i++) hueTexture.SetPixel(i, 0, Color.HSVToRGB((float)i / hueTexture.width, 1, 1));
+        for (int i = 0; i < hueTexture.height; i++) hueTexture.SetPixel(0, i, Color.HSVToRGB((float)i / hueTexture.height, 1, 1));
 
         hueTexture.Apply(); // update changes
         currentHue = 0; // set default hue
