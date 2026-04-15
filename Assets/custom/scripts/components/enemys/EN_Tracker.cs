@@ -36,7 +36,7 @@ public class EN_Tracker : MonoBehaviour {
     public float compareLocation(GameObject Target) {
         float value = AngleDifference(transform.eulerAngles.y, Quaternion.LookRotation(Target.transform.position - transform.position).eulerAngles.y); // important
         
-        if (value > 180) value -= 360;
+        if (value > 180) value -= 360;// maybe
         value *= 20;
         value /= 360;
 

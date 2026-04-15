@@ -7685,8 +7685,8 @@
     "m_ObjectId": "f1d76096baba4e2e804bb6e4d3b13f9d",
     "m_Title": "get font coord",
     "m_Position": {
-        "x": -290.0002136230469,
-        "y": 451.9999694824219
+        "x": -289.99981689453127,
+        "y": 452.0
     }
 }
 
@@ -7721,8 +7721,8 @@
     "m_ObjectId": "f47d8fc70f3b45f6be5987ea46345e80",
     "m_Title": "get compressed and greyscaled color value",
     "m_Position": {
-        "x": -3527.0,
-        "y": -212.0
+        "x": -3527.000244140625,
+        "y": -212.00001525878907
     }
 }
 

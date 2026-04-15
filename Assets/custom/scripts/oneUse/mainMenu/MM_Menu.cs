@@ -22,8 +22,30 @@ public class MM_Menu : pauseMenuController {
     protected override void Update() {
         if (!interactable) return;
 
-        if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {selectedIndex++; if (selectedIndex > getPirvlagedOptions().Count - 1) selectedIndex = 0;displayText();}
-        if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {selectedIndex--; if (selectedIndex < 0) selectedIndex = getPirvlagedOptions().Count - 1;displayText();}
+        if (eevee.input.Collect("down", "pm") || Input.GetAxis("Mouse ScrollWheel") < 0f) {
+            if (hoveredIndex == -1) selectedIndex++;
+            else {
+                selectedIndex = hoveredIndex + 1;
+                hoveredIndex = -1;
+            }
+
+            if (selectedIndex > getPirvlagedOptions().Count - 1) 
+                selectedIndex = 0;
+            
+            displayText();
+        }
+        if (eevee.input.Collect("up", "pm") || Input.GetAxis("Mouse ScrollWheel") > 0f) {
+            if (hoveredIndex == -1) selectedIndex--;
+            else {
+                selectedIndex = hoveredIndex - 1;
+                hoveredIndex = -1;
+            }
+
+            if (selectedIndex < 0) 
+                selectedIndex = getPirvlagedOptions().Count - 1;
+        
+            displayText();
+        }
     
         if (((eevee.input.Collect("interact", "pm"))&& getPirvlagedOptions()[selectedIndex].active())) {getPirvlagedOptions()[selectedIndex].action(this, "");displayText();}
         if (eevee.input.Collect("back", "pm")) {loadPrevMenu();}
