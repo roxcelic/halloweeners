@@ -53,6 +53,10 @@ namespace sys {
             };
         }
 
+        public static class scenes {
+            public static string mainMenu = "Assets/custom/levels/mainMenu/mainMenu";
+        }
+
         public static class components {
             public static LoadingScreen loadingScreen() {return LoadingScreen.mainScreen;}
             public static playerController player() {return playerController.mainPlayer;}
@@ -217,6 +221,13 @@ namespace sys {
                 this.English = text.English;
             }
         }
+    }
+
+    /// <summery> specialised story text </summery>
+    [System.Serializable]
+    public class storyText : inlineText {
+        [Header("custom")]
+        public Sprite newImage;
     }
 
     public class system {

@@ -17,69 +17,18 @@ MonoBehaviour:
     text: {fileID: 0}
     English: compass by mili
   text:
-    overrideName: 
+  - overrideName: 
     text: {fileID: 0}
-    English: 'Bon voyage
-
-      Your mermaid''s setting sail at last
-
-      Full
-      speed towards your heart
-
-      Full speed towards your heart
-
-      I''ve
-      had enough
-
-      I''m reclaiming myself
-
-      The aft
-
-      Leaving behind
-      the hurt
-
-      Leaving behind the hurt
-
-      When it snapped
-
-      My compass
-      was swallowed by the sea
-
-      My compass was swallowed by the sea
-
-      I
-      curse this relationship between you and me
-
-      I wanted blood
-
-      I wanted
-      black and white
-
-      Clear cut
-
-      Your evils predefined
-
-      Your evils
-      predefined
-
-      Hold on tight
-
-      My compass is curiosity
-
-      My compass
-      is curiosity
-
-      I''m piercing through the rope that strangled you and me
-
-      Let
-      us be free (high tide, low tide)
-
-      High tide, low tide
-
-      High tide,
-      low tide
-
-      High tide, low tide'
+    English: balls
+  - overrideName: 
+    text: {fileID: 0}
+    English: 2
+  - overrideName: 
+    text: {fileID: 0}
+    English: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: I need a lot of big text rn
   display: {fileID: 21300000, guid: 2677025227d08824e880e538366bdc1e, type: 3}
   unlockKey: 
   developerLock: 1

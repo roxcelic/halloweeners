@@ -1,12 +1,17 @@
 using UnityEngine;
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 using save;
 
 [CreateAssetMenu(fileName = "text", menuName = "text/story text")]
 public class storyText : ScriptableObject {
     [Header("text")]
     public sys.inlineText episodeName = new sys.inlineText();
-    public sys.inlineText text = new sys.inlineText();
+    public List<sys.storyText> text = new List<sys.storyText>();
+    // public sys.inlineText text = new sys.inlineText();
 
     [Header("images")]
     public Sprite display;

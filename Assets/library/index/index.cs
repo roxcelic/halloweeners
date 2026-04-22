@@ -70,6 +70,7 @@ namespace index {
             TMP_Text pseudoDisplay,
             TMP_Text mainDisplay,
             string input,
+            System.Action act = null,
             float delayBetweenChars = 0.1f,
             AudioClip onChar = null,
             AudioClip onFinish = null,
@@ -78,6 +79,7 @@ namespace index {
         ) {
             int letterCount = 0;
 
+            float timePassed = 0f;
             while (pseudoDisplay.recieve(input)) {
                 mainDisplay.text = pseudoDisplay.text; // copy the text over
 
@@ -92,14 +94,17 @@ namespace index {
                     letterCount = 0;
                 }
 
-                if (!eevee.input.Collect("interact", "PM2")) yield return new WaitForSeconds(delayBetweenChars);
-                else {
+                if (!(eevee.input.Collect("interact", "PM2") && timePassed > 0.1f)) {
+                    yield return new WaitForSeconds(delayBetweenChars);
+                    timePassed += delayBetweenChars;
+                } else {
                     pseudoDisplay.text = $"{'['}{input}{']'}";
                     mainDisplay.text = pseudoDisplay.text;
                 }
             }
 
             Debug.Log($"finished with {pseudoDisplay.text}");
+            if (act != null) act();
             if (onFinish != null) AudioSource.PlayClipAtPoint(onFinish, soundPoint);
         }
     }

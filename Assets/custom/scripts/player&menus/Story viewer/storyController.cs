@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 using System;
@@ -25,9 +26,9 @@ public class storyController : MonoBehaviour {
     public int lineSelected = 0;
 
     [Header("components")]
-    public TMP_Text selectorDisplay;
     public Image image;
     public Animator anim;
+    public TMP_Text selectorDisplay, titleDisplay, pageCountDisplay;
 
     // start of the new stuff
     [Header("type")]
@@ -39,10 +40,10 @@ public class storyController : MonoBehaviour {
     public Vector3 soundPoint;
 
     private Coroutine proxy;
+    private bool FinishedTyping = true;
 
     void Start() {
-        type("clear_ ");
-        // type(generateRows(viewUnlockedEpisodes(fullStory)));
+        FinishedTyping = true;
     }
 
     void Update() {
@@ -58,6 +59,10 @@ public class storyController : MonoBehaviour {
                     type(getLine());
                 }
 
+                if (eevee.input.Collect("back", "SM")) {
+                    SceneManager.LoadScene(0);
+                }
+
                 selected += eevee.input.CollectAxis("down", "up");
                 clampSelected();
 
@@ -68,7 +73,7 @@ public class storyController : MonoBehaviour {
                     anim.Play("1");
                 }
 
-                if (eevee.input.Collect("down", "SM")) {
+                if (eevee.input.Collect("down", "SM") || (eevee.input.Collect("interact", "SM") && FinishedTyping)) {
                     changeLine(1);
                     type(getLine());
                 }
@@ -85,51 +90,48 @@ public class storyController : MonoBehaviour {
     /// <summery> display story lines </summery>
     private void changeLine(int input = 0) {
         lineSelected += input;
-        int max = getEpisodeByIndex(selected).story.text.localise().Split("\n").Length - 1;
+        int max = getEpisodeByIndex(selected).story.text.Count - 1;
 
         if (lineSelected > max) lineSelected = 0;
         if (lineSelected < 0) lineSelected = max;
 
         if (getLine() == "") changeLine(input);
-    }
+    } 
 
     private string getLine() {
-        return getEpisodeByIndex(selected).story.text.localise().Split("\n")[lineSelected];
+        return getEpisodeByIndex(selected).story.text[lineSelected].localise();
     }
 
     /// <summery> below here are util functions for managing episode content </summery>
     #region  utils 
+        private void gettitle() {
+            if (titleDisplay != null) titleDisplay.text = getEpisodeByIndex(selected).story.episodeName.localise();
+        }
+        private void getpage() {
+            if (pageCountDisplay != null) pageCountDisplay.text = $"{lineSelected + 1}/{getEpisodeByIndex(selected).story.text.Count}";
+        }
+
         private void type(string input) {
             if (proxy != null) StopCoroutine(proxy);
             pseudoDisplay.text = "";
 
+            FinishedTyping = false;
             proxy = StartCoroutine(prescript.storyProxyDevice(
                 pseudoDisplay,
                 mainDisplay,
                 input,
+                () => {
+                    FinishedTyping = true;
+                },
                 delayBetweenChars,
                 onChar,
                 onFinish,
                 soundPoint
             ));
+
+            getpage();
+            gettitle();
         }
-
-        // void displayText() {
-        //     if (viewUnlockedEpisodes(fullStory) == null) selector.text = "//";
-        //     else selector.text = generateRows(viewUnlockedEpisodes(fullStory));
-        // }
-
-        // void displayStory() {
-        //     story.episode selectedEp = getEpisodeByIndex(selected);
-
-        //     if (selectedEp != null) {
-        //         display.text = selectedEp.story.text.localise();
-        //         image.sprite = selectedEp.story.display;
-        //     } else {
-        //         display.text = $"you have selected episode {selected}, this doesnt exist, how have you done that";
-        //         image.sprite = null;    
-        //     }
-        // }
 
         void clampSelected() {
             Dictionary<int, story.episode> ahh = mapEpisodes(viewUnlockedEpisodes(fullStory));

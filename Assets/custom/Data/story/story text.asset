@@ -17,16 +17,10 @@ MonoBehaviour:
     text: {fileID: 0}
     English: Developer warning
   text:
-    overrideName: 
+  - overrideName: 
     text: {fileID: 0}
-    English: 'Hi roxy here,
-
-      AHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-
-      I SHOULD
-      BE REVISING FOR CS AND IM NOT
-
-'
+    English: hi
+    newImage: {fileID: 0}
   display: {fileID: 0}
   unlockKey: 
   developerLock: 1
