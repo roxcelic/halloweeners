@@ -111,6 +111,11 @@ public class storyController : MonoBehaviour {
             if (pageCountDisplay != null) pageCountDisplay.text = $"{lineSelected + 1}/{getEpisodeByIndex(selected).story.text.Count}";
         }
 
+        private void getImage() {
+            if(getEpisodeByIndex(selected).story.text[lineSelected].newImage != null) image.sprite = getEpisodeByIndex(selected).story.text[lineSelected].newImage;
+            else image.sprite = getEpisodeByIndex(selected).story.display;
+        }
+
         private void type(string input) {
             if (proxy != null) StopCoroutine(proxy);
             pseudoDisplay.text = "";
@@ -131,6 +136,7 @@ public class storyController : MonoBehaviour {
 
             getpage();
             gettitle();
+            getImage();
         }
 
         void clampSelected() {
@@ -190,7 +196,7 @@ public class storyController : MonoBehaviour {
     namespace story {
         [System.Serializable]
         public class episode {
-            public storyText story;
+            public SO_Text story;
             public List<episode> children = new List<episode>();
             public episode(){}
         }

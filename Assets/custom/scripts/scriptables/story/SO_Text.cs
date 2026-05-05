@@ -7,7 +7,14 @@ using System.Collections.Generic;
 using save;
 
 [CreateAssetMenu(fileName = "text", menuName = "text/story text")]
-public class storyText : ScriptableObject {
+public class SO_Text : ScriptableObject {
+    public enum displayType {
+        regular,
+        speach,
+        description,
+        narrator
+    }
+
     [Header("text")]
     public sys.inlineText episodeName = new sys.inlineText();
     public List<sys.storyText> text = new List<sys.storyText>();

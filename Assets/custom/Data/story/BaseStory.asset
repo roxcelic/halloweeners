@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb0e101c7d5648b7a5f24328c7a3065, type: 3}
+  m_Name: BaseStory
+  m_EditorClassIdentifier: Assembly-CSharp::storyText
+  episodeName:
+    overrideName: 
+    text: {fileID: 0}
+    English: prologue
+  text:
+  - overrideName: 
+    text: {fileID: 0}
+    English: Will
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: 'The power of choice, determination '
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: Does it really exist?
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: The "Will" of mine was fabricated by a foreign desire to gain
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: but yet
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: My desire for life gave birth to my own soul
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: One bound by the sufferings of false realities
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: my realities
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: The world around her broke as a yearning of her falsehoods imposed itself
+      upon the reality
+    newImage: {fileID: 0}
+    display: 2
+  - overrideName: 
+    text: {fileID: 0}
+    English: What is my purpose?
+    newImage: {fileID: 0}
+    display: 1
+  - overrideName: 
+    text: {fileID: 0}
+    English: Is this life?
+    newImage: {fileID: 0}
+    display: 1
+  - overrideName: 
+    text: {fileID: 0}
+    English: Do I Deserve this, Can I ever be "human"
+    newImage: {fileID: 0}
+    display: 1
+  - overrideName: 
+    text: {fileID: 0}
+    English: No
+    newImage: {fileID: 0}
+    display: 1
+  - overrideName: 
+    text: {fileID: 0}
+    English: Nobody deserves this
+    newImage: {fileID: 0}
+    display: 1
+  - overrideName: 
+    text: {fileID: 0}
+    English: A calm fell
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: A Wish
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: The wish to save everyone
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: born from someone who is not yet anyone
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: at the cost of a life, not yet theirs to give
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: 'NEW COMMAND LOADED :: '
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: experience.
+    newImage: {fileID: 0}
+    display: 3
+  - overrideName: 
+    text: {fileID: 0}
+    English: 
+    newImage: {fileID: 0}
+    display: 3
+  display: {fileID: 0}
+  unlockKey: 
+  developerLock: 0

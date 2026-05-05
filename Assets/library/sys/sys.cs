@@ -228,6 +228,7 @@ namespace sys {
     public class storyText : inlineText {
         [Header("custom")]
         public Sprite newImage;
+        public SO_Text.displayType display;
     }
 
     public class system {

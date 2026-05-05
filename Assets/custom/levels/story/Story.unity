@@ -1036,12 +1036,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
+  m_fontSize: 8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 4
-  m_fontSizeMax: 16
+  m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1295,12 +1295,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 4
-  m_fontSizeMax: 12
+  m_fontSizeMax: 8
   m_fontStyle: 2
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1473,14 +1473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::storyController
   fullStory:
-    story: {fileID: 11400000, guid: b7348ed79fa4649919134bee17425af1, type: 2}
-    children:
-    - story: {fileID: 11400000, guid: ba5f888615be044c1bada35a81807d92, type: 2}
-      children:
-      - story: {fileID: 11400000, guid: b7348ed79fa4649919134bee17425af1, type: 2}
-        children: []
-    - story: {fileID: 11400000, guid: 64bd369fd0f184af9a25c5eeea041d1f, type: 2}
-      children: []
+    story: {fileID: 11400000, guid: 45c5df614f550416389a4e31c32b27e5, type: 2}
+    children: []
   state: 0
   selected: 0
   lineSelected: 0
