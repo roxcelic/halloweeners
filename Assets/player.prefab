@@ -475,7 +475,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2648,7 +2648,7 @@ GameObject:
   - component: {fileID: 3939606539789162026}
   - component: {fileID: 1528007630206639809}
   - component: {fileID: 6354317861766979140}
-  - component: {fileID: 5365190005281299327}
+  - component: {fileID: 4362015775545249111}
   m_Layer: 5
   m_Name: dev
   m_TagString: Untagged
@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5365190005281299327
+--- !u!114 &4362015775545249111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2784,9 +2784,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2057554951006070289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 824ea14a7c0f85a4ba08d15c3fb62639, type: 3}
+  m_Script: {fileID: 11500000, guid: 63871b5908dbf8048855617ea41890c0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::devDisplay
+  m_EditorClassIdentifier: Assembly-CSharp::devMusicDisplay
 --- !u!1 &2060455383086140665
 GameObject:
   m_ObjectHideFlags: 0
@@ -7492,7 +7492,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 500
+  m_Intensity: 50
   m_Range: 25
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8247,7 +8247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030517578, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &634999936222517866
@@ -10568,7 +10568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchoredPosition: {x: 0, y: -25.000061}
   m_SizeDelta: {x: -100, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5851467271751132198

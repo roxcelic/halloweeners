@@ -23,6 +23,8 @@ public class backgroundMusic : MonoBehaviour {
     }
 
     public void playSong(song toPlay) {
+        musicLib.var.currentSong = toPlay;
+
         AS.clip = toPlay.clip;
         AS.Play();
  
@@ -66,7 +68,7 @@ public class backgroundMusic : MonoBehaviour {
                     AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
 
                     if (clip != null) {
-                        localSongs.Add(new song(live.audioType.local, clip, file, path));
+                        localSongs.Add(new song(live.audioType.local, clip, file, path,"[local File]"));
                     }
                 }
             }

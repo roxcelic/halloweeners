@@ -17,13 +17,34 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: bce55d604f87aca41b83f7a6f0d0f41b, type: 3}
     path: 
     name: unity
+    artist: the fatrat
   - type: 0
     clip: {fileID: 8300000, guid: b7e7aba45d6b1b542b3fd0e3e8544c19, type: 3}
     path: 
     name: loud silence
-  localSongs: []
+    artist: Roxy
+  localSongs:
+  - type: 1
+    clip: {fileID: 0}
+    path: C:/Users/roxie.rowbotham-g/AppData/LocalLow/roxcelic/corrosion/Audio/Mili
+      - TIAN TIAN Limbus Company.mp3
+    name: Mili - TIAN TIAN Limbus Company.mp3
+    artist: '[local File]'
+  - type: 1
+    clip: {fileID: 0}
+    path: "C:/Users/roxie.rowbotham-g/AppData/LocalLow/roxcelic/corrosion/Audio/\u3044\u307E\u3059\u3050\u8F2A\u5EFB 
+      \u521D\u97F3\u30DF\u30AF.mp3"
+    name: "\u3044\u307E\u3059\u3050\u8F2A\u5EFB  \u521D\u97F3\u30DF\u30AF.mp3"
+    artist: '[local File]'
+  - type: 1
+    clip: {fileID: 0}
+    path: "C:/Users/roxie.rowbotham-g/AppData/LocalLow/roxcelic/corrosion/Audio/\u304A\u3061\u3083\u3081\u6A5F\u80FD
+      -Full ver.-  \u91CD\u97F3\u30C6\u30C8SVSynthesizerV\u30AB\u30D0\u30FC.mp3"
+    name: "\u304A\u3061\u3083\u3081\u6A5F\u80FD -Full ver.-  \u91CD\u97F3\u30C6\u30C8SVSynthesizerV\u30AB\u30D0\u30FC.mp3"
+    artist: '[local File]'
   defaultSong:
     type: 0
     clip: {fileID: 8300000, guid: b7e7aba45d6b1b542b3fd0e3e8544c19, type: 3}
     path: 
     name: loud silence
+    artist: Roxy

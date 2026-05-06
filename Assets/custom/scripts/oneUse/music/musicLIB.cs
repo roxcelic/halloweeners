@@ -13,6 +13,8 @@ namespace musicLib {
 
         public static song? battleSong;
         public static song? biombSong;
+
+        public static song? currentSong;
         #nullable disable
 
         public static List<song> queue = new List<song>();
@@ -36,12 +38,14 @@ namespace musicLib {
         public AudioClip clip;
         public string path;
         public string name;
+        public string artist;
 
-        public song(musicLib.live.audioType songType, AudioClip songClip, string filePath = "", string songName = "") {
+        public song(musicLib.live.audioType songType, AudioClip songClip, string filePath = "", string songName = "", string artistName = "") {
             this.type = songType;
             this.clip = songClip;
             this.path = filePath;
             this.name = songName;
+            this.artist = artistName;
         }
     }
 
