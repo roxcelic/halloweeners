@@ -31,6 +31,7 @@ public class setColor : MonoBehaviour {
     public typeOfData affect;
     public bool active = true;
     public bool allowCutsomColor = false;
+    public bool invertColor = false;
 
     public enum typeOfData {
         mat,
@@ -56,21 +57,24 @@ public class setColor : MonoBehaviour {
 
         if (!active) return;
 
+        Color selectedColor = colorManager.data.targetColor;
+        if (invertColor) selectedColor = invert(selectedColor);
+
         switch (affect) {
             case typeOfData.mat:
-                M_worldMat.SetColor("_outlineColor", Color.Lerp(M_worldMat.GetColor("_outlineColor"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
+                M_worldMat.SetColor("_outlineColor", Color.Lerp(M_worldMat.GetColor("_outlineColor"), selectedColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.baseMat:
-                M_worldMat.SetColor("_color", Color.Lerp(M_worldMat.GetColor("_color"), colorManager.data.targetColor, Time.fixedDeltaTime * 5f));
+                M_worldMat.SetColor("_color", Color.Lerp(M_worldMat.GetColor("_color"), selectedColor, Time.fixedDeltaTime * 5f));
                 break;
             case typeOfData.image:
-                image.color = Color.Lerp(image.color, colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
+                image.color = Color.Lerp(image.color, selectedColor, Time.fixedDeltaTime * 5f);
                 break;
             case typeOfData.text:
-                text.color = Color.Lerp(text.color , colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
+                text.color = Color.Lerp(text.color , selectedColor, Time.fixedDeltaTime * 5f);
                 break;
             case typeOfData.spriteRenderer:
-                Sr.color =  Color.Lerp(Sr.color , colorManager.data.targetColor, Time.fixedDeltaTime * 5f);
+                Sr.color =  Color.Lerp(Sr.color , selectedColor, Time.fixedDeltaTime * 5f);
                 break;
         }
     }
@@ -80,6 +84,8 @@ public class setColor : MonoBehaviour {
     }
 
     public void ChangeColor(Color newColor) {
+        if (invertColor) newColor = invert(newColor);
+
         switch (affect) {
             case typeOfData.mat:
                 M_worldMat.SetColor("_outlineColor", newColor);
@@ -94,6 +100,13 @@ public class setColor : MonoBehaviour {
                 transform.GetComponent<TMP_Text>().color = newColor;
                 break;
         }
+    }
+
+    public Color invert(Color color) {
+        Color.RGBToHSV(color, out float H, out float S, out float V);
+        float negativeH = (H + 0.5f) % 1f;
+        
+        return Color.HSVToRGB(negativeH, S, V);
     }
 
     //Color.Lerp
