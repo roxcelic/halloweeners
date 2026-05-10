@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6691316350439597533}
   - component: {fileID: 2364739467642391593}
   - component: {fileID: 1412121213311525757}
+  - component: {fileID: 2663082832766652763}
   - component: {fileID: 2248051893492335735}
   - component: {fileID: 5833388948378035459}
   - component: {fileID: 7396592022478981551}
@@ -64,6 +65,25 @@ MonoBehaviour:
   M_worldMat: {fileID: 2100000, guid: ba2574cb0018a48b284c0f3569e5f7d9, type: 2}
   affect: 0
   active: 1
+  allowCutsomColor: 0
+  invertColor: 0
+--- !u!114 &2663082832766652763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643916688458997700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47e7297f657542ac9f06f74a933478f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::setColor
+  M_worldMat: {fileID: 2100000, guid: bb3d9a175c7bcb9448e4043825bbabab, type: 2}
+  affect: 0
+  active: 1
+  allowCutsomColor: 0
+  invertColor: 1
 --- !u!114 &2248051893492335735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +99,8 @@ MonoBehaviour:
   M_worldMat: {fileID: 2100000, guid: 74347cd593f4e4978b29ef82344e5c8a, type: 2}
   affect: 3
   active: 1
+  allowCutsomColor: 0
+  invertColor: 0
 --- !u!114 &5833388948378035459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::basicLevelLoader
   playerTag: Player
+  customMusic: 1
 --- !u!114 &7396592022478981551
 MonoBehaviour:
   m_ObjectHideFlags: 0

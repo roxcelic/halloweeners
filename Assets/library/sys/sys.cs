@@ -34,8 +34,9 @@ namespace sys {
             public static int enemys = LayerMask.NameToLayer("enemys");
             public static int ignoreRP = LayerMask.NameToLayer("ignoreRP");
             public static int ingoreRPGround = LayerMask.NameToLayer("ignoreRPGround");
+            public static int altGround = LayerMask.NameToLayer("altGround");
 
-            public static LayerMask groundLayerLock = (1 << ground) | (1 << ingoreRPGround);
+            public static LayerMask groundLayerLock = (1 << ground) | (1 << ingoreRPGround) | (1 << altGround);
         }
 
         public static class keywords {
@@ -44,7 +45,8 @@ namespace sys {
             public static string specialCharacters = "!\"£$%^&*()_+=[{}];:'@~#,<>./?|`¬";
             public static string allCharacters => $"{characters}{specialCharacters}";
             public static string defaultCharName = "";
-            public static string e = "2.71 8281 8284 5904 5235 3602 8747 1352 6624 9775 7247 0936 9995 9574 9669 6762";
+
+            public static string e = "2.71 8281 8284 5904 5235 3602 8747 1352 6624 9775 7247 0936 9995 9574 9669 6762"; // why did i need this :sob:
 
             public static List<String> languages = new List<String> {
                 "English",

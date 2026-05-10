@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_fullWorld
+  m_Name: M_altWorld
   m_Shader: {fileID: -6465566751694194690, guid: ec2db072faad1412cb9d144417b173fd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
