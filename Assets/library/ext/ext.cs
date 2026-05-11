@@ -16,8 +16,8 @@ namespace ext {
 
     #region  transform
     public static class transform {
-        public static void noClip(this Transform transform, Transform camera = null) {
-            float speed = Input.GetKey(KeyCode.LeftShift) ? 3 : 1;
+        public static void noClip(this Transform transform, Transform camera = null, float defSpeed = 1f) {
+            float speed = Input.GetKey(KeyCode.LeftShift) ? defSpeed * 3 : defSpeed;
 
             float hz = 0;
             float vz = 0;
