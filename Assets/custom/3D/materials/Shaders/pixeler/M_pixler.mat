@@ -62,6 +62,6 @@ Material:
     - _cellSize: 12.44
     m_Colors:
     - _baseColor: {r: 0, g: 0, b: 0, a: 1}
-    - _color: {r: 0.56470513, g: 0.99999917, b: 8.3e-44, a: 1}
+    - _color: {r: 0.8791372, g: 0.99999917, b: 0.56953245, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
