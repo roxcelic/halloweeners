@@ -16,6 +16,7 @@ MonoBehaviour:
   helped: 0
   menued: 0
   loaded: 1
+  moved: 0
   gameSpeed: 1
   registeredAttacks:
   - name: dev
@@ -34,6 +35,8 @@ MonoBehaviour:
     attack: {fileID: 11400000, guid: 717c0973456fe35408c9dae1bee8f4a5, type: 2}
   - name: kunaiRE
     attack: {fileID: 11400000, guid: 09f13b580004af2428730e5c69357edf, type: 2}
+  - name: solemn lament
+    attack: {fileID: 11400000, guid: 0a92a1f5b2a8a79498b46274c08f787b, type: 2}
   registeredAbilities:
   - name: time travel
     ability: {fileID: 11400000, guid: 4ffe7e8a8cb6e469a9ae20f0db68e5d2, type: 2}

@@ -20,6 +20,7 @@ public class AT_3D : AT_base {
     public GameObject weapon;
     [Min(1)] public int animVariation = 1;
     public string safeAnimName = "Idle";
+    public string reloadAnimName = "reload";
 
     private GameObject inst;
     private Animator anim;
@@ -57,17 +58,19 @@ public class AT_3D : AT_base {
         if (!canShoot) return;
 
         if (!anim.GetCurrentAnimatorClipInfo(0)[0].clip.name.StartsWith(safeAnimName)) return;
-        anim.Play(currentAttackAnimName());
 
-        Debug.Log(currentAttackAnimName());
+        if (useAmmo && (currentAmmo - useageAmmo) < 0) {
+            anim.Play(reloadAnimName);
+        } else {
+            anim.Play(currentAttackAnimName());
 
-        // incriment anim count
-        currentCount++;
+            // incriment anim count
+            currentCount++;
+        }
     }
 
     /// <summery> a util to get the current attack name </summery>
     private string currentAttackAnimName() {
-        Debug.Log($"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}");
         return $"Attack{(currentCount > 1 ? $"[{currentCount}]" : "")}";
     }
 

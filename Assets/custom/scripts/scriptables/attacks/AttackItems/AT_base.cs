@@ -147,6 +147,11 @@ public class AT_base : ScriptableObject {
             // lower ammo
             if (useAmmo) currentAmmo -= useageAmmo;
         }
+
+        /// <summery> a very basic reload </summery>
+        public void reload() {
+            currentAmmo = maxAmmo;
+        }
     #endregion
 
     // co-routines

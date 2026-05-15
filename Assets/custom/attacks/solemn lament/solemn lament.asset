@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: solemn lament
   m_EditorClassIdentifier: Assembly-CSharp::AT_3D
   ability: 
-  shootDelay: 1
+  shootDelay: 0
   enemyShootDelay: 1
   nockbackForce: 10
   canShoot: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileForce: 0
   stat:
-    baseDamage: 10
+    baseDamage: 25
     baseRange: 25
     baseSpeed: 1
     lifeSteal: 0
@@ -33,9 +33,9 @@ MonoBehaviour:
     upgradeAbilities: 000000000100000002000000030000000400000005000000
   flash: 0
   enemyDis: 1
-  name: base
+  name: solemn lament
   displayName:
-    overrideName: 
+    overrideName: solemn lament
     text: {fileID: 0}
   description:
     overrideName: 
@@ -59,7 +59,8 @@ MonoBehaviour:
       speedBonus: 0
       damageBonus: 0
       rangeBonus: 0
-  weapon: {fileID: 0}
-  animVariation: 1
+  weapon: {fileID: 3029658741471186435, guid: 42e1ad7bbe3d6ba44a5bbe3f31d7d70d, type: 3}
+  animVariation: 2
   safeAnimName: Idle
+  reloadAnimName: reload
   m_currentCount: 0

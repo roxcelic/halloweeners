@@ -28,6 +28,7 @@ public class EN_base : MonoBehaviour {
     public AudioClip deathSound;
 
     [Header("data")]
+    public bool allowDeath = true;
 
     public AT_base attack;
 
@@ -119,11 +120,23 @@ public class EN_base : MonoBehaviour {
     public virtual void Die() {
         dead = true;
         if (deathSound != null) AudioSource.PlayClipAtPoint(deathSound, transform.position);
-        if(sr != null) Destroy(sr.transform.gameObject);
+        if(sr != null && allowDeath) Destroy(sr.transform.gameObject);
         if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = false;
         anim.Play("die");
 
         Instantiate(Resources.Load<GameObject>("effects/explode"), transform.position, Quaternion.identity);
+
+        if(!allowDeath) Revive();
+    }
+
+    // revive
+    public virtual void Revive() {
+        dead = false;
+        currentHealth = maxHealth;
+
+        brain.thought = $"{currentHealth}/{maxHealth}";
+
+        if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = true;
     }
     #endregion
 }

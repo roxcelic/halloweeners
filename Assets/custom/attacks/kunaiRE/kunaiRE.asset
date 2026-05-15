@@ -25,7 +25,7 @@ MonoBehaviour:
   projectileForce: 0
   stat:
     baseDamage: 35
-    baseRange: 25
+    baseRange: 5
     baseSpeed: 1
     lifeSteal: 0
     luck: 0
@@ -62,4 +62,5 @@ MonoBehaviour:
   weapon: {fileID: 3029658741471186435, guid: 265889792bd9b124388a04f567046f53, type: 3}
   animVariation: 2
   safeAnimName: idle
+  reloadAnimName: reload
   m_currentCount: 0
