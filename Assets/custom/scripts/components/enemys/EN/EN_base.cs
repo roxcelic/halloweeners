@@ -125,8 +125,6 @@ public class EN_base : MonoBehaviour {
         anim.Play("die");
 
         Instantiate(Resources.Load<GameObject>("effects/explode"), transform.position, Quaternion.identity);
-
-        if(!allowDeath) Revive();
     }
 
     // revive

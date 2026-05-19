@@ -182,7 +182,7 @@ MonoBehaviour:
   spawnSound: {fileID: 0}
   hurtsound: {fileID: 0}
   deathSound: {fileID: 0}
-  allowDeath: 0
+  allowDeath: 1
   attack: {fileID: 0}
   sight: 10
 --- !u!114 &5574039632483926689
