@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165aa0a8b28ef8945a1b2602845f1324, type: 3}
   m_Name: solemn lament
   m_EditorClassIdentifier: Assembly-CSharp::AT_3D
-  ability: 
+  ability: time travel
   shootDelay: 0
   enemyShootDelay: 1
   nockbackForce: 10

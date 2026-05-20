@@ -49,6 +49,10 @@ public class NEN_willaim : NEN_base {
         }
     }
 
+    public override void onRevive() {
+        begin();
+    }
+
     // the movement yay
     public IEnumerator changeState() {        
         yield return new WaitUntil(() => self != null);

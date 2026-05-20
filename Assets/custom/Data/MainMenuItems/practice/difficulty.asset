@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: difficulty
   m_EditorClassIdentifier: Assembly-CSharp::PM_practiceOptions
   name:
-    overrideName: 'selected difficulty: hard'
+    overrideName: 'selected difficulty: do not even try'
     text: {fileID: 0}
   essential: 0
   dev: 0
@@ -38,9 +38,14 @@ MonoBehaviour:
       overrideName: hard
       text: {fileID: 0}
     refrenceName: 
-  selected:
-    refrence: 3
+  - refrence: 10000
     name:
-      overrideName: hard
+      overrideName: do not even try
+      text: {fileID: 0}
+    refrenceName: 
+  selected:
+    refrence: 10000
+    name:
+      overrideName: do not even try
       text: {fileID: 0}
     refrenceName: 

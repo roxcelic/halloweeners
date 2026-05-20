@@ -6,6 +6,7 @@ public class Pickup_Activator : MonoBehaviour {
     public AT_base attack;
     public sys.Text pickupText = new sys.Text($"press key:interact to pick up");
     public GameObject onPickupActivate;
+    public bool deactivateOnCollect = false;
 
     void Start() {
         if (attack == null) return;
@@ -16,7 +17,7 @@ public class Pickup_Activator : MonoBehaviour {
         self.thought = $"{pickupText.localise()} {attack.displayName.localise()}";
 
         self.onInteract = (playerController player) => {
-            transform.gameObject.SetActive(false);
+            if (deactivateOnCollect) transform.gameObject.SetActive(false);
             player.switchAttack(attack);
 
             if (onPickupActivate != null) onPickupActivate.SetActive(true);

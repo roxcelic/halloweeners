@@ -66,6 +66,7 @@ public class waveManager : MonoBehaviour {
     /// <summery> this is called when the waves begin spawning </summery>
     ///  -- this is called in LoadingScreen
     public void Begin() {
+        if (playerController.mainPlayer != null) playerController.mainPlayer.health = playerController.mainPlayer.maxHealth;
         if (generateWaves) StartCoroutine(startWaves());
         else StartCoroutine(trackEnemyCount());
     }
@@ -119,7 +120,7 @@ public class waveManager : MonoBehaviour {
         spawnedEnemys = new List<GameObject>();
 
         StopCoroutine(enemyTracker); // stop the enemys from being tracked and  creating a memory leak
-        if(wave <= PlayerPrefs.GetInt("difficulty", 1) + baseWaves || !useDifficultyLength) Begin(); // start the next wave
+        if(wave < PlayerPrefs.GetInt("difficulty", 1) + baseWaves || !useDifficultyLength) Begin(); // start the next wave
         else {
             T_display.text = $"|0/{spawnAmount * Mathf.Round(spawnRate * wave)}|";
             Debug.Log("you win lwk");
@@ -169,7 +170,6 @@ public class waveManager : MonoBehaviour {
             int aliveEnemys = 0;
             foreach (EN_base enemy in enemys) {
                 if (!enemy.dead) aliveEnemys++;
-                else StartCoroutine(killAfter(enemy.transform.gameObject)); // this will make a bunch of coroutines for one enemy, this needs fixing
             }
             
             // display the text result
@@ -183,6 +183,7 @@ public class waveManager : MonoBehaviour {
     /// <summery> destroys the enemy after a given period of time </summery>
     public IEnumerator killAfter(GameObject target, float duration = 5f) {
         yield return new WaitForSeconds(duration);
+        Debug.Log("killing");   
         Destroy(target);
     }
 

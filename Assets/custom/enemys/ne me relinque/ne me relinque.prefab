@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8951007244648510772}
   m_Layer: 6
   m_Name: ne me relinque
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,12 +150,17 @@ MonoBehaviour:
   moveSpeed: 0
   self: {fileID: 2754553101411955960}
   NV_Agent: {fileID: 0}
+  rb: {fileID: 0}
   subjectCount: 5
   range: 25
-  timerDuration: 14
-  damage: 5
+  timerDuration: 28
+  damage: 1
   timerAnimator: {fileID: 8311358230562566195}
   subjects: []
+  eyeline: 25
+  checkDelay: 0.2
+  risenHeight: 10
+  select: {fileID: 2005224640934061657, guid: 44770ef4248582c4dbf233cec754834e, type: 3}
 --- !u!95 &6516378404380481507
 Animator:
   serializedVersion: 7
@@ -398,7 +403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7122410813913834076
 RectTransform:
   m_ObjectHideFlags: 0
@@ -472,7 +477,7 @@ MonoBehaviour:
   affect: 1
   active: 1
   allowCutsomColor: 0
-  invertColor: 0
+  invertColor: 1
 --- !u!95 &8311358230562566195
 Animator:
   serializedVersion: 7

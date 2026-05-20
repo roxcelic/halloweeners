@@ -19,7 +19,13 @@ public class NEN_neMeRelinque : NEN_base {
     public Animator timerAnimator; // the animator component on the timer
 
     [Header("Data")]
-    public List<EN_base> subjects = new List<EN_base>(); 
+    public List<EN_base> subjects = new List<EN_base>();
+
+    [Header("spawn conf")]
+    [Range(10, 25f)] public float eyeline = 15f;
+    public  float checkDelay = 0.2f;
+    public float risenHeight = 7.5f;
+    public GameObject select;
 
     /// <summery> gathers a set of random subjects within the given range </summery>
     public List<EN_base> gatherSubjects() {
@@ -32,6 +38,7 @@ public class NEN_neMeRelinque : NEN_base {
                 EN_base selected = enemy.collider.GetComponent<EN_base>();
                 if (selected != null && !subjects.Contains(selected) && subjects.Count < subjectCount) {
                     subjects.Add(selected);
+                    spawnSelected(selected.transform);
                     selected.allowDeath = false;
                 } else Debug.Log($"unable to teach {enemy.collider.gameObject.name} due to an issue with its base: {selected}");
 
@@ -43,9 +50,36 @@ public class NEN_neMeRelinque : NEN_base {
         return new List<EN_base>();
     }
 
+    private bool checkForPlayer() {
+        RaycastHit[] hit = Physics.SphereCastAll(transform.position, eyeline, transform.forward, eyeline);
+
+        Debug.Log(hit.Length);
+
+        hit = hit.Where(c => c.collider.gameObject.tag == "PlayerB" && c.collider.gameObject != transform.gameObject).ToArray();
+
+        Debug.Log(hit.Length);
+
+        if (hit.Length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private GameObject spawnSelected(Transform target) {
+        GameObject SP_select = Instantiate(select);
+        SP_select.transform.parent = target;
+        SP_select.transform.localPosition = new Vector3();
+        return SP_select;
+    }
+
     #region  basic AI
 
     public override void begin() {
+        StartCoroutine(waitForPLayer());
+    }
+
+    public void coBegin() {
         StartCoroutine(waitForScholars());
         StartCoroutine(countDown());
     }
@@ -53,6 +87,30 @@ public class NEN_neMeRelinque : NEN_base {
     #endregion
 
     #region  coroutines
+    public IEnumerator waitForPLayer() {
+        yield return new WaitUntil(() => GS.live.state.loaded);
+        
+        bool foundPlayer = false;
+        while(!foundPlayer) {
+            foundPlayer = checkForPlayer();
+            yield return new WaitForSeconds(checkDelay);
+        }     
+
+        // rise
+        Vector3 startPos = transform.position;
+        float endPos = startPos.y + risenHeight;
+
+        while (Vector3.Distance(transform.position, new Vector3(transform.position.x, endPos, transform.position.z)) > 0.01f) {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, endPos, transform.position.z), Time.deltaTime * 5f);
+            yield return 0;
+        }
+
+        transform.position = new Vector3(transform.position.x, endPos, transform.position.z);
+        timerAnimator.transform.gameObject.SetActive(true);
+
+        coBegin();
+    }
+
     public IEnumerator waitForScholars() {
         while (subjects.Count < subjectCount) {
             gatherSubjects();
@@ -62,7 +120,6 @@ public class NEN_neMeRelinque : NEN_base {
 
     public IEnumerator countDown() {
         yield return new WaitUntil(() => timerAnimator != null);
-        yield return new WaitUntil(() => GS.live.state.loaded);
 
         int CUR = 7;
 
@@ -77,7 +134,10 @@ public class NEN_neMeRelinque : NEN_base {
                     playerController.mainPlayer.DealDamage(damage * aliveEnemys.Count, transform);
 
                     // revive all
-                    foreach(EN_base enemy in subjects) enemy.Revive();
+                    foreach(EN_base enemy in subjects) {
+                        enemy.Revive();
+                        Debug.Log($"revived {enemy}");
+                    }
 
                     CUR = 7;
                 } else {

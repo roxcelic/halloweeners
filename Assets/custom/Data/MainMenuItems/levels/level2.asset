@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: level2
   m_EditorClassIdentifier: Assembly-CSharp::PM_OpenScene
   name:
-    overrideName: <color=#828282>level 2</color>
+    overrideName: 
     text: {fileID: 11400000, guid: 6f94df1a2824e434b9881f0f9f6cc2d6, type: 2}
   essential: 0
   dev: 0
   children: []
-  sceneName: 
+  sceneName: custom/levels/devLevels/editScene/editScene.unity
   id: 2
-  unlockedByDefault: 0
+  unlockedByDefault: 1

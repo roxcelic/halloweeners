@@ -243,6 +243,7 @@ MonoBehaviour:
   moveSpeed: 0
   self: {fileID: 0}
   NV_Agent: {fileID: 0}
+  rb: {fileID: 0}
   DEV_Freeze: 0
   DEV_LockAnim: shoot
   positionStateDelay: 3.5

@@ -577,6 +577,105 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &317263703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 317263706}
+  - component: {fileID: 317263705}
+  - component: {fileID: 317263704}
+  m_Layer: 0
+  m_Name: lag.
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &317263704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317263703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
+--- !u!114 &317263705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317263703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f8562db55184ea0a2b7bd944c4849e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startRoom: {fileID: 11400000, guid: 523d6c5e0c2fe68499c944ab85f00276, type: 2}
+  emptyRoom: {fileID: 11400000, guid: 065b3a7a5ac374d4eb807cac7ec74774, type: 2}
+  gridWidth: 1000
+  gridHeight: 1000
+  roomHeight: 10
+  roomWidth: 10
+  possibleRooms:
+  - {fileID: 11400000, guid: c5f04f2dbba5b8e44829e88974636f6a, type: 2}
+  - {fileID: 11400000, guid: e60bd9a8534860b48ab528307b86ecad, type: 2}
+  - {fileID: 11400000, guid: 38585ec687e35b34e87deebb232874fc, type: 2}
+  - {fileID: 11400000, guid: 3466ef149855715458261626b834c601, type: 2}
+  - {fileID: 11400000, guid: 62035fcd13647c443af5ea047dd89da1, type: 2}
+  - {fileID: 11400000, guid: a0136cf951a5cfd4a90eefb230cd6278, type: 2}
+  - {fileID: 11400000, guid: 9039a16c82f30aa4db09eccdadd2948d, type: 2}
+  playerTag: Player
+  targetLayer: Ground
+  perfection: 0
+  NV_Surface: {fileID: 0}
+  map:
+    width: 0
+    height: 0
+    mapItems: []
+--- !u!4 &317263706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317263703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &344865618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5643916688458997700, guid: 405ff82b7ab4f164fb0ed56097cbb8f9, type: 3}
@@ -612,6 +711,9 @@ MonoBehaviour:
     defaultLevel: 1
   - name: backrooms
     refrence: {fileID: 1845770783}
+    defaultLevel: 1
+  - name: lag.
+    refrence: {fileID: 317263703}
     defaultLevel: 1
 --- !u!1 &347491024
 GameObject:
@@ -2534,6 +2636,7 @@ SceneRoots:
   - {fileID: 1824921478}
   - {fileID: 1515650323}
   - {fileID: 1832601076}
+  - {fileID: 317263706}
   - {fileID: 1845770786}
   - {fileID: 1400655656}
   - {fileID: 8089718}

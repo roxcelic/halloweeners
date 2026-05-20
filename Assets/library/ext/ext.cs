@@ -126,9 +126,9 @@ namespace ext {
             return (vector3.x + vector3.y + vector3.z) / 3;
         }
 
-    public static bool checkPosition(this Vector3 position, int groundLayer = 3, float groundCheckDistance = 1f) {
+    public static bool checkPosition(this Vector3 position, int groundLayer = 3, float groundCheckDistance = 1f, int altGroundLayer = 8) {
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, groundCheckDistance)) {
-            return hit.collider.gameObject.layer == groundLayer;
+            return hit.collider.gameObject.layer == groundLayer || hit.collider.gameObject.layer == altGroundLayer;
         }
 
         return false;

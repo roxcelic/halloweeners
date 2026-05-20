@@ -93,6 +93,7 @@ public class EN_base : MonoBehaviour {
     }
 
     #region utils
+
     // DealDamage
     public virtual bool DealDamage(int damage, Transform dealer = null, bool nockback = true, float nockbackForce = 1f) {
         if (dead || !canBeDamaged) return false; // idk why i didnt do this originally
@@ -120,7 +121,7 @@ public class EN_base : MonoBehaviour {
     public virtual void Die() {
         dead = true;
         if (deathSound != null) AudioSource.PlayClipAtPoint(deathSound, transform.position);
-        if(sr != null && allowDeath) Destroy(sr.transform.gameObject);
+        if(allowDeath) Destroy(transform.gameObject);
         if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = false;
         anim.Play("die");
 
@@ -135,6 +136,8 @@ public class EN_base : MonoBehaviour {
         brain.thought = $"{currentHealth}/{maxHealth}";
 
         if (movement != null && movement.NV_Agent != null) movement.NV_Agent.enabled = true;
+
+        movement.onRevive();
     }
     #endregion
 }

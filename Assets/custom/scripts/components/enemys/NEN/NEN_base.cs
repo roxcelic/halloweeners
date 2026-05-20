@@ -15,11 +15,13 @@ public class NEN_base : MonoBehaviour {
     [Header("components")]
     public EN_base self;
     public UnityEngine.AI.NavMeshAgent NV_Agent;
+    public Rigidbody rb;
 
     protected virtual void Start() {
         // get components
         self = transform.GetComponent<EN_base>();
         NV_Agent = transform.GetComponent<NavMeshAgent>();
+        rb = transform.GetComponent<Rigidbody>();
 
         if(NV_Agent != null) NV_Agent.speed = moveSpeed;
     }
@@ -29,6 +31,9 @@ public class NEN_base : MonoBehaviour {
         StartCoroutine(movement());
     }
 
+    // on revive
+    public virtual void onRevive() {}
+    
     /*
         CoRoutine to keep track of the player and if the player can move
     */

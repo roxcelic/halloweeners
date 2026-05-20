@@ -12,17 +12,23 @@ public class displayPlayerText : MonoBehaviour {
     public bool exit = false;
     public bool destroy = true;
 
+    public int maxRuns = 0;
+    public int runs = 0;
+
     void OnTriggerEnter(Collider other){
-        Debug.Log($"tag: {other.gameObject.tag}");
+        if (runs >= maxRuns && maxRuns != 0) return;
         if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && !exit) {
             sys.utils.displayOnPlayer(textToDisplay);
+            runs++;
             if (destroy) Destroy(transform.gameObject);
         }
     }
 
     void OnTriggerExit(Collider other){
+        if (runs >= maxRuns && maxRuns != 0) return;
         if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && exit) {
             sys.utils.displayOnPlayer(textToDisplay);
+            runs++;
             if (destroy) Destroy(transform.gameObject);
         }
     }

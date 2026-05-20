@@ -5,11 +5,11 @@ public class colorFeild : MonoBehaviour {
 
     #region colliderShit
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject != playerController.mainPlayer.transform.gameObject) return;
+        if (other.gameObject.tag != "PlayerB") return;
         colorManager.data.forceColor(chosenColor);
     }
     void OnTriggerExit(Collider other) {
-        if (other.gameObject != playerController.mainPlayer.transform.gameObject) return;
+        if (other.gameObject.tag != "PlayerB") return;
         colorManager.data.freeColor();
     }
     #endregion

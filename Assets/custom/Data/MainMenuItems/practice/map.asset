@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: map
   m_EditorClassIdentifier: Assembly-CSharp::PM_practiceOptions
   name:
-    overrideName: 'selected map: oposite of straight'
+    overrideName: 'selected map: backrooms'
     text: {fileID: 0}
   essential: 0
   dev: 0
@@ -53,9 +53,14 @@ MonoBehaviour:
       overrideName: backrooms
       text: {fileID: 0}
     refrenceName: backrooms
+  - refrence: 7
+    name:
+      overrideName: lag.
+      text: {fileID: 0}
+    refrenceName: lag.
   selected:
     refrence: 6
     name:
-      overrideName: oposite of straight
+      overrideName: backrooms
       text: {fileID: 0}
     refrenceName: backrooms
