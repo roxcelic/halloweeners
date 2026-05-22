@@ -10,6 +10,7 @@ public class displayPlayerText : MonoBehaviour {
     public sys.Text textToDisplay = new sys.Text();
     
     public bool exit = false;
+    public bool displayKey = false;
     public bool destroy = true;
 
     public int maxRuns = 0;
@@ -18,7 +19,10 @@ public class displayPlayerText : MonoBehaviour {
     void OnTriggerEnter(Collider other){
         if (runs >= maxRuns && maxRuns != 0) return;
         if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && !exit) {
-            sys.utils.displayOnPlayer(textToDisplay);
+            
+            if (displayKey) sys.utils.displayOnPlayer(new sys.Text(sys.text.displayKeyButton(textToDisplay.localise())));
+            else sys.utils.displayOnPlayer(textToDisplay);
+            
             runs++;
             if (destroy) Destroy(transform.gameObject);
         }
@@ -27,7 +31,10 @@ public class displayPlayerText : MonoBehaviour {
     void OnTriggerExit(Collider other){
         if (runs >= maxRuns && maxRuns != 0) return;
         if ((other.gameObject.tag == sys.var.config.playerTag || other.gameObject.tag == sys.var.config.otherPlayerTag) && exit) {
-            sys.utils.displayOnPlayer(textToDisplay);
+            
+            if (displayKey) sys.utils.displayOnPlayer(new sys.Text(sys.text.displayKeyButton(textToDisplay.localise())));
+            else sys.utils.displayOnPlayer(textToDisplay);
+            
             runs++;
             if (destroy) Destroy(transform.gameObject);
         }

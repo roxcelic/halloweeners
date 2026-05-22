@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a315645ae29024b0dbd3072f1f7a27c6, type: 3}
+  m_Name: gameEndMessage
+  m_EditorClassIdentifier: 
+  English: 'HEY!\n
+
+    Thank you for being a playtester for Corrosion!!\n
+
+    There
+    is more content for you to explore such as the original tutorial level (kinda
+    annoying i dont recommend) and a developer scene with some not yet used content
+    inside. You can also use the developer menu to switch to some of the not yet
+    finished weapons. Finally there is a practice mode you can use to upgrade the
+    weapon you are currently using (This is procedurally generated and is my favorite
+    part of the game)
+
+    THANK YOU FOR PLAYING!!!!!!!!!
+
+    (you might have to
+    press pause to get the mouse back.......)/n
+
+    dev pass :: qoh1206'

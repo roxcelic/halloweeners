@@ -59,6 +59,6 @@ Material:
     - _shadowRange: 0.5
     m_Colors:
     - _MainColor: {r: 0, g: 0, b: 0, a: 1}
-    - _outlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - _outlineColor: {r: 0.77464104, g: 0.4130684, b: 0.600837, a: 0.9999997}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

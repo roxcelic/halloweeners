@@ -16,6 +16,7 @@ public class typeOutText : MonoBehaviour {
     [Range(0.05f, 5f)] public float textDelay = 0.05f;
 
     void Start() {if (startMessage != new sys.Text())type(startMessage.localise());}
+    void OnEnable(){if (startMessage != new sys.Text())type(startMessage.localise());}
 
     /// <summery> animate the text typing </summery>
     public void type(string input) {

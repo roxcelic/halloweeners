@@ -27,6 +27,10 @@ public class NEN_neMeRelinque : NEN_base {
     public float risenHeight = 7.5f;
     public GameObject select;
 
+    void OnEnable() {
+        begin();
+    }
+
     /// <summery> gathers a set of random subjects within the given range </summery>
     public List<EN_base> gatherSubjects() {
         RaycastHit[] hit = Physics.SphereCastAll(transform.position, range, transform.forward, Mathf.Infinity);
@@ -93,6 +97,7 @@ public class NEN_neMeRelinque : NEN_base {
         bool foundPlayer = false;
         while(!foundPlayer) {
             foundPlayer = checkForPlayer();
+            Debug.Log(foundPlayer);
             yield return new WaitForSeconds(checkDelay);
         }     
 

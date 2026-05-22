@@ -30,11 +30,7 @@ public class NEN_willaim : NEN_base {
     }
 
     void OnEnable() {
-        if (DEV_Freeze) {
-            sys.utils.waiting.waitUntil(() => {
-                self.anim.Play(DEV_LockAnim);
-            }, () => self != null);
-        }        
+        begin();
     }
 
     public override void begin() {
@@ -90,9 +86,13 @@ public class NEN_willaim : NEN_base {
         Vector3 chosenLocation = new Vector3();
 
         able = false;
-        while (!checkPosition(chosenLocation = playerController.mainPlayer.transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), playerController.mainPlayer.transform.position.y, UnityEngine.Random.Range(-spawnRadius, spawnRadius)))) {
+        while (
+            !checkPosition(
+                chosenLocation = playerController.mainPlayer.transform.localPosition + new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 0, UnityEngine.Random.Range(-spawnRadius, spawnRadius))
+            )
+        ) {
             yield return new WaitForSeconds(1f);
-            Debug.Log($"failed to find position: {chosenLocation}");
+            Debug.Log($"failed to find position: {chosenLocation} local pos {transform.localPosition} pos {transform.position} player : {playerController.mainPlayer.transform.position}");
         }
         Debug.Log("found position");
         able = true;
@@ -123,7 +123,7 @@ public class NEN_willaim : NEN_base {
 
     public void placeOnGround() {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, groundCheckDistance)) {
-            transform.position = new Vector3(transform.position.x, hit.point.y + 1.5f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.point.y + 0.75f, transform.position.z);
         }
     }
 
