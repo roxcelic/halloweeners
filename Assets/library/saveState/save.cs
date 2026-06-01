@@ -28,6 +28,8 @@ namespace save {
         [Header("config")]
         public string mainColor = "#c0000D";
         public int speedAnimation = 0;
+        public bool displayPlayerInfo = true;
+        public bool hideUi = false; 
 
         [Header("inventory")]
         public string currentAttack = "";

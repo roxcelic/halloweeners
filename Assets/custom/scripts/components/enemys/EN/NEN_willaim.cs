@@ -14,15 +14,18 @@ public class NEN_willaim : NEN_base {
     [Range(0, 10f)] public float positionStateDelay = 3.5f;
     [Range(0, 25f)] public float spawnRadius = 10f;
     [Range(0, 5f)] public float groundCheckDistance = 2f;
+    [Range(0, 5f)] public float heightMod = 1.5f;
 
 
-    private int positionState = 10;
+    public int positionState = 10;
     public bool seenPlayer = false;
     public bool able = true;
 
     [Header("bullet settings")]
     public GameObject bullet;
     public Transform spawnLoc;
+
+    private bool running = false; // a running check
 
     // a whole nothing burger
     protected override void Start() {
@@ -34,6 +37,7 @@ public class NEN_willaim : NEN_base {
     }
 
     public override void begin() {
+        if (running) return;
         placeOnGround();
 
         if (DEV_Freeze) {
@@ -51,14 +55,15 @@ public class NEN_willaim : NEN_base {
 
     // the movement yay
     public IEnumerator changeState() {        
+        running = true;
         yield return new WaitUntil(() => self != null);
-        stateMan();
         while (!self.dead) {
             yield return new WaitForSeconds(positionStateDelay);
             yield return new WaitUntil(() => canSeePlayer() || positionState == 2);
 
             stateMan();
         }
+        running = false;
     }
 
     private void stateMan() {
@@ -123,7 +128,7 @@ public class NEN_willaim : NEN_base {
 
     public void placeOnGround() {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out RaycastHit hit, groundCheckDistance)) {
-            transform.position = new Vector3(transform.position.x, hit.point.y + 0.75f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, hit.point.y + heightMod, transform.position.z);
         }
     }
 

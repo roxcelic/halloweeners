@@ -73,9 +73,7 @@ public class playerController : MonoBehaviour {
         [Header("dash")]
         public bool canDash = true;
         public bool isDashing = false;
-        [Range(0, 25f)] public float dashDistance = 5f;
-        [Range(0, 25f)] public float outDashForce = 5f;
-        [Range(0, 25f)] public float dashSpeed = 5f;
+        [Range(0, 25f)] public float dashDistance, outDashForce, dashSpeed;
         public float dashDelay = 1f;
 
         [Header("componenets")]
@@ -91,13 +89,9 @@ public class playerController : MonoBehaviour {
         public Transform groundCheck;
 
         // attack information
-        public Animator ScreenEffect;
-        public Animator AttackDisplay;
+        public Animator ScreenEffect, AttackDisplay, abilityCharge;
 
-        // ability
-        public Animator abilityCharge;
-
-        public GameObject deathScreen;
+        public GameObject deathScreen, UI_HUD, UI_dev, UI_cover, UI_stats;
 
         public TMP_Text thoughtDisplay;
 
@@ -326,6 +320,14 @@ public class playerController : MonoBehaviour {
         rb.linearVelocity = new Vector3();
         col.isTrigger = true;
         restrictions = cause;
+    }
+    #endregion
+    #region  hide ui
+    public void hideUI(bool state) {
+        UI_cover.SetActive(state);
+        UI_dev.SetActive(state);
+        UI_HUD.SetActive(state);
+        UI_stats.SetActive(state);
     }
     #endregion
 

@@ -164,12 +164,12 @@ public class pauseMenuController : MonoBehaviour {
         if (hoveredIndex == -1) {
             for (int i = 0; i < getPirvlagedOptions().Count; i++) {
                 getPirvlagedOptions()[i].onLoad(this);
-                result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
+                result += $"<link=\"{i}\">{(selectedIndex == i ? ">" : (i < selectedIndex ? "|" : ""))}<color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {getPirvlagedOptions()[i].getName()} </color> </link>\n";
             }
         } else {
             for (int i = 0; i < getPirvlagedOptions().Count; i++) {
                 getPirvlagedOptions()[i].onLoad(this);
-                result += $"<link=\"{i}\"><color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {(hoveredIndex == i ? ">" : (i < hoveredIndex ? "|" : ""))} {getPirvlagedOptions()[i].name.localise()} </color> </link>\n";
+                result += $"<link=\"{i}\">{(hoveredIndex == i ? ">" : (i < hoveredIndex ? "|" : ""))}<color={(getPirvlagedOptions()[i].active() ? "white" : "grey" )}> {getPirvlagedOptions()[i].getName()} </color> </link>\n";
             }
         }
 

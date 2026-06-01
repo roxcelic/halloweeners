@@ -2354,6 +2354,7 @@ MonoBehaviour:
   affect: 2
   active: 1
   allowCutsomColor: 0
+  invertColor: 0
 --- !u!114 &6468869311131090225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2538,6 +2539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MM_Menu
   baseCommands:
+  - {fileID: 11400000, guid: a70a4d79686aa49b28d980fea65b70a0, type: 2}
   - {fileID: 11400000, guid: 2ad0e71b7d28499459ee1bf073569478, type: 2}
   permaCommands:
   - {fileID: 11400000, guid: 0f40c82233e5bdf4f89f80ad39694a24, type: 2}
@@ -2554,6 +2556,9 @@ MonoBehaviour:
   IHLD: 1
   responded: 
   selectedIndex: 0
+  hoveredIndex: 0
+  colorPicker: {fileID: 0}
+  vault: {fileID: 0}
   subMenu: {fileID: 0}
   camera: {fileID: 1382430328}
 --- !u!222 &6948461791552197636

@@ -21,6 +21,9 @@ public class PM_Base : ScriptableObject {
     public virtual void onLoad(pauseMenuController PMC) {} // most will do nothing with this
     public virtual bool active() {return true;} // checks if the thing can be ran
     public virtual void runOnLoad() {} // run code when the thing is loaded
+    public virtual string getName() {
+        return name.localise();
+    } // allows some extra fun with the name
 
     /*
         Here i will be like doing stuff :steamhappy:

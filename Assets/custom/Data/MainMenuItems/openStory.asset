@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: openStory
   m_EditorClassIdentifier: Assembly-CSharp::PM_OpenScene
   name:
-    overrideName: <color=#fff>//////////////////////</color>
+    overrideName: story
     text: {fileID: 0}
   essential: 0
   dev: 0

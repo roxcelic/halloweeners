@@ -14,14 +14,11 @@ public class PM_OpenScene : PM_Base {
     public string id = "";
     public bool unlockedByDefault = true;
 
-    public override void onLoad(pauseMenuController PMC) {
-        name.overrideName = "";
-        name.overrideName = $"<color=#{(!save.getData.viewSave().unlockedLevels.Contains(id) && !unlockedByDefault ? "828282" : "fff")}>{name.localise()}</color>";
+    public override bool active() {
+        return save.getData.viewSave().unlockedLevels.Contains(id) || unlockedByDefault;
     }
 
     public override void action(pauseMenuController PMC, string input = "") {
-        if (!save.getData.viewSave().unlockedLevels.Contains(id) && !unlockedByDefault) return;
-
         Time.timeScale = 1f; // reset time
         PMC.interactable = false;
         playerController.mainPlayer.ScreenEffect.Play("fadeOut");
