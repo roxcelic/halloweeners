@@ -19,7 +19,9 @@ namespace POMO {
             colorPicker,
             hr,
             text,
-            slider
+            slider,
+            input,
+            vector
         }
 
         // creates ui object
@@ -47,6 +49,14 @@ namespace POMO {
                     break;
                 case ui.types.slider:
                     creation = GameObject.Instantiate(POMO_Cont.self.slider, new Vector3(), Quaternion.identity);
+
+                    break;
+                case ui.types.input:
+                    creation = GameObject.Instantiate(POMO_Cont.self.input, new Vector3(), Quaternion.identity);
+
+                    break;
+                case ui.types.vector:
+                    creation = GameObject.Instantiate(POMO_Cont.self.vector, new Vector3(), Quaternion.identity);
 
                     break;
             }
@@ -83,6 +93,16 @@ namespace POMO {
                     break;
                 case ui.types.slider:
                     interaction.slider.onValueChanged.AddListener(delegate {act("", this);});
+
+                    break;
+                case ui.types.input:
+                    interaction.input.onValueChanged.AddListener(delegate {act("", this);});
+
+                    break;
+                case ui.types.vector:
+                    interaction.VectorX.onValueChanged.AddListener(delegate {act("", this);});
+                    interaction.VectorY.onValueChanged.AddListener(delegate {act("", this);});
+                    interaction.VectorZ.onValueChanged.AddListener(delegate {act("", this);});
 
                     break;
             }

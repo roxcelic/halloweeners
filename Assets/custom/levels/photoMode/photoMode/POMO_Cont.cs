@@ -20,6 +20,8 @@ public class POMO_Cont : MonoBehaviour {
     public GameObject hr;
     public GameObject text;
     public GameObject slider;
+    public GameObject input;
+    public GameObject vector;
 
     [Header("components")]
     public noclipcontroller cam;
@@ -104,6 +106,14 @@ public class POMO_Cont : MonoBehaviour {
                 cam.transform.eulerAngles = new Vector3(0, 0, 0);
             }
         }).interactor.buttonText.text = "reset";
+        new POMO_ui_obj(ui.types.hr);
+        new POMO_ui_obj(ui.types.text, new sys.Text("dev"));
+        new POMO_ui_obj(ui.types.input, new sys.Text("input test"), (string interact, POMO_ui_obj self) => {
+            Debug.Log($"new value: {self.interactor.input.text}");
+        });
+        new POMO_ui_obj(ui.types.vector, new sys.Text("vector test"), (string interact, POMO_ui_obj self) => {
+            Debug.Log($"new value: x: {self.interactor.VectorX.text} y: {self.interactor.VectorY.text} z: {self.interactor.VectorZ.text}");
+        });
     }
 
 }

@@ -11,6 +11,11 @@ public class POMO_Interactor : MonoBehaviour {
     public Button button;
     public TMP_Text buttonText;
     public Image buttonDisplay;
+    public TMP_InputField input;
+
+    public TMP_InputField VectorX;
+    public TMP_InputField VectorY;
+    public TMP_InputField VectorZ;
 
     public Slider slider;
 
