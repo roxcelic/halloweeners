@@ -16,17 +16,25 @@ namespace ext {
 
     #region  transform
     public static class transform {
-        public static void noClip(this Transform transform, Transform camera = null, float defSpeed = 1f) {
+        public static void noClip(this Transform transform, Transform camera = null, float defSpeed = 1f, bool eev = false) {
             float speed = Input.GetKey(KeyCode.LeftShift) ? defSpeed * 3 : defSpeed;
 
             float hz = 0;
             float vz = 0;
             float uz = 0;
 
-            if(Input.GetKey(KeyCode.A)) hz -= speed;
-            if(Input.GetKey(KeyCode.D)) hz += speed;
-            if(Input.GetKey(KeyCode.W)) vz += speed;
-            if(Input.GetKey(KeyCode.S)) vz -= speed;
+            if (!eev) {
+                if(Input.GetKey(KeyCode.A)) hz -= speed;
+                if(Input.GetKey(KeyCode.D)) hz += speed;
+                if(Input.GetKey(KeyCode.W)) vz += speed;
+                if(Input.GetKey(KeyCode.S)) vz -= speed;
+            } else {
+                if(eevee.input.Check("Left")) hz -= speed;
+                if(eevee.input.Check("Right")) hz += speed;
+                if(eevee.input.Check("Up")) vz += speed;
+                if(eevee.input.Check("Down")) vz -= speed;
+            }
+
             if(Input.GetKey(KeyCode.LeftControl)) uz -= speed;
             if(Input.GetKey(KeyCode.Space)) uz += speed;
             

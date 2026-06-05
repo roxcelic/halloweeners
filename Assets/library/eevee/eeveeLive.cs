@@ -131,6 +131,20 @@ namespace eeveeLive {
                     CONTROLLER_name = new string[] {"Right Stick Right"}
                 }
             },
+            {
+                "cameraUp", new eevee.config {
+                    displayName = "cameraUp",
+                    KEYBOARD_code = new int[] {(int)KeyCode.UpArrow},
+                    CONTROLLER_name = new string[] {"Right Stick Up"}
+                }
+            },
+            {
+                "cameraDown", new eevee.config {
+                    displayName = "cameraDown",
+                    KEYBOARD_code = new int[] {(int)KeyCode.DownArrow},
+                    CONTROLLER_name = new string[] {"Right Stick Down"}
+                }
+            },
 
             // menu
             {
