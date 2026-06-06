@@ -19,6 +19,8 @@ public class POMO_Interactor : MonoBehaviour {
 
     public Slider slider;
 
+    public POMO_ImageDisplay imageDispay;
+
     [Header("var")]
     public float height = 15f;
 }

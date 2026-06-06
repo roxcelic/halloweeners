@@ -6,13 +6,9 @@ public class POMO_ImageDisplay : MonoBehaviour {
     public Button button;
     public Image display;
     public Sprite sprite;
-    public POMO_loadImages holder;
 
     public void Select() {
-        holder.transform.gameObject.SetActive(false);
-        POMO_Cont.self.imageToDisplay = sprite;
-        POMO_Cont.self.imageDisplayButton.interactor.buttonText.text = "";
-        POMO_Cont.self.imageDisplayButton.interactor.buttonDisplay.sprite = sprite;
-        POMO_Cont.self.imageDisplayButton.interactor.buttonDisplay.transform.gameObject.SetActive(true);
+        if(POMO_ImageDisplay_Cont.self.loadedAction != null) POMO_ImageDisplay_Cont.self.loadedAction(sprite);
+        POMO_ImageDisplay_Cont.self.enable(false);
     }
 }

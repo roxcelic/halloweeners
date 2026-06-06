@@ -12,14 +12,15 @@ public class noclipcontroller : MonoBehaviour {
 
         // look at a target
         if (lookat != null && !freeCam) transform.LookAt(lookat);
+        if (lookat == null) lookat = POMO_Cont.self.currentFocus.transform;
         
         // lock the allowed distance to move
         if (distance > 0 && !freeCam) {
             transform.position = Vector3.Lerp(transform.position, new Vector3 (
-                Mathf.Clamp(transform.position.x, -distance, distance),    
-                Mathf.Clamp(transform.position.y, -distance, distance),    
-                Mathf.Clamp(transform.position.z, -distance, distance)
-            ), Time.deltaTime * 5f);
+                Mathf.Clamp(transform.position.x, lookat.position.y - distance, lookat.position.x + distance),    
+                Mathf.Clamp(transform.position.y, lookat.position.x - distance, lookat.position.y + distance),    
+                Mathf.Clamp(transform.position.z, lookat.position.z - distance, lookat.position.z + distance)
+            ), Time.fixedDeltaTime);
         }
 
         if (freeCam) {

@@ -4,11 +4,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using ext;
+
 namespace POMO {
     /// <summery> the information required to run </summery>
     public static class var {
         // the created objects
         public static List<POMO_ui_obj> objects = new List<POMO_ui_obj>();
+    }
+
+    /// <summery> random utils </summery>
+    public static class utils {
+        public static void Regenerate() {
+            List<POMO_ui_obj> temp = new List<POMO_ui_obj>(var.objects);
+
+            foreach (POMO_ui_obj obj in temp) obj.kill();
+            foreach (POMO_ui_obj obj in temp) obj.spawnSelf();
+
+            var.objects = new List<POMO_ui_obj>(temp);            
+        }
     }
 
     /// <summery> the class for generating ui items within photo mode </summery>
@@ -69,11 +83,37 @@ namespace POMO {
     public class POMO_ui_obj {
         public GameObject self;
         public sys.Text name;
+        public ui.types type;
         public System.Action<string, POMO_ui_obj> act;
+        public System.Action onRespawn;
+        private GameObject stash;
 
         public POMO_Interactor interactor;
 
-        public POMO_ui_obj(ui.types type, sys.Text name = null, System.Action<string, POMO_ui_obj> act = null, bool runOnStart = false) {
+        public Vector3 getVector() {
+            return new Vector3(interactor.VectorX.getFloatValue(1), interactor.VectorY.getFloatValue(1), interactor.VectorZ.getFloatValue(1));
+        }
+
+        // IDFK HELP ME
+        public POMO_ui_obj insertChildBelow(ui.types type, sys.Text name = null, System.Action<string, POMO_ui_obj> act = null, bool runOnStart = false) {
+            POMO_ui_obj newObject = new POMO_ui_obj(type, name, act, runOnStart, false);
+            int index = var.objects.FindIndex(item => item == this) + 1;
+
+            var.objects.Insert(index, newObject);
+
+            return newObject;
+        }
+
+        public void kill() {
+            var.objects.Remove(this);
+            GameObject.Destroy(self);
+        }
+        public void spawnSelf() {
+            spawn(type, name, act);
+            if (onRespawn != null) onRespawn();
+        }
+
+        public GameObject spawn(ui.types type, sys.Text name = null, System.Action<string, POMO_ui_obj> act = null) {
             self = ui.createEl(type);
 
             if (self == null) throw new InvalidOperationException("you fucked up for the last time dream");
@@ -111,12 +151,20 @@ namespace POMO {
             self.transform.parent = POMO_Cont.self.root;
             self.transform.localScale = new Vector3(1, 1, 1);
 
+            return self;
+        }
+
+        public POMO_ui_obj(ui.types type, sys.Text name = null, System.Action<string, POMO_ui_obj> act = null, bool runOnStart = false, bool addToObjects = true) {
+            // make object
+            spawn(type, name, act);
+
             // set variables
             this.name = name;
             this.act = act;
+            this.type = type;
 
             // add to list
-            POMO.var.objects.Add(this);
+            if (addToObjects) POMO.var.objects.Add(this);
 
             // run if can
             if (runOnStart) act("", this);

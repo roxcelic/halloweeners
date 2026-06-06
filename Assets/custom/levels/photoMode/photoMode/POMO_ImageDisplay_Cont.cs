@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 using System;
@@ -6,7 +7,9 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
-public class POMO_loadImages : MonoBehaviour {
+public class POMO_ImageDisplay_Cont : MonoBehaviour {
+    public static POMO_ImageDisplay_Cont self;
+
     [Header("conf")]
     public List<Sprite> sprites = new List<Sprite>();
 
@@ -16,17 +19,22 @@ public class POMO_loadImages : MonoBehaviour {
 
     [Header("comp")]
     public Transform root;
+    private CanvasGroup cg;
+    private Animator anim;
 
-    private bool foundLocal = false;
+    // var
+    public System.Action<Sprite> loadedAction = null;
 
     void Start() {
+        cg = transform.GetComponent<CanvasGroup>();
+        anim = transform.GetComponent<Animator>();
+
+        loadedAction = (Sprite image) => {Debug.Log($"no value loaded into the action");};
+        self = this;
+
         StartCoroutine(loadLocalSprites());
-    }
 
-    void OnEnable() {
-        foreach (Transform child in root) Destroy(child.gameObject);
-
-        StartCoroutine(waitFOrLocals());
+        enable(false);
     }
 
     public void compile() {
@@ -57,15 +65,10 @@ public class POMO_loadImages : MonoBehaviour {
     public GameObject createItem(Sprite sprite) {
         GameObject spawned = GameObject.Instantiate(item, new Vector3(), Quaternion.identity);
         POMO_ImageDisplay display = spawned.transform.GetComponent<POMO_ImageDisplay>();
+
         display.display.sprite = sprite;
         display.sprite = sprite;
-        display.holder = this;
         return spawned;
-    }
-
-    IEnumerator waitFOrLocals() {
-        yield return new WaitUntil(() => foundLocal);
-        compile();
     }
 
     /// <summery> loads local images </summery>
@@ -77,10 +80,6 @@ public class POMO_loadImages : MonoBehaviour {
         
         string[] files = Directory.GetFiles(dirPath);
 
-        Debug.Log($"found {files.Length} images");
-        
-        foundLocal = false;
-        
         foreach (string file in files) {
             string[] splitFile = file.Split("/");
             string path = splitFile[splitFile.Length - 1];
@@ -103,6 +102,16 @@ public class POMO_loadImages : MonoBehaviour {
             }
         }
 
-        foundLocal = true;
+        compile();
     }
+
+    #region utils
+    public void enable(bool value = true) {
+        cg.alpha = value ? 1 : 0;
+        cg.interactable = value;
+        cg.blocksRaycasts = value;
+
+        if (value) anim.Play("open");
+    }
+    #endregion
 }

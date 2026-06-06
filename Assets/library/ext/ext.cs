@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 
+using TMPro;
+
 namespace ext {
     #region gameObject
     public static class gameObject {
@@ -23,7 +25,8 @@ namespace ext {
             float vz = 0;
             float uz = 0;
 
-            if (!eev) {
+            if (!eev
+            ) {
                 if(Input.GetKey(KeyCode.A)) hz -= speed;
                 if(Input.GetKey(KeyCode.D)) hz += speed;
                 if(Input.GetKey(KeyCode.W)) vz += speed;
@@ -273,6 +276,16 @@ namespace ext {
         // https://discussions.unity.com/t/scroll-to-the-bottom-of-a-scrollrect-in-code/572012
         public static void ScrollToTop(this ScrollRect scrollRect) {scrollRect.normalizedPosition = new Vector2(0, 1);}
         public static void ScrollToBottom(this ScrollRect scrollRect){scrollRect.normalizedPosition = new Vector2(0, 0);}
+    }
+
+    public static class inputField {
+        public static float getFloatValue(this TMP_InputField input, float defaultValue = 0) {
+            if (!float.TryParse(input.text, out float parsedVal)) {
+                parsedVal = defaultValue;
+            }
+
+            return parsedVal;
+        }
     }
     #endregion
 }
