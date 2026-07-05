@@ -1,5 +1,6 @@
 using UnityEngine;
 using player.utils;
+using save;
 
 [RequireComponent(typeof(brain))]
 public class Pickup_Activator : MonoBehaviour {
@@ -7,6 +8,7 @@ public class Pickup_Activator : MonoBehaviour {
     public sys.Text pickupText = new sys.Text($"press key:interact to pick up");
     public GameObject onPickupActivate;
     public bool deactivateOnCollect = false;
+    public bool destroyOnCollect = false;
 
     void Start() {
         if (attack == null) return;
@@ -18,7 +20,16 @@ public class Pickup_Activator : MonoBehaviour {
 
         self.onInteract = (playerController player) => {
             if (deactivateOnCollect) transform.gameObject.SetActive(false);
+            if (destroyOnCollect) Destroy(transform.gameObject);
+
+            AT_base storedAttack = player.Reset();
             player.switchAttack(attack);
+
+            if (storedAttack != null) {
+                saveData currentSave = getData.viewSave();
+                currentSave.savedAttacks.Add(new AVdata.savedAttack(storedAttack));
+                getData.save(currentSave);
+            }
 
             if (onPickupActivate != null) onPickupActivate.SetActive(true);
         };

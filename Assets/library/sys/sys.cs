@@ -155,6 +155,16 @@ namespace sys {
             end();
         }
     }
+
+    [System.Serializable]
+    public class entityPositionRef {
+        public Vector3 pos;
+        public GameObject obj;
+
+        public GameObject spawn() {
+            return GameObject.Instantiate(this.obj, this.pos, Quaternion.identity);
+        }
+    }
     
     [System.Serializable]
     public class Text {
@@ -162,7 +172,12 @@ namespace sys {
         public textobject text = null;
 
         public virtual string localise() {
-            if (this.overrideName != "") return this.overrideName;
+            if (this.overrideName != "") {
+                textobject foundText = Resources.Load<textobject>($"text/easyDefined/{overrideName}");
+                if (foundText == null) return this.overrideName;
+                else new sys.Text("", foundText).localise();
+            }
+
             if (this.text == null) return "//////////////////////";
             
             switch (save.getData.config().language) {

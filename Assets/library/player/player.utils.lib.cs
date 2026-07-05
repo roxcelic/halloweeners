@@ -60,7 +60,8 @@ namespace player.utils {
             RaycastHit hit;
             brain tmpBrain;
 
-            if (Physics.Raycast(pc.transform.position, pc.camera.forward, out hit, pc.attack.stat.baseRange)) {
+            float baseRange = pc.attack == null ? 15f : pc.attack.stat.baseRange;
+            if (Physics.Raycast(pc.transform.position, pc.camera.forward, out hit, baseRange)) {
                 if ((tmpBrain = hit.collider.transform.GetComponent<brain>()) != null) hiveMind.updateTarget(tmpBrain);
                 else hiveMind.updateTarget(null);
             } else {

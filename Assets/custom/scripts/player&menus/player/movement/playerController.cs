@@ -95,6 +95,8 @@ public class playerController : MonoBehaviour {
 
         public TMP_Text thoughtDisplay;
 
+        public Transform attackHLD;
+
         // info display
         public hudDisplay hud;
 
@@ -175,7 +177,9 @@ public class playerController : MonoBehaviour {
             // get the saved data
             save.saveData currentSave = save.getData.viewSave();
             AT_base savedAttack = GS.live.state.getCurrentAttack(currentSave.currentAttack);
-            AB_base savedAbility = GS.live.state.getCurrentAbility(savedAttack.ability);
+            AB_base savedAbility = null;
+            
+            if (savedAttack != null) savedAbility = GS.live.state.getCurrentAbility(savedAttack.ability);
 
             if (savedAttack != null) attack = savedAttack;
             if (savedAbility != null) ability = savedAbility;

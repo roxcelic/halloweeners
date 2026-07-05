@@ -22,7 +22,7 @@ public class AT_3D : AT_base {
     public string safeAnimName = "Idle";
     public string reloadAnimName = "reload";
 
-    private GameObject inst;
+    public static GameObject inst;
     private Animator anim;
     
     // so i dont have to worry about looping it
@@ -76,9 +76,11 @@ public class AT_3D : AT_base {
 
     /// <summery> a spawn delay </summery>
     private IEnumerator spawnDelay(playerController character) {
-        yield return new WaitForSeconds(0.4f);
+        yield return 0;
 
-        inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.transform);
+        foreach(Transform child in character.attackHLD) {Destroy(child.gameObject);}
+
+        inst = Instantiate(weapon, new Vector3(), Quaternion.identity, character.attackHLD);
         inst.transform.localPosition = new Vector3();
         inst.transform.localRotation = Quaternion.identity;
         

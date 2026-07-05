@@ -8,7 +8,13 @@ public class POR_BR_CAM : MonoBehaviour {
     public Transform portal;
     public Transform otherPortal;
 
+	void Start() {
+		if (playerCamera == null) StartCoroutine(waitForPlayerCam());
+	}
+
     void Update() {
+		if (playerCamera == null) return;
+
 		Vector3 playerOffsetFromPortal = playerCamera.position - otherPortal.position;
 		transform.position = portal.position + playerOffsetFromPortal;
 
@@ -18,4 +24,9 @@ public class POR_BR_CAM : MonoBehaviour {
 		Vector3 newCameraDirection = portalRotationalDifference * playerCamera.forward;
 		transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
     }
+
+	public IEnumerator waitForPlayerCam() {
+		yield return new WaitUntil(() => playerController.mainPlayer != null);
+		playerCamera = playerController.mainPlayer.camera;
+	}
 }

@@ -29,6 +29,7 @@ public class Pickup : MonoBehaviour {
         LoadAttack(attack);
 
         brain = GetComponent<brain>();
+        player = playerController.mainPlayer;
     }
 
     void Update() {
@@ -75,7 +76,7 @@ public class Pickup : MonoBehaviour {
     void LoadAttack(AT_base LDAattack) {
         Debug.Log($"loading attack {LDAattack.displayName.localise()}");
         attack = LDAattack;
-        SR.sprite = attack.sprite;
+        if (SR != null) SR.sprite = attack.sprite;
 
         thought = pickupMessage.displayVar(new Dictionary<string, string>{
             {"attackDisplayName", attack.displayName.localise()},

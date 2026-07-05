@@ -35,6 +35,7 @@ namespace save {
         public string currentAttack = "";
         public string currentAbility = "";
         public attack.attackData currentAttackData = new attack.attackData();
+        
         public List<AVdata.savedAttack> savedAttacks = new List<AVdata.savedAttack>();
         public List<string> unlockedStory = new List<string>();
 
